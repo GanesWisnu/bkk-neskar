@@ -1,0 +1,12 @@
+@import url('./root.css');
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--white-100);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 100vw;
+}
+
