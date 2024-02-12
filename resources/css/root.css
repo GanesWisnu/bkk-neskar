@@ -19,7 +19,7 @@
     --rounded: 50vmax;
 
     /* utils */
-    --page-padding: 4.8vw;
+    --page-padding: clamp(4.8vw, 4.8vw + ((100vw - 1920px) * 0.5), 9999px);
 }
   
 * {
@@ -75,6 +75,18 @@ a:hover {
 h1 {
     line-height: 134.375%;
     font-size: clamp(18px, 2.6vmax, 36px);
+    font-weight: 700;
+}
+
+h2 {
+    line-height: 134.375%;
+    font-size: clamp(16px, 2.4vmax, 32px);
+    font-weight: 700;
+}
+
+h3 {
+    line-height: 125%;
+    font-size: clamp(14px, 2.2vmax, 30px);
     font-weight: 700;
 }
 

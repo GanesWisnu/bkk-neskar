@@ -20,6 +20,7 @@ class Button extends Component
         return match ($variant) {
             'primary' => 'button-primary',
             'ghost' => 'button-ghost',
+            'ghost-primary' => 'button-ghost-primary',
             default => 'button-ghost',
         };
     }

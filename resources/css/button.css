@@ -18,7 +18,20 @@
 
 .button-ghost {
     background-color: transparent;
+    padding-inline: 0 !important;
     color: var(--black-100);
+    transition: all .3s;
+}
+
+.button-ghost-primary {
+    background-color: transparent;
+    padding-inline: 0 !important;
+    color: var(--primary-100);
+    transition: all .3s;
+}
+
+.button-ghost:hover, .button-ghost-primary:hover {
+    transform: translateY(-3px);
 }
 
 .button-lg {
