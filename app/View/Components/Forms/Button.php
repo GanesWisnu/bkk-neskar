@@ -12,12 +12,25 @@ class Button extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $type,
-        public string $label,
+        public string $variant,
         public string $size,
-    )
-    {
-        //
+    ){}
+
+    public function setButtonVariant($variant): string {
+        return match ($variant) {
+            'primary' => 'button-primary',
+            'ghost' => 'button-ghost',
+            default => 'button-ghost',
+        };
+    }
+
+    public function setButtonSize($size): string {
+        return match ($size) {
+            'sm' => 'button-sm',
+            'md' => 'button-md',
+            'lg' => 'button-lg',
+            default => 'button-md',
+        };
     }
 
     /**
