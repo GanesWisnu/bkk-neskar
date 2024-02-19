@@ -1,0 +1,269 @@
+body {
+    background-color: var(--primary-50);
+}
+
+/* Start Section: cta-page */
+
+.cta-page {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    overflow: hidden !important;
+    max-width: 100%;
+}
+
+.cta-page > * {
+    overflow: hidden;
+}
+
+.cta-info {
+    flex: 32%;
+    display: grid;
+    place-content: center;
+    max-height: 90%;
+    padding-left: var(--page-padding);
+}
+
+.cta-info > button {
+    width: fit-content;
+}
+
+.info-meta {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    margin-bottom: 2.4rem;
+}
+
+.meta-headline {
+    max-width: 25vw;
+}
+
+.illustration {
+    flex: 68%;
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    right: 0;
+}
+
+.illustration > * {
+    position: absolute;
+}
+
+.illustration-person {
+    position: absolute;
+    bottom: 0;
+    scale: .9;
+    max-width: 100%;
+    transform-origin: bottom center;
+}
+
+
+.illustration-background {
+    bottom: -23%;
+    right: -20%;
+    background-color: var(--primary-100);
+    width: 70%;
+    aspect-ratio: 1;
+    border-radius: 51.12069rem;
+    opacity: 0.18;
+    background: Color;
+    filter: blur(80px);
+}
+
+.illustration-circle {
+    bottom: -27%;
+    right: -24%;
+    border: 1px solid var(--primary-100);
+    background-color: transparent;
+    width: 75%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.illustration-circle::after {
+    content: '';
+    position: absolute;
+    bottom: -25%;
+    right: -25%;
+    border: 1px solid var(--primary-100);
+    background-color: transparent;
+    width: 150%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+/* End Section: cta-page */
+
+
+/* Start Section: perusahaan */
+
+.perusahaan {
+    padding: 4rem var(--page-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    background-color: var(--white-100);
+    box-shadow: 0px 0px 27.9px 0px rgba(128, 212, 224, 0.16);
+    overflow: hidden;
+}
+
+.perusahaan-headings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.perusahaan-heading, .perusahaan-description {
+    text-align: center;
+}
+
+.perusahaan-description {
+    max-width: 90ch;
+    text-wrap: balance;
+    margin: 0 auto;
+}
+
+.perusahaan-mitra {
+    display: flex;
+    max-width: 70%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 3rem 4.5rem;
+    flex-wrap: wrap;
+}
+
+.mitra-item {
+    max-height: clamp(12px, 12vw, 72px);
+    object-fit: contain;
+}
+
+/* End Section: Perusahaan */
+
+
+/* Start Section: Lowongan */
+
+.lowongan {
+    padding: 4rem var(--page-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    overflow: hidden;
+}
+
+.lowongan-headings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lowongan-heading, .lowongan-description {
+    text-align: center;
+}
+
+.lowongan-redirect {
+    padding: 0;
+    color: var(--primary-100);
+    font-weight: 600;
+}
+
+.lowongan-list {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 3rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+
+/* End Section: Lowongan */
+
+/* Start Section: Pengumuman */
+
+.pengumuman {
+    background-color: var(--white-100);
+    box-shadow: 0px 0px 27.9px 0px rgba(128, 212, 224, 0.16);
+    width: 100%;
+    padding-right: var(--page-padding);
+    display: flex;
+}
+
+.pengumuman-illustration {
+    position: relative;
+    flex: 30%;
+}
+
+.illustration-background_arch {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: 90%;
+    border-radius: 0rem 50vw 0rem 0rem;
+    background: linear-gradient(207deg, var(--primary-100) 10.25%, rgba(50, 189, 248, 0.00) 93.84%);
+}
+
+.illustration-person_pengumuman {
+    max-width: 90%;
+    max-height: 100%;
+    z-index: 1;
+    position: relative;
+    filter: drop-shadow(rgba(138, 147, 149, 0.16) .2rem 0 8px);
+}
+
+.pengumuman-info {
+    flex: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .8rem;
+}
+
+/* End Section: Pengumuman */
+
+
+/* Start Scetion: Article */
+
+.article {
+    padding: 4rem var(--page-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    overflow: hidden;
+}
+
+.article-headings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.article-heading, .article-description {
+    text-align: center;
+}
+
+.article-redirect {
+    padding: 0;
+    color: var(--primary-100);
+    font-weight: 600;
+}
+
+.article-list {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 3rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+
+/* End Scetion: Article */

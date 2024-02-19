@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/css/home.css', 'resources/css/navbar.css', 'resources/js/home.js'])
+    @yield('style')
     <title>BKK SMKN 1 Karawang</title>
 </head>
 <body>
     <x-navbar />
+    @yield('content')
+    @include('layouts.footer')
 </body>
 </html>

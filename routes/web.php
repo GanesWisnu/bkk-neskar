@@ -18,5 +18,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    return view('home');
-});
+    return view('pages/home');
+})->name('home');
+
+Route::get('lowongan', function () {
+    return view('pages/lowongan');
+})->name('lowongan');
+
+Route::get('pengumuman', function () {
+    return view('pages/pengumuman');
+})->name('pengumuman');
