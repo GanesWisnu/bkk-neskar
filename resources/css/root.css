@@ -79,14 +79,14 @@ h1 {
 }
 
 h2 {
-    line-height: 134.375%;
-    font-size: clamp(16px, 2.4vmax, 32px);
+    line-height: 130%;
+    font-size: clamp(14px, 2.4vmax, 30px);
     font-weight: 700;
 }
 
 h3 {
     line-height: 125%;
-    font-size: clamp(14px, 2.2vmax, 30px);
+    font-size: clamp(13px, 2.2vmax, 26px);
     font-weight: 700;
 }
 

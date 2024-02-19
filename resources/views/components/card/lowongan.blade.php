@@ -1,7 +1,7 @@
 @foreach($list as $key => $value)
     <div class="card-lowongan" {{ $attributes }}>
         <!-- It is not the man who has too little, but the man who craves more, that is poor. - Seneca -->
-        <h2 class="job-position">{{ $value['title'] }}</h2>
+        <h3 class="job-position">{{ $value['title'] }}</h3>
         <div class="job-location">
             <img src="{{ asset('images/icons/uil_location-point.svg') }}" alt="{{ $value['company'] }}" class="company-logo">
             <p class="location paragraph-2">{{ $value['location'] }}</p>
