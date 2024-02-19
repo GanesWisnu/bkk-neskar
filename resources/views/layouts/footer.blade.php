@@ -9,7 +9,7 @@
         </div>
         <div class="footer-location">
             <img src="{{ asset('images/icons/uil_location-point.svg') }}">
-            <p class="location-address">
+            <p class="location-address paragraph-2">
                 Jl. Pangkal Perjuangan, RT. 05 / RW. 04, Karawang Barat, Karawang, Jawa Barat, Indonesia – 41361
             </p>
         </div>
@@ -19,15 +19,15 @@
         <div class="contact-list">
             <div class="contact-item">
                 <img class="contact-icon" src="{{ asset('images/icons/uil_envelope-alt.svg') }}" alt="" srcset="">
-                <span>bkk@smkn1.com</span>
+                <span class="paragraph-2">bkk@smkn1.com</span>
             </div>
             <div class="contact-item">
                 <img class="contact-icon" src="{{ asset('images/icons/uil_phone.svg') }}" alt="" srcset="">
-                <span>(0267) 401651</span>
+                <span class="paragraph-2">(0267) 401651</span>
             </div>
             <div class="contact-item">
                 <img class="contact-icon" src="{{ asset('images/icons/uil_link.svg') }}" alt="" srcset="">
-                <span>http://www.smkn1karawang.sch.id/</span>
+                <span class="paragraph-2">http://www.smkn1karawang.sch.id/</span>
             </div>
         </div>
     </div>

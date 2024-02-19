@@ -66,6 +66,10 @@ footer {
     color: var(--black-75);
 }
 
+.contact-item > span {
+    color: var(--black-75);
+}
+
 .contact-icon {
     max-height: 24px;
 }
