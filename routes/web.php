@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,12 @@ Route::get('lowongan', function () {
 Route::get('pengumuman', function () {
     return view('pages/pengumuman');
 })->name('pengumuman');
+
+// For admin user only
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('admin', function () {
+        return view('pages/admin');
+    })->name('admin');
+});
+
+Route::get('login', [UserController::class, 'index'])->name('login');
