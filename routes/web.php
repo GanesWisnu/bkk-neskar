@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('admin', function () {
         return view('pages/admin');
     })->name('admin');
+
+    Route::resource('admin.article', ArticleController::class);
 });
+
 
 Route::get('login', [UserController::class, 'index'])->name('login');

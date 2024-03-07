@@ -9,6 +9,8 @@ class Article extends Model
 {
     use HasFactory;
 
+    protected $table = 'article';
+
     protected $fillable = [
         'title',
         'subtitle',
@@ -20,7 +22,7 @@ class Article extends Model
         parent::boot();
 
         self::creating(function ($model){
-            $model->slug = \Str::slug($model->name);
+            $model->slug = \Str::slug($model->title);
         });
     }
 }
