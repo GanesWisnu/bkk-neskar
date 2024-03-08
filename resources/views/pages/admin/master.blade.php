@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @yield('style')
+    <title>Admin - BKK SMKN 1 Karawang</title>
+</head>
+<body>
+    <main class="d-flex flex-nowrap overflow-hidden">
+        @include('layouts.sidebar_admin')
+        <div class="d-flex flex-nowrap flex-column flex-fill bg-light">
+            <div class="nav d-flex flex-row-reverse align-items-center w-100 px-5 shadow-sm" style="background: var(--white-100); height: 8vh;">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle text-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Akun
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      </ul>
+                </div>
+            </div>
+            @yield('content')
+        </div>
+    </main>
+</body>
+</html>
+@stack('script')
