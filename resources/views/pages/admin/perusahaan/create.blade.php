@@ -23,11 +23,16 @@
                         <input name="telepon" type="number" class="form-control" required @required(true) placeholder="cth: 08xxx">
                     </div>
                     <div class="mb-3">
-                        <label for="telepon" class="form-label">Foto*</label>
-                        <input class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
-                        <span class="form-text">
-                            Ukuran file harus kurang dari 2MB. Format yang diperbolehkan: .jpeg, .png dan berukuran maksimal 128x128 pixel.
-                        </span>
+                        <label for="logo" class="form-label">Foto*</label>
+                        <div class="d-flex flex-column">
+                            <input name="logo" class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
+                            <div class="image-preview_container d-none d-flex pt-2 justify-content-center">
+                                <img src="" alt="" id="image-preview" class="image-preview ">
+                            </div>
+                            <span class="form-text">
+                                Ukuran file harus kurang dari 2MB. Format yang diperbolehkan: .jpeg, .png dan berukuran maksimal 128x128 pixel.
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -41,33 +46,42 @@
 
 @push('script')
 <script>
-    $(document).ready(function() {
-        $('#image-upload').change(function() {
-            console.log('here')
-            const file = this.files[0];
-            const filetype = file.type;
-            const validImageType = ["image/jpeg", "image/png"];
-            
-            if($.inArray(fileType, validImageType) === -1) {
-                alert('File yang diupload harus berupa gambar (jpeg, png)!');
-                $(this).val('');
-                return;
-            }
-    
-            const img = new Image();
-            img.onload = function() {
-                var width = this.width;
-                var height = this.height;
-                var maxSize = 128;
+     $(document).ready(function() {
+        $('#image-upload').on('change', function() {
+            var file = this.files[0];
+            var fileSize = file.size;
+            var fileType = file.type;
+            var img = new Image();
+            var _URL = window.URL || window.webkitURL;
 
-                if ((width !== height) && (width > maxSize || height > maxSize)) {
-                    alert("Image resolution is too large. Maximum resolution allowed is " + maxSize + "x" + maxSize + ".");
-                    $(this).val('');
+            img.onload = function () {
+                if (fileSize > 2 * 1024 * 1024) {
+                    alert('Ukuran file harus kurang dari 2MB.');
+                    $('#image-upload').val('');
+                    $('.image-preview_container').addClass('d-none').attr('src', '');
                     return;
                 }
+                if (this.width > 128 || this.height > 128) {
+                    alert('Ukuran gambar harus maksimal 128x128 pixel.');
+                    $('#image-upload').val('');
+                    $('.image-preview_container').addClass('d-none').attr('src', '');
+                    return;
+                }
+                
             };
-            img.src = URL.createObjectURL(file);
+
+            img.onerror = function () {
+                alert('File yang diupload bukan gambar.');
+                $('#image-upload').val('');
+                return;
+            };
+
+            if (file) {
+                img.src = _URL.createObjectURL(file);
+                $('.image-preview_container').removeClass('d-none');
+                $('#image-preview').attr('src', img.src);
+            }
         });
-    })
+    });
 </script>
 @endpush

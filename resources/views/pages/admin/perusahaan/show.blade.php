@@ -1,6 +1,9 @@
 {{-- Edit perusahaan form modal --}}
 @include('pages.admin.perusahaan.edit')
 
+{{-- Delete perusahaan form modal --}}
+@include('pages.admin.perusahaan.delete')
+
 <table id="perusahaan-table" class="table table-striped table-bordered">
     <thead>
         {{-- header --}}
@@ -13,26 +16,27 @@
 {{-- Bagian masukin data ke dalam table '#perusahaan-table'. Pakai library DataTables --}}
 @push('script')
     <script>
-        const data = [
-            {
-                "id": "1",
-                "kd_perusahaan": "123",
-                "nama_perusahaan": "PT. ABC",
-                "alamat": "Jl. ABC No. 123",
-                "telepon": "081234567890"
-            },]
+        const tableData = {!! json_encode($data) !!}
 
         function handleEdit(id) {
-            // const user = data.find(user => user[0] === id)
-            // $('#editUserModal').find('input[name="username"]').val(user.username)
-            // $('#editUserModal').find('input[name="nama_lengkap"]').val(user.name)
-            // $('#editUserModal').find('input[name="level"]').prop('checked', true).val(user.role)
-            // $('#editUserModal').find('input[name="status"]').prop('checked', true).val(user[5].toLowerCase())
+            const perusahaan = tableData.find(val => val.id === id)
+            console.log({perusahaan})
+            $('#editPerusahaanModal').find('input[name="nama_perusahaan"]').val(perusahaan.nama_perusahaan)
+            $('#editPerusahaanModal').find('textarea[name="alamat"]').text(perusahaan.alamat)
+            $('#editPerusahaanModal').find('input[name="telepon"]').val(perusahaan.telepon)
+            // Note: 
+            // Tanyain Bagus returnnya berupa apa? Kalau berupa base64, bisa langsung di set ke src img
+            // $('#editPerusahaanModal').find('input[name="logo"]').val(perusahaan.logo)
+        }
+
+        function handleDelete(id) {
+            $('#deletePerusahaanModal').find('input[name="id_perusahaan"]').val(id);
+            $('#data-reference').text(id);
         }
 
         $(document).ready( function () {
             $('#perusahaan-table').DataTable({
-                data: data,
+                data: tableData,
                 columns: [
                     { 
                         title: "No",
@@ -46,7 +50,7 @@
                     {  
                         title: "Action",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(' + row[0] + ')" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>' + '<button class="btn btn-danger btn-sm" onclick="handleAction(' + row[0] + ')"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Edit</button>';
+                            return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.kd_perusahaan}')" data-bs-toggle="modal" data-bs-target="#editPerusahaanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button> <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.kd_perusahaan}')" data-bs-toggle="modal" data-bs-target="#deletePerusahaanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Edit</button>`;
                         }
                     }
                 ]

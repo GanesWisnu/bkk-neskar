@@ -13,19 +13,21 @@
 {{-- Bagian masukin data ke dalam table '#user-table'. Pakai library DataTables --}}
 @push('script')
     <script>
-        const data = {!! json_encode($data) !!}
+        const tableData = {!! json_encode($data) !!}
+        console.log({tableData})
 
         function handleEdit(id) {
-            const user = data.find(user => user[0] === id)
+            const user = tableData.find(user => user.id === id)
+            console.log({user})
             $('#editUserModal').find('input[name="username"]').val(user.username)
             $('#editUserModal').find('input[name="nama_lengkap"]').val(user.name)
             $('#editUserModal').find('input[name="level"]').prop('checked', true).val(user.role)
-            $('#editUserModal').find('input[name="status"]').prop('checked', true).val(user[5].toLowerCase())
+            $('#editUserModal').find('input[name="status"]').prop('checked', true).val(user.status.toLowerCase())
         }
 
         $(document).ready( function () {
             $('#user-table').DataTable({
-                data: data,
+                data: tableData,
                 columns: [
                     { 
                         title: "No",
@@ -40,7 +42,7 @@
                     {  
                         title: "Action",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(' + row[0] + ')" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>' + '<button class="btn btn-danger btn-sm" onclick="handleAction(' + row[0] + ')"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Edit</button>';
+                            return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id}')" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button> <button class="btn btn-danger btn-sm" onclick="handleAction('${row.id}')"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Edit</button>`;
                         }
                     }
                 ]
