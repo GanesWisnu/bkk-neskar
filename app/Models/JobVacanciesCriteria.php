@@ -9,7 +9,9 @@ class JobVacanciesCriteria extends Model
 {
     use HasFactory;
 
-    protected $hidden = [
+    protected $table = "job_vacancies_criteria";
+
+    protected $fillable = [
         'criteria_id',
         'job_vacancies_id'
     ];

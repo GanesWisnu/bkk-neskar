@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobVacanciesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +39,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('admin', function () {
         return view('pages/admin');
     })->name('admin');
-
-    Route::resource('admin.article', ArticleController::class);
+    Route::group('/admin', function (){
+        Route::resource('user', UserController::class)->except(['index_login', 'login']);
+        Route::resource('company', CompanyController::class);
+        Route::resource('article', ArticleController::class);
+        Route::resource('criteria', CriteriaController::class);
+        Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies']);
+        Route::get('job_vacancies/{id}/delete/{criteria_id}', [JobVacanciesController::class, 'destroy_criteria_job_vacancies'])->name('admin.job_vacancies.delete.criteria');
+    });
 });
 
 
-Route::get('login', [UserController::class, 'index'])->name('login');
+
+Route::get('login', [UserController::class, 'index_login'])->name('login');
+Route::post('login', [UserController::class, 'login'])->name('login.post');
