@@ -6,6 +6,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobVacanciesController;
+use App\Http\Controllers\ApplicantsVacanciesController;
+use App\Http\Controllers\AcceptanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +41,16 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('admin', function () {
         return view('pages/admin');
     })->name('admin');
-    Route::group('/admin', function (){
+    Route::group(['prefix'=> 'admin'], function (){
         Route::resource('user', UserController::class)->except(['index_login', 'login']);
         Route::resource('company', CompanyController::class);
-        Route::resource('article', ArticleController::class);
+        Route::resource('article', ArticleController::class)->parameters(['article' => 'slug']);
         Route::resource('criteria', CriteriaController::class);
         Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies']);
+        Route::resource('applicants', ApplicantsVacanciesController::class);
+        Route::resource('acceptance', AcceptanceController::class)->only(['create', 'store']);
+
+        Route::get('acceptance/{id}/download', [AcceptanceController::class, 'download'])->name('admin.acceptance.download');
         Route::get('job_vacancies/{id}/delete/{criteria_id}', [JobVacanciesController::class, 'destroy_criteria_job_vacancies'])->name('admin.job_vacancies.delete.criteria');
     });
 });

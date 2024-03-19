@@ -27,7 +27,33 @@ class JobVacancies extends Model
         'deadline' => 'datetime'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::creating(function ($model) {
+            $model->generateCode();
+        });
+
+        static::updating(function ($model) {
+            $model->generateCode();
+        });
+    }
+
+    public function generateCode()
+    {
+        if($this->company_id){
+            $company = Company::findOrFail($this->company_id);
+            $latest = static::where('company_id',$this->company_id)->latest('id')->first();
+            $count =  $latest ? $latest->id + 1 : 1;
+            $code = implode([substr(implode('', explode(' ', $company->name)), 0, 5),$this->zfill($count, 3)]);
+            $this->code = $code;
+        }
+    }
+
+    public function zfill($str, $width) {
+        return str_pad($str, $width, '0', STR_PAD_LEFT);
+    }
 
     public function company()
     {
@@ -38,4 +64,6 @@ class JobVacancies extends Model
     {
         return $this->belongsToMany(Criteria::class, 'job_vacancies_criteria', 'job_vacancies_id', 'criteria_id');
     }
+
+
 }
