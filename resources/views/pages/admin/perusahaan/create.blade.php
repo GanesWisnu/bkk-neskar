@@ -7,25 +7,25 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            @csrf
-            <form action="">
+            <form action="{{route('admin.perushaan.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nama_perusahaan" class="form-label">Nama Perusahaan*</label>
-                        <input name="nama_perusahaan" type="text" class="form-control" required @required(true) placeholder="cth: PT. Contoh Abadi">
+                        <input name="name" type="text" class="form-control" required @required(true) placeholder="cth: PT. Contoh Abadi">
                     </div>
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat Perusahaan*</label>
-                        <textarea name="alamat" required @required(true) style="min-height: 100px" class="form-control" placeholder="cth: Jl. Contoh 1"></textarea>
+                        <textarea name="address" required @required(true) style="min-height: 100px" class="form-control" placeholder="cth: Jl. Contoh 1"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="telepon" class="form-label">Telepon Perusahaan*</label>
-                        <input name="telepon" type="number" class="form-control" required @required(true) placeholder="cth: 08xxx">
+                        <input name="telephone" type="number" class="form-control" required @required(true) placeholder="cth: 08xxx">
                     </div>
                     <div class="mb-3">
                         <label for="logo" class="form-label">Foto*</label>
                         <div class="d-flex flex-column">
-                            <input name="logo" class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
+                            <input name="image" class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
                             <div class="image-preview_container d-none d-flex pt-2 justify-content-center">
                                 <img src="" alt="" id="image-preview" class="image-preview ">
                             </div>
@@ -67,7 +67,7 @@
                     $('.image-preview_container').addClass('d-none').attr('src', '');
                     return;
                 }
-                
+
             };
 
             img.onerror = function () {
