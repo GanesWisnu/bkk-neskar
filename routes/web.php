@@ -53,7 +53,7 @@ Route::get('pengumuman', function () {
     })->name('admin');
     Route::group(['prefix'=> 'admin'], function (){
         Route::resource('user', UserController::class)->except(['index_login', 'login']);
-        Route::resource('perusahaan', CompanyController::class)->name('index', 'admin.perusahaan');
+        Route::resource('perusahaan', CompanyController::class)->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
         Route::resource('article', ArticleController::class)->parameters(['article' => 'slug']);
         Route::resource('criteria', CriteriaController::class);
         Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies']);

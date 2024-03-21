@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Company;
 
 class CompanyController extends Controller
@@ -13,8 +14,9 @@ class CompanyController extends Controller
     public function index()
     {
         //
+        Log::info(\Request::getRequestUri());
         $companies = Company::all();
-        return view('admin.company.index', ['companies' => $companies]);
+        return view('pages.admin.perusahaan.index', ['data' => $companies]);
     }
 
     /**
@@ -23,7 +25,7 @@ class CompanyController extends Controller
     public function create()
     {
         //
-        return view('admin.company.create');
+        return view('pages.admin.perusahaan.create');
     }
 
     /**
@@ -31,12 +33,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-
+        Log::info(\Request::getRequestUri());
+        Log::info($request);
         $request->validate([
             'image'=> 'required|image|mimes:png,jpg,jpeg',
             'name'=>'required|string',
-            'address'=>'string',
+            'address'=>'string|required',
             'description'=>'string',
+            'telephone'=>'string|required',
         ]);
 
         $path = public_path('images/upload/');
@@ -46,13 +50,14 @@ class CompanyController extends Controller
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move($path, $imageName);
 
-        $validate = $request->except(['image', 'csrf_token']);
+        $validate = $request->except(['image', '_token']);
 
         $validate['image'] = $imageName;
 
         $company = Company::create($validate);
         $company->save();
-        return redirect()->route('company.index');
+        return redirect()->route('admin.perusahaan');
+
     }
 
     /**
@@ -90,11 +95,11 @@ class CompanyController extends Controller
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move($path, $imageName);
 
-            $validate = $request->except(['csrf_token', 'image']);
+            $validate = $request->except(['_token', 'image']);
 
             $validate['image'] =$imageName;
         } else {
-            $validate = $request->except(['csrf_token', 'image']);
+            $validate = $request->except(['_token', 'image']);
         }
         $company->update($validate);
         return redirect()->route('compnay.index');

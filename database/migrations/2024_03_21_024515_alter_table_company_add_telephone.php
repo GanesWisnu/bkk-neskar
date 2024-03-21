@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('ALTER TABLE `job_vacancies` ADD `code` VARCHAR NULL;');
+        //
+        DB::statement('ALTER TABLE `company` ADD `telephone` VARCHAR NULL;');
     }
 
     /**
@@ -19,8 +20,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-
-            DB::statement('ALTER TABLE `job_vacancies` DROP `code`;');
-
+        //
+        DB::statement('ALTER TABLE `company` DROP `telephone`;');
     }
 };

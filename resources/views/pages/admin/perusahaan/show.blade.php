@@ -24,7 +24,7 @@
             $('#editPerusahaanModal').find('input[name="nama_perusahaan"]').val(perusahaan.nama_perusahaan)
             $('#editPerusahaanModal').find('textarea[name="alamat"]').text(perusahaan.alamat)
             $('#editPerusahaanModal').find('input[name="telepon"]').val(perusahaan.telepon)
-            // Note: 
+            // Note:
             // Tanyain Bagus returnnya berupa apa? Kalau berupa base64, bisa langsung di set ke src img
             // $('#editPerusahaanModal').find('input[name="logo"]').val(perusahaan.logo)
         }
@@ -38,19 +38,19 @@
             $('#perusahaan-table').DataTable({
                 data: tableData,
                 columns: [
-                    { 
+                    {
                         title: "No",
                         render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                         width: "5%"
                     },
-                    { title: "KD Perusahaan", data: "kd_perusahaan"},
-                    { title: "Nama Perusahaan", data: "nama_perusahaan"},
-                    { title: "Alamat", data: "alamat"},
-                    { title: "Telepon", data: "telepon"},
-                    {  
+                    { title: "KD Perusahaan", data: "id"},
+                    { title: "Nama Perusahaan", data: "name"},
+                    { title: "Alamat", data: "address"},
+                    { title: "Telepon", data: "telephone"},
+                    {
                         title: "Action",
                         render: function (data, type, row) {
-                            return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.kd_perusahaan}')" data-bs-toggle="modal" data-bs-target="#editPerusahaanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button> <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.kd_perusahaan}')" data-bs-toggle="modal" data-bs-target="#deletePerusahaanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Edit</button>`;
+                            return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id}')" data-bs-toggle="modal" data-bs-target="#editPerusahaanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button> <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}')" data-bs-toggle="modal" data-bs-target="#deletePerusahaanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Edit</button>`;
                         }
                     }
                 ]
