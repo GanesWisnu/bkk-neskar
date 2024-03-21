@@ -101,3 +101,7 @@ p, .paragraph-1 {
     line-height: 143%; /* 2.145rem */
     letter-spacing: 0.03rem;
 }
+
+.input-group > * {
+    box-sizing: content-box;
+}

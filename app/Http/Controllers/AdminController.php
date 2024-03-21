@@ -75,7 +75,22 @@ class AdminController extends Controller
                 "id" => 1,
                 "nama" => "Nama",
                 "tipe" => "text",
-            ]
+            ],
+            [
+                "id" => 3,
+                "nama" => "Jurusan",
+                "tipe" => "text",
+            ],
+            [
+                "id" => 4,
+                "nama" => "IPK",
+                "tipe" => "number",
+            ],
+            [
+                "id" => 5,
+                "nama" => "Pengalaman",
+                "tipe" => "number",
+            ],
         ];
         return view('pages/admin/kriteria/index', ['data' => $data]);
     }
@@ -83,12 +98,55 @@ class AdminController extends Controller
     public function pelamar() : view {
         $data = [
             [
+                "id" => "DSN123",
+                "tanggal_registrasi" => "2022-01-01",
+                "nama" => "John Doe",
+                "email" => "johndoe@gmail.com",
+                "telepon" => "081234567890",
+                "alamat" => "Jl. ABC No. 123",
+                "pendidikan" => "S1",
+                "jurusan" => "Teknik Informatika",
+                "ipk" => "3.5",
+                "pengalaman" => "2",
+            ],
+            [
+                "id" => "DSN124",
+                "tanggal_registrasi" => "2022-01-01",
+                "nama" => "Jane Doe",
+                "email" => "janedoe1342@yahoo.com",
+                "telepon" => "081234567890",
+                "alamat" => "Jl. ABC No. 123",
+                "pendidikan" => "S1",
+                "jurusan" => "Teknik Informatika",
+                "ipk" => "3.5",
+                "pengalaman" => "2",
+            ],
+
+        ];
+
+        $kriteria = [
+            [
                 "id" => 1,
                 "nama" => "Nama",
                 "tipe" => "text",
-            ]
+            ],
+            [
+                "id" => 3,
+                "nama" => "Jurusan",
+                "tipe" => "text",
+            ],
+            [
+                "id" => 4,
+                "nama" => "IPK",
+                "tipe" => "number",
+            ],
+            [
+                "id" => 5,
+                "nama" => "Pengalaman",
+                "tipe" => "number",
+            ],
         ];
-        return view('pages/admin/pelamar/index', ['data' => $data]);
+        return view('pages/admin/pelamar/index', ['data' => $data, 'kriteria' => $kriteria]);
     }
 
     
