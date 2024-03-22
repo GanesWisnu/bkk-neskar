@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\ApplicantsVacancies;
+use App\Models\Criteria;
 
 class ApplicantsVacanciesController extends Controller
 {
@@ -15,8 +16,9 @@ class ApplicantsVacanciesController extends Controller
     public function index()
     {
         //
-        $applicants =ApplicantsVacancies::all();
-        return view('admin.pelamar.index', ['applicants'=>$applicants]) ;
+        $applicants = ApplicantsVacancies::all();
+        $criteria = Criteria::all();
+        return view('pages.admin.pelamar.index', ['applicants'=>$applicants, 'criteria' => $criteria]); ;
     }
 
     /**

@@ -11,22 +11,22 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nama Lengkap</label>
+                        <label for="name" class="form-label">Nama Lengkap*</label>
                         <input name="name" type="text" class="form-control" placeholder="nama lengkap akun" required @required(true)>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Username</label>
-                        <input name="email" type="text" class="form-control" required @required(true) placeholder="username akun" pattern="[a-zA-Z0-9_]+">
+                        <label for="username" class="form-label">Username*</label>
+                        <input name="username" type="text" class="form-control" required @required(true) placeholder="username akun" pattern="[a-zA-Z0-9_]+">
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Password*</label>
                         <input name="password" type="password" class="form-control" required @required(true) placeholder="password akun">
                     </div>
                     <div class="mb-3">
-                        <label for="password_confirmation" class="form-label">Konfirmasi password</label>
+                        <label for="password_confirmation" class="form-label">Konfirmasi password*</label>
                         <input name="password_confirmation" type="password" class="form-control" required @required(true) placeholder="ketik ulang password akun">
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="level" class="form-label">Level</label>
                         <select name="level" class="form-select">
                             <option value="administrator">Administrator</option>
@@ -44,7 +44,7 @@
                                 <label class="btn btn-outline-danger" for="statusInactive">Inactive</label>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -40,9 +40,9 @@ class CriteriaController extends Controller
         $request = $request->except(['csrf_token']);
 
         $criteria = Criteria::create($request);
-        $criterias = Criteria::all();
-
+        
         if($criteria->save()){
+            $criterias = Criteria::all();
             return redirect()->route('admin.kriteria');
         }
     }
@@ -78,7 +78,7 @@ class CriteriaController extends Controller
         $request = $request->except(['token_csrf']);
 
         if ($criteria->update($request)){
-            return  redirect()->route('criteria.index');
+            return redirect()->route('admin.kriteria');
         }
     }
 
@@ -89,6 +89,8 @@ class CriteriaController extends Controller
     {
         //
         $criteria = Criteria::find($id);
-        $criteria->delete();
+        if($criteria->delete()){
+            return redirect()->route('admin.kriteria');
+        }
     }
 }

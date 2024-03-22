@@ -10,7 +10,7 @@
                 Apakah anda yakin ingin menghapus data ini?<br>
                 data: <div class="d-inline-block fw-semibold" id="data-reference"></div>
             </div>
-            <form id="delete-form" action="" method="delete">
+            <form id="delete-form" action="" method="POST">
                 @method('delete')
                 @csrf
                 <div class="modal-footer">

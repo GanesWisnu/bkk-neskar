@@ -25,7 +25,7 @@
 <div class="d-flex flex-column p-4 flex-fill">
     <h3 class='mb-3 text-secondary fw-semibold'>Pelamar</h3>
     <div class="bg-white shadow-sm rounded-2 border flex-fill overflow-auto p-4">
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <button type="button" class="btn btn-success mb-3" onclick="window.location='{{ route('admin.pelamar.export') }}'">
             <i class="bi bi-table text-white"></i>
             &nbsp;Export Excel
         </button>
@@ -67,7 +67,8 @@
 @push('script')
 <script>
     var currentFilterCount = 0;
-    const criteria = @json($kriteria);
+    const criteria = @json($criteria);
+    console.log({criteria})
 
     function getType(count) {
         console.log({count})
@@ -76,7 +77,7 @@
         const filter = criteria.find(c => c.id === Number(id));
         if (filter) {
             console.log({filter});
-            $(`#filter-input${count}`).find(`input[name="filter_value${count}"]`).attr('type', filter.tipe);
+            $(`#filter-input${count}`).find(`input[name="filter_value${count}"]`).attr('type', filter.input_type);
         }
     }
 
@@ -85,7 +86,7 @@
         $(`
             <div id="filter-input${currentFilterCount}" class="input-group align-items-start w-25">
                 <select name="filter${currentFilterCount}" class="form-select border border-1" aria-label="Default select example" style="max-width: 25%" onchange="getType(${currentFilterCount})">
-                    ${criteria.map(c => `<option value="${c.id}">${c.nama}</option>`).join('')}
+                    ${criteria.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
                 </select>
                 <input name="filter_value${currentFilterCount}" type="text" class="form-control border border-1" aria-label="Text input with dropdown button">
             </div>
@@ -97,7 +98,7 @@
         $(`
             <div id="filter-input${currentFilterCount}" class="input-group align-items-start w-25">
                 <select name="filter${currentFilterCount}" class="form-select border border-1" aria-label="Default select example" style="max-width: 25%">
-                    ${criteria.map(c => `<option value="${c.id}" onclick="getType(${c.id}, ${currentFilterCount})">${c.nama}</option>`).join('')}
+                    ${criteria.map(c => `<option value="${c.id}" onclick="getType(${c.id}, ${currentFilterCount})">${c.name}</option>`).join('')}
                 </select>
                 <input name="filter_value${currentFilterCount}" type="text" class="form-control border border-1" aria-label="Text input with dropdown button">
             </div>

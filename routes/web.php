@@ -53,13 +53,20 @@ Route::get('pengumuman', function () {
     })->name('admin');
     Route::group(['prefix'=> 'admin'], function (){
         Route::resource('user', UserController::class)->except(['index_login', 'login','update', 'destroy']);
+        
         Route::resource('perusahaan', CompanyController::class)->except(['destroy', 'update'])->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
-        Route::resource('article', ArticleController::class)->except(['destroy', 'update'])->parameters(['article' => 'slug'])->name('index', 'admin.article')->name('store', 'admin.article.store');
-        Route::resource('criteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.criteria')->name('store', 'admin.article.store');
-        Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies', 'destroy', 'update']);
-        Route::resource('applicants', ApplicantsVacanciesController::class)->except(['destroy', 'update']);
+
+        Route::resource('article', ArticleController::class)->except(['destroy', 'update'])->parameters(['article' => 'slug'])->name('index', 'admin.informasi')->name('store', 'admin.article.store');
+
+        Route::resource('criteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.kriteria')->name('store', 'admin.kriteria.store');
+
+        Route::resource('job_vacancies', JobVacanciesController::class)->name('index', 'admin.lowongan')->name('store', 'admin.lowongan.store')->except(['destroy_criteria_job_vacancies', 'destroy', 'update']);
+
+        Route::resource('applicants', ApplicantsVacanciesController::class)->name('index', 'admin.pelamar')->name('show', 'admin.pelamar.show')->except(['destroy', 'update']);
+
         Route::resource('acceptance', AcceptanceController::class)->only(['create', 'store']);
 
+        Route::get('applicants/download', [ApplicantsVacanciesController::class, 'export_data'])->name('admin.pelamar.export');
         Route::get('acceptance/{id}/download', [AcceptanceController::class, 'download'])->name('admin.acceptance.download');
         Route::get('job_vacancies/{id}/delete/{criteria_id}', [JobVacanciesController::class, 'destroy_criteria_job_vacancies'])->name('admin.job_vacancies.delete.criteria');
     });
@@ -90,7 +97,7 @@ Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.u
 
 // Route::get('admin/kriteria', [AdminController::class, 'kriteria'])->name('admin.kriteria');
 
-Route::get('admin/pelamar', [AdminController::class, 'pelamar'])->name('admin.pelamar');
+// Route::get('admin/pelamar', [AdminController::class, 'pelamar'])->name('admin.pelamar');
 
 Route::get('admin/pengumuman', [PengumumanController::class, 'pengumuman'])->name('admin.pengumuman');
 Route::get('admin/pengumuman/export', [PengumumanController::class, 'pengumumanExport'])->name('admin.pengumuman-export');

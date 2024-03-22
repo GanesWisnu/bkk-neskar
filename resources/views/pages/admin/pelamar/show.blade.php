@@ -14,7 +14,8 @@
 @push('script')
 
 <script>
-    const tableData = {!! json_encode($data) !!};
+    const tableData = {!! json_encode($applicants) !!};
+    console.log({tableData})
     let selectedData = [];
     let selectedDataId;
 
@@ -30,11 +31,16 @@
         $('#detailPelamarModalLabel').text(`Detail Pelamar - ${id}`);
         selectedDataId = id;
         selectedData = tableData.find(p => p.id === id);
+        console.log({selectedData, keys: Object.keys(selectedData)})
         $('#pelamarDetailsBody').append(`
-            ${Object.keys(selectedData).map(key => `
+            <tr>
+                <td>Tanggal Registrasi</td>
+                <td>${new Date(selectedData['created_at']).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</td>
+            </tr>
+            ${Object.keys(selectedData.data).map(key => `
                 <tr>
                     <td>${filterColumn(key)}</td>
-                    <td>${selectedData[key]}</td>
+                    <td>${selectedData.data[key]}</td>
                 </tr>
             `).join('')}
         `)
@@ -51,12 +57,17 @@
                 },
                 { title: "No Regsitrasi", data: "id"},
                 // { title: "Lowongan", data: "lowongan"},
-                { title: "Tanggal Registrasi", data: "tanggal_registrasi" },
+                { 
+                    title: "Tanggal Registrasi",
+                    render: function (data, type, row) {
+                        return new Date(row.created_at).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    }
+                },
                 { 
                     title: "Detail Pelamar",
                     render: function (data, type, row) {
                         return `
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailPelamarModal" onclick="showDetails('${row.id}')">
+                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailPelamarModal" onclick="showDetails(${row.id})">
                                 <i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Detail
                             </button>
                         `;

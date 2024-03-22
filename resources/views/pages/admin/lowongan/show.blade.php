@@ -34,16 +34,18 @@
     console.log({tableData})
 
     function handleEdit(id) {
-        const lowongan = tableData.find(lowongan => lowongan.id_lowongan === id)
+        const lowongan = tableData.find(lowongan => lowongan.id === id)
         console.log({lowongan})
-        $('#editLowonganModal').find('input[name="nama_perusahaan"]').val(lowongan.nama_perusahaan)
-        lowongan.kriteria.forEach((kriteria) => {
-            $('#editLowonganModal').find('select[name="kriteria"]').prop('selected', true).val(kriteria.toString())
-        })
-        $('#editLowonganModal').find('input[name="posisi"]').val(lowongan.posisi)
-        $('#editLowonganModal').find('textarea[name="deskripsi"]').text(lowongan.deskripsi);
-        quillEdit.setContents(quillEdit.clipboard.convert({html: lowongan.deskripsi}), 'silent')
-        $('#editLowonganModal').find('input[name="informasi_tambahan"]').val(lowongan.batas_waktu)
+        $('#edit-form').attr('action', `/admin/job_vacancies/${lowongan.id}`)
+        $('#editLowonganModal').find('input[name="company_id"]').prop('selected', true).val(lowongan.code)
+        // lowongan.criteria.forEach((kriteria) => {
+        //     $('#editLowonganModal').find('select[name="criterias[]"]').prop('selected', true).val(kriteria.toString())
+        // })
+        $('#editLowonganModal').find('input[name="position"]').val(lowongan.position)
+        $('#editLowonganModal').find('input[name="location"]').val(lowongan.location)
+        $('#editLowonganModal').find('textarea[name="description"]').text(lowongan.description);
+        quillEdit.setContents(quillEdit.clipboard.convert({html: lowongan.description}), 'silent')
+        $('#editLowonganModal').find('input[name="informasi_tambahan"]').val(lowongan.deadline)
     }
 
     function handleDelete(id) {
@@ -61,7 +63,7 @@
                     width: "5%"
                 },
                 { title: "ID Lowongan", data: "id"},
-                { title: "Nama Perusahaan", data: "nama_perusahaan" },
+                // { title: "Nama Perusahaan", data: "company_id" },
                 { title: "Posisi", data: "position"},
                 { 
                     title: "Deskripsi",
@@ -75,11 +77,11 @@
                         return '<button class="btn btn-dark btn-sm"><i class="bi bi-file-earmark-arrow-down text-white"></i>&nbsp;Download</button>';
                     } 
                 },
-                { title: 'Jumlah Pelamar', data: 'jumlah_pelamar' },
+                // { title: 'Jumlah Pelamar', data: 'jumlah_pelamar' },
                 {  
                     title: "Action",
                     render: function (data, type, row) {
-                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id_lowongan}')" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id_lowongan}')" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
+                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete(${row.id})" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
                     }
                 }
             ]

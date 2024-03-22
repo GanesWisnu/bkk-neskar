@@ -34,10 +34,11 @@ class UserController extends Controller
         $request = $request->except(['token_csrf']);
 
         $user = User::create($request);
-        $users = User::all();
-
+        // var_dump($user);
+        
         if ($user->save()){
-            return redirect()->route('pages.admin.user_config.index', ['user' => $users]);
+            $users = User::all();
+            return redirect()->route('admin.user-config', ['user' => $user]);
         }
     }
 
@@ -53,18 +54,29 @@ class UserController extends Controller
         $user = User::find($id);
 
         $request = $request->except(['csrf_token']);
-        $users = User::all();
-
+        if($request['password'] == null){
+            unset($request['password']);
+        } else {
+            $request->validate([
+                'name' => 'required|string',
+                'username' =>'required|string',
+                'password' =>'required|confirmed|required_with:password_confirmation',
+                'password_confirmation' => 'required|same:password'
+            ]);
+        }
+        
         if($user->update($request)){
-            return redirect->route('admin.user.index', ['user' => $users]);
+            $users = User::all();
+            return redirect()->route('admin.user-config', ['user' => $users]);
         }
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         $user = User::find($id);
         if ($user->delete()){
-            return redirect->route('admin.user.index');
+            $user = User::all();
+            return redirect()->route('admin.user.index', ['user' => $user]);
         }
     }
 

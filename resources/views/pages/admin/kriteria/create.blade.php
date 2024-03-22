@@ -7,7 +7,7 @@
                 <h1 class="modal-title fs-5" id="addKriteriaModalLabel">Tambah Kriteria</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('kriteria.store') }}" method="POST">
+            <form action="{{ route('admin.kriteria.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">

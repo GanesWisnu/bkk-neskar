@@ -22,6 +22,7 @@
 
     function handleEdit(id) {
         const kriteria = tableData.find(kriteria => kriteria.id === Number(id));
+        $('#edit-form').attr('action', "/api/admin/criteria/" + kriteria.id);
         $('#editKriteriaModal').find('input[name="id_kriteria"]').val(kriteria.id)
         $('#editKriteriaModal').find('input[name="name"]').val(kriteria.name)
         $('#editKriteriaModal').find('select[name="input_type"]').prop('selected', true).val(kriteria.input_type)
@@ -30,7 +31,7 @@
     function handleDelete(id, name) {
         $('#deleteKriteriaModal').find('input[name="id_kriteria"]').val(id);
         $('#data-reference').text(name);
-        $('#delete-form').attr('action', "{{ route('kriteria.destroy', '') }}/" + id);
+        $('#delete-form').attr('action', "/api/admin/criteria/" + id);
     }
 
     $(document).ready( function () {
