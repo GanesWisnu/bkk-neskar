@@ -44,6 +44,7 @@ class AcceptanceController extends Controller
     {
         //
         $request->validate([
+            'name' => 'required|string',
             'file' => 'required|file',
             'job_vacancies_id' => 'required|integer'
         ]);

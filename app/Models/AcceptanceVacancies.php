@@ -11,6 +11,7 @@ class AcceptanceVacancies extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'url',
         'job_vacancies_id'
     ];

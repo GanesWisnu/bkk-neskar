@@ -34,9 +34,28 @@ class ArticleController extends Controller
         $request->validate([
             'title'=>'required',
             'content'=>'required',
+            'image_cover'=>'required|image|mimes:png,jpg'
         ]);
 
         $validated = $request->except(['csrf_token']);
+
+        if($request->has('image_cover')){
+            $path = public_path('images/upload/');
+
+            !is_dir($path) &&
+                mkdir($path, 0777, true);
+
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move($path, $imageName);
+
+        $validate = $request->except(['image', '_token']);
+
+        $validate['cover_image'] = $imageName;
+
+        $article = Article::create($validate);
+        $article->save();
+        return redirect()->route('admin.article');
+        }
 
         $article = Article::create($validated);
         if ($article->save())
