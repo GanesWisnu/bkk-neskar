@@ -14,6 +14,8 @@ class AcceptanceController extends Controller
     public function index()
     {
         //
+        $acceptance = AcceptanceVacancies::all();
+        return view('pages.admin.pengumuman.index', ['acceptance' => $acceptance]);
     }
 
     public function download(int $id)
@@ -42,6 +44,7 @@ class AcceptanceController extends Controller
     {
         //
         $request->validate([
+            'name' => 'required|string',
             'file' => 'required|file',
             'job_vacancies_id' => 'required|integer'
         ]);

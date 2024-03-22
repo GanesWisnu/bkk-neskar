@@ -52,12 +52,12 @@ Route::get('pengumuman', function () {
         return view('pages/admin');
     })->name('admin');
     Route::group(['prefix'=> 'admin'], function (){
-        Route::resource('user', UserController::class)->except(['index_login', 'login']);
-        Route::resource('perusahaan', CompanyController::class)->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
-        Route::resource('article', ArticleController::class)->parameters(['article' => 'slug']);
-        Route::resource('criteria', CriteriaController::class);
-        Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies']);
-        Route::resource('applicants', ApplicantsVacanciesController::class);
+        Route::resource('user', UserController::class)->except(['index_login', 'login','update', 'destroy']);
+        Route::resource('perusahaan', CompanyController::class)->except(['destroy', 'update'])->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
+        Route::resource('article', ArticleController::class)->except(['destroy', 'update'])->parameters(['article' => 'slug'])->name('index', 'admin.article')->name('store', 'admin.article.store');
+        Route::resource('criteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.criteria')->name('store', 'admin.article.store');
+        Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies', 'destroy', 'update']);
+        Route::resource('applicants', ApplicantsVacanciesController::class)->except(['destroy', 'update']);
         Route::resource('acceptance', AcceptanceController::class)->only(['create', 'store']);
 
         Route::get('acceptance/{id}/download', [AcceptanceController::class, 'download'])->name('admin.acceptance.download');
