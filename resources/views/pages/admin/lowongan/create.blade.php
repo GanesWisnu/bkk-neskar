@@ -18,11 +18,9 @@
                         <label for="kriteria" class="form-label">Kriteria*</label>
                         <select name="kriteria" class="form-select" multiple id="kriteria-dropdown" data-placeholder="Pilih kriteria data pendaftaran" @required(true)>
                             <option></option>
-                            <option value="1">Reactive</option>
-                            <option value="2">Solution</option>
-                            <option value="3">Conglomeration</option>
-                            <option value="4">Algoritm</option>
-                            <option value="5">Holistic</option>
+                            @foreach($criteria as $key)
+                                <option value={{ $key->id }}>{{ $key->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">

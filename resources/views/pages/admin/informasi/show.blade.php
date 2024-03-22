@@ -30,14 +30,14 @@ const quillEdit = new Quill('#konten-input-edit', {
 </script>
 
 <script>
-    const tableData = {!! json_encode($data) !!};
+    const tableData = {!! json_encode($articles) !!};
 
     function handleEdit(id) {
         const informasi = tableData.find(informasi => informasi.id === id);
         console.log({informasi})
         $('#editInformasiModal').find('input[name="id_informasi"]').val(informasi.id)
         $('#editInformasiModal').find('input[name="judul_informasi"]').val(informasi.judul)
-        $('#editInformasiModal').find('input[name="konten"]').val(informasi.isi)
+        $('#editInformasiModal').find('input[name="content"]').val(informasi.isi)
         quillEdit.setContents(quillEdit.clipboard.convert({html: informasi.isi}), 'silent')
         $('#image-preview-edit').attr('src', informasi.gambar_cover).removeClass('d-none')
     }

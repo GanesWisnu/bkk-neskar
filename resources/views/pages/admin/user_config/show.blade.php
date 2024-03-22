@@ -13,7 +13,7 @@
 {{-- Bagian masukin data ke dalam table '#user-table'. Pakai library DataTables --}}
 @push('script')
     <script>
-        const tableData = {!! json_encode($data) !!}
+        const tableData = {!! json_encode($user) !!}
         console.log({tableData})
 
         function handleEdit(id) {
@@ -38,7 +38,14 @@
                     { title: "Nama Lengkap", data: "name" },
                     { title: "Level", data: "role" },
                     { title: "Status", data: "status" },
-                    { title: "Create Date", data: "created_at" },
+                    { 
+                        title: "Create Date", 
+                        render: (data, type, row) => new Date(row.created_at).toLocaleDateString('id', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }), 
+                    },
                     {  
                         title: "Action",
                         render: function (data, type, row) {

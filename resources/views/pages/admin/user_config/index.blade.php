@@ -30,7 +30,7 @@
             Tambah User
         </button>
 
-        @include('pages.admin.user_config.show', $data)
+        @include('pages.admin.user_config.show', $user)
 
     </div>
 </div>

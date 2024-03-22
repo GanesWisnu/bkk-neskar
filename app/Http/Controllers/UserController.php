@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\User;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -13,7 +13,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('admin.user.index');
+        $user = User::all();
+        return view('pages.admin.user_config.index', ['user' => $user]);
     }
 
     public function create()
@@ -24,16 +25,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' =>'required|email',
-            'password' =>'required',
+            'name' => 'required',
+            'email' =>'required',
+            'password' =>'required|confirmed|required_with:password_confirmation',
+            'password_confirmation' => 'required|same:password'
         ]);
 
         $request = $request->except(['token_csrf']);
 
         $user = User::create($request);
+        $users = User::all();
 
         if ($user->save()){
-            return redirect()->route('admin.user.index');
+            return redirect()->route('pages.admin.user_config.index', ['user' => $users]);
         }
     }
 
@@ -49,9 +53,10 @@ class UserController extends Controller
         $user = User::find($id);
 
         $request = $request->except(['csrf_token']);
+        $users = User::all();
 
         if($user->update($request)){
-            return redirect->route('admin.user.index');
+            return redirect->route('admin.user.index', ['user' => $users]);
         }
     }
 

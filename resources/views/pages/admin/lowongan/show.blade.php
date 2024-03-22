@@ -30,7 +30,8 @@
 </script>
 
 <script>
-    const tableData = {!! json_encode($data) !!};
+    const tableData = {!! json_encode($job_vacancies) !!};
+    console.log({tableData})
 
     function handleEdit(id) {
         const lowongan = tableData.find(lowongan => lowongan.id_lowongan === id)
@@ -59,9 +60,9 @@
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                     width: "5%"
                 },
-                { title: "ID Lowongan", data: "id_lowongan"},
+                { title: "ID Lowongan", data: "id"},
                 { title: "Nama Perusahaan", data: "nama_perusahaan" },
-                { title: "Posisi", data: "posisi"},
+                { title: "Posisi", data: "position"},
                 { 
                     title: "Deskripsi",
                     render: function (data, type, row) {
@@ -78,7 +79,6 @@
                 {  
                     title: "Action",
                     render: function (data, type, row) {
-                        console.log('row',row)
                         return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id_lowongan}')" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id_lowongan}')" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
                     }
                 }

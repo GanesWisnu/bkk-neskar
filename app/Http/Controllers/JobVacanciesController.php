@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobVacancies;
 use App\Models\JobVacanciesCriteria;
+use App\Models\Criteria;
 
 
 class JobVacanciesController extends Controller
@@ -16,7 +17,8 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::all();
-        return view('admin.job_vacancies.index', ['job_vacancies' => $job_vacancies]);
+        $criteria = Criteria::all();
+        return view('pages.admin.lowongan.index', ['job_vacancies' => $job_vacancies, 'criteria' => $criteria]);
     }
 
     /**

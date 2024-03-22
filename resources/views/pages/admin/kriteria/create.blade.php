@@ -7,16 +7,16 @@
                 <h1 class="modal-title fs-5" id="addKriteriaModalLabel">Tambah Kriteria</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            @csrf
-            <form action="">
+            <form action="{{ route('kriteria.store') }}" method="POST">
+                @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="nama_kriteria" class="form-label">Nama Kriteria</label>
-                        <input name="nama_kriteria" type="text" class="form-control" required @required(true) placeholder="Nama kriteria lowongan">
+                        <label for="name" class="form-label">Nama Kriteria</label>
+                        <input name="name" type="text" class="form-control" required @required(true) placeholder="Nama kriteria lowongan">
                     </div>
                     <div class="mb-3">
-                        <label for="tipe" class="form-label">Tipe</label>
-                        <select name="tipe" class="form-select">
+                        <label for="input_type" class="form-label">Tipe</label>
+                        <select name="input_type" class="form-select">
                             <option value="text">Teks</option>
                             <option value="date">Tanggal</option>
                             <option value="number">nilai</option>

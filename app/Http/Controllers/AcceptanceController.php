@@ -14,6 +14,8 @@ class AcceptanceController extends Controller
     public function index()
     {
         //
+        $acceptances = AcceptanceVacancies::all();
+        return view('pages.admin.pengumuman.index', ['acceptances' => $acceptances]);
     }
 
     public function download(int $id)

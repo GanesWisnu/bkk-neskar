@@ -14,7 +14,7 @@ class CriteriaController extends Controller
     {
         //
         $criterias = Criteria::all();
-        return view('admin.kriteria.index', ['criterias' => $criterias]);
+        return view('pages.admin.kriteria.index', ['criterias' => $criterias]);
     }
 
     /**
@@ -40,9 +40,10 @@ class CriteriaController extends Controller
         $request = $request->except(['csrf_token']);
 
         $criteria = Criteria::create($request);
+        $criterias = Criteria::all();
 
         if($criteria->save()){
-            return redirect()->route('criteria.index');
+            return redirect()->route('admin.kriteria');
         }
     }
 
@@ -51,9 +52,9 @@ class CriteriaController extends Controller
      */
     public function show(int $id)
     {
-        $criteria = Criteria::find($id);
+        $criterias = Criteria::find($id);
 
-        return view('admin.kriteria.show', ['criteria' => $criteria]);
+        return view('pages.admin.kriteria.index', ['criterias' => $criterias]);
     }
 
     /**

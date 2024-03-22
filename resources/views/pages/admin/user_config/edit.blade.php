@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             @csrf
-            <form action="">
+            <form action="" method="PUT">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
