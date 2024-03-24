@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobVacancies;
 use App\Models\JobVacanciesCriteria;
+use App\Models\ApplicantsVacancies;
 
 
 class JobVacanciesController extends Controller
@@ -16,7 +17,11 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::all();
-        return view('admin.job_vacancies.index', ['job_vacancies' => $job_vacancies]);
+        foreach($job_vacancies as $job){
+            $job->company = $job->company;
+            $job->sumOfRegistered = ApplicantsVacancies::where('job_vacancies_id', $job->id)->count();
+        }
+        return view('pages.admin.lowongan.index', ['job_vacancies' => $job_vacancies]);
     }
 
     /**
@@ -25,7 +30,7 @@ class JobVacanciesController extends Controller
     public function create()
     {
         //
-        return view('admin.job_vacancies.create');
+        return view('pages.admin.lowongan.create');
     }
 
     /**
@@ -51,7 +56,7 @@ class JobVacanciesController extends Controller
             $job_vacancies_criteria->save();
         }
 
-        return redirect()->route('job_vacancies.index');
+        return redirect()->route('admin.lowongan');
     }
 
     /**
@@ -61,7 +66,7 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($id);
-        return view('admin.job_vacancies.show', ['job_vacancies' => $job_vacancies]);
+        return view('pages.admin.lowongan.show', ['job_vacancies' => $job_vacancies]);
     }
 
     /**
@@ -71,7 +76,7 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($id);
-        return view('admin.job_vacancies.edit', ['job_vacancies'=>$job_vacancies]);
+        return view('pages.admin.lowongan.edit', ['job_vacancies'=>$job_vacancies]);
     }
 
     /**
@@ -90,7 +95,7 @@ class JobVacanciesController extends Controller
             }
         }
 
-        return redirect()->route('job_vacancies.index');
+        return redirect()->route('lowongan.index');
     }
 
     /**

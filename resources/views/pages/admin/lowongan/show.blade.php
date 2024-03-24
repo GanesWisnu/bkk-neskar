@@ -25,16 +25,15 @@
     $(document).ready(function() {
         quillEdit.on('text-change', function(delta, oldDelta, source) {
             $('#deskripsi-hidden-edit').text(quillEdit.container.firstChild.innerHTML)
-        })    
+        })
     })
 </script>
 
 <script>
-    const tableData = {!! json_encode($data) !!};
+    const tableData = {!! json_encode($job_vacancies) !!};
 
     function handleEdit(id) {
         const lowongan = tableData.find(lowongan => lowongan.id_lowongan === id)
-        console.log({lowongan})
         $('#editLowonganModal').find('input[name="nama_perusahaan"]').val(lowongan.nama_perusahaan)
         lowongan.kriteria.forEach((kriteria) => {
             $('#editLowonganModal').find('select[name="kriteria"]').prop('selected', true).val(kriteria.toString())
@@ -54,31 +53,31 @@
         $('#lowongan-table').DataTable({
             data: tableData,
             columns: [
-                { 
+                {
                     title: "No",
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                     width: "5%"
                 },
-                { title: "ID Lowongan", data: "id_lowongan"},
-                { title: "Nama Perusahaan", data: "nama_perusahaan" },
-                { title: "Posisi", data: "posisi"},
-                { 
+                { title: "ID Lowongan", data: "code"},
+                { title: "Nama Perusahaan", data: "company.name" },
+                { title: "Posisi", data: "position"},
+                {
                     title: "Deskripsi",
                     render: function (data, type, row) {
                         return '<button class="btn btn-success btn-sm"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Deskripsi</button>';
-                    } 
+                    }
                 },
-                { 
+                {
                     title: "Data Pelamar",
                     render: function (data, type, row) {
                         return '<button class="btn btn-dark btn-sm"><i class="bi bi-file-earmark-arrow-down text-white"></i>&nbsp;Download</button>';
-                    } 
+                    }
                 },
-                { title: 'Jumlah Pelamar', data: 'jumlah_pelamar' },
-                {  
+                { title: 'Jumlah Pelamar', data: 'sumOfRegistered' },
+                {
                     title: "Action",
                     render: function (data, type, row) {
-                        console.log('row',row)
+
                         return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id_lowongan}')" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id_lowongan}')" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
                     }
                 }

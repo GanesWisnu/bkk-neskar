@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\ApplicantsVacancies;
+use App\Models\Criteria;
 
 class ApplicantsVacanciesController extends Controller
 {
@@ -16,7 +17,8 @@ class ApplicantsVacanciesController extends Controller
     {
         //
         $applicants =ApplicantsVacancies::all();
-        return view('admin.pelamar.index', ['applicants'=>$applicants]) ;
+        $kriteria =Criteria::all();
+        return view('pages.admin.pelamar.index', ['applicants'=>$applicants, 'kriteria'=>$kriteria]) ;
     }
 
     /**
@@ -25,7 +27,7 @@ class ApplicantsVacanciesController extends Controller
     public function create()
     {
         //
-        return view('admin.pelamar.create');
+        return view('pages.admin.pelamar.create');
     }
 
     /**
@@ -39,7 +41,7 @@ class ApplicantsVacanciesController extends Controller
             'data' => json_encode($request->except(['csrf_token', 'job_vacancies_id']))
         ]);
 
-        return $applicant;
+        return redirect()->route('admin.pelamar');
     }
 
     /**
@@ -49,7 +51,7 @@ class ApplicantsVacanciesController extends Controller
     {
         //
         $applicant = ApplicantsVacancies::find($id);
-        return view('admin.pelamar.show', ['applicant' => $applicant]);
+        return view('pages.admin.pelamar.show', ['applicant' => $applicant]);
     }
 
     /**
@@ -59,7 +61,7 @@ class ApplicantsVacanciesController extends Controller
     {
         //
         $applicant = ApplicantsVacancies::find($id);
-        return view('admin.pelamar.edit', ['applicant' => $applicant]);
+        return view('pages.admin.pelamar.edit', ['applicant' => $applicant]);
     }
 
     /**
@@ -72,7 +74,7 @@ class ApplicantsVacanciesController extends Controller
         $applicant->update([
             'data' =>json_encode($request->except('csrf_token'))
         ]);
-        return  redirect()->route('applicants.index');
+        return  redirect()->route('admin.pelamar');
     }
 
     /**
