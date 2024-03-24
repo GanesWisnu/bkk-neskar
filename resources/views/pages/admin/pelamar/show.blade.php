@@ -15,6 +15,10 @@
 
 <script>
     const tableData = {!! json_encode($applicants) !!};
+<<<<<<< HEAD
+=======
+    console.log({tableData})
+>>>>>>> abcaa62ddd0a92fb1b5201c781e978afdc64335e
     let selectedData = [];
     let selectedDataId;
 
@@ -50,10 +54,14 @@
         $('#pelamarDetailsBody').empty();
         $('#detailPelamarModalLabel').text(`Detail Pelamar - ${id}`);
         selectedDataId = id;
-        selectedData = tableData.find(p => p.id == id);
-        console.log(tableData);
+        selectedData = tableData.find(p => p.id === id);
+        console.log({selectedData, keys: Object.keys(selectedData)})
         $('#pelamarDetailsBody').append(`
-            ${Object.keys(selectedData).map(key => `
+            <tr>
+                <td>Tanggal Registrasi</td>
+                <td>${new Date(selectedData['created_at']).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</td>
+            </tr>
+            ${Object.keys(selectedData.data).map(key => `
                 <tr>
                     <td>${filterColumn(key)}</td>
                     <td key-id="${key}">${filterRow(key)}</td>
@@ -78,7 +86,7 @@
                     title: "Detail Pelamar",
                     render: function (data, type, row) {
                         return `
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailPelamarModal" onclick="showDetails('${row.id}')">
+                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailPelamarModal" onclick="showDetails(${row.id})">
                                 <i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Detail
                             </button>
                         `;

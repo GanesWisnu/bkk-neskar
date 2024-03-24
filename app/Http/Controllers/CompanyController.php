@@ -86,6 +86,8 @@ class CompanyController extends Controller
     public function update(Request $request, int $id)
     {
         //
+
+        // dd($request);
         $company = Company::find($id);
         if($request->has('image')){
             $path = public_path('images/upload/');
@@ -102,7 +104,7 @@ class CompanyController extends Controller
             $validate = $request->except(['_token', 'image']);
         }
         $company->update($validate);
-        return redirect()->route('compnay.index');
+        return redirect()->route('admin.perusahaan');
     }
 
     /**
@@ -110,6 +112,9 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $company = Company::find($id);
+        if($company->delete()){
+            return redirect()->route('admin.perusahaan');
+        }
     }
 }

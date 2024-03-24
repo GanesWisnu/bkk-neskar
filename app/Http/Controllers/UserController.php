@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\User;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -13,7 +13,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('admin.user.index');
+        $user = User::all();
+        return view('pages.admin.user_config.index', ['user' => $user]);
     }
 
     public function create()
@@ -26,15 +27,18 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string',
             'username' =>'required|string',
-            'password' =>'required',
+            'password' =>'required|confirmed|required_with:password_confirmation',
+            'password_confirmation' => 'required|same:password'
         ]);
 
         $request = $request->except(['token_csrf']);
 
         $user = User::create($request);
-
+        // var_dump($user);
+        
         if ($user->save()){
-            return redirect()->route('admin.user.index');
+            $users = User::all();
+            return redirect()->route('admin.user-config', ['user' => $user]);
         }
     }
 
@@ -50,17 +54,29 @@ class UserController extends Controller
         $user = User::find($id);
 
         $request = $request->except(['csrf_token']);
-
+        if($request['password'] == null){
+            unset($request['password']);
+        } else {
+            $request->validate([
+                'name' => 'required|string',
+                'username' =>'required|string',
+                'password' =>'required|confirmed|required_with:password_confirmation',
+                'password_confirmation' => 'required|same:password'
+            ]);
+        }
+        
         if($user->update($request)){
-            return redirect->route('admin.user.index');
+            $users = User::all();
+            return redirect()->route('admin.user-config', ['user' => $users]);
         }
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         $user = User::find($id);
         if ($user->delete()){
-            return redirect->route('admin.user.index');
+            $user = User::all();
+            return redirect()->route('admin.user.index', ['user' => $user]);
         }
     }
 

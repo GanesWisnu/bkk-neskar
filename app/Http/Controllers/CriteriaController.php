@@ -51,7 +51,7 @@ class CriteriaController extends Controller
      */
     public function show(int $id)
     {
-        $criteria = Criteria::find($id);
+        $criterias = Criteria::find($id);
 
         return view('pages.admin.kriteria.show', ['criteria' => $criteria]);
     }
@@ -88,6 +88,8 @@ class CriteriaController extends Controller
     {
         //
         $criteria = Criteria::find($id);
-        $criteria->delete();
+        if($criteria->delete()){
+            return redirect()->route('admin.kriteria');
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobVacancies;
+use App\Models\Company;
 use App\Models\JobVacanciesCriteria;
 use App\Models\ApplicantsVacancies;
 
@@ -39,6 +40,7 @@ class JobVacanciesController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
         $request->validate([
             "position"=>'required|string',
             "company_id" =>"required|numeric",
@@ -50,11 +52,16 @@ class JobVacanciesController extends Controller
         $validate = $request->except(["csrf_token", "criterias"]);
 
         $job_vacancies = JobVacancies::create($validate);
-        $job_vacancies->save();
-        foreach ($criterias['criterias'] as $criteria) {
-            $job_vacancies_criteria = JobVacanciesCriteria::create(["job_vacancies_id"=>1, "criteria_id"=>(int)$criteria]);
-            $job_vacancies_criteria->save();
+        if ($job_vacancies->save()){
+            foreach ($criterias['criterias'] as $criteria) {
+                $job_vacancies_criteria = JobVacanciesCriteria::create(["job_vacancies_id"=>1, "criteria_id"=>(int)$criteria]);
+                $job_vacancies_criteria->save();
+            }
+            return redirect()->route('admin.lowongan');
+        } else {
+            dd($request->all());
         }
+        // $job_vacancies->save();
 
         return redirect()->route('admin.lowongan');
     }
