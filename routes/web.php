@@ -53,15 +53,17 @@ Route::get('pengumuman', function () {
     })->name('admin');
     Route::group(['prefix'=> 'admin'], function (){
         Route::resource('user', UserController::class)->except(['index_login', 'login','update', 'destroy']);
+
         Route::resource('perusahaan', CompanyController::class)->except(['destroy', 'update'])->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
         Route::resource('article', ArticleController::class)->except(['destroy', 'update'])->parameters(['article' => 'slug'])->name('index', 'admin.article')->name('store', 'admin.article.store');
-        Route::resource('criteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.criteria')->name('store', 'admin.article.store');
-        Route::resource('job_vacancies', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies', 'destroy', 'update']);
-        Route::resource('applicants', ApplicantsVacanciesController::class)->except(['destroy', 'update']);
-        Route::resource('acceptance', AcceptanceController::class)->only(['create', 'store']);
+        Route::resource('kriteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.kriteria')->name('store', 'admin.kriteria.store');
+        Route::resource('lowongan', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies', 'destroy', 'update'])->name('index', 'admin.lowongan')->name('store', 'admin.lowongan.store');
+        Route::resource('pelamar', ApplicantsVacanciesController::class)->except(['destroy', 'update'])->name('index', 'admin.pelamar')->name('store', 'admin.pelamar.store');
+        Route::resource('pengumuman', AcceptanceController::class)->only(['index','create', 'store'])->name('index', 'admin.pengumuman')->name('store', 'admin.pengumuman.store');
 
+        Route::get('applicants/download', [ApplicantsVacanciesController::class, 'export_data'])->name('admin.pelamar.export');
         Route::get('acceptance/{id}/download', [AcceptanceController::class, 'download'])->name('admin.acceptance.download');
-        Route::get('job_vacancies/{id}/delete/{criteria_id}', [JobVacanciesController::class, 'destroy_criteria_job_vacancies'])->name('admin.job_vacancies.delete.criteria');
+        Route::get('lowongan/{id}/delete/{criteria_id}', [JobVacanciesController::class, 'destroy_criteria_job_vacancies'])->name('admin.job_vacancies.delete.criteria');
     });
 // });
 
@@ -82,18 +84,18 @@ Route::get('/', function () {
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
-Route::get('admin/user-config', [AdminController::class, 'userConfig'])->name('admin.user-config');
+Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.user-config');
 
 // Route::get('admin/perusahaan', [AdminController::class, 'perusahaan'])->name('admin.perusahaan');
 
-Route::get('admin/lowongan', [AdminController::class, 'lowongan'])->name('admin.lowongan');
+// Route::get('admin/lowongan', [AdminController::class, 'lowongan'])->name('admin.lowongan');
 
-Route::get('admin/kriteria', [AdminController::class, 'kriteria'])->name('admin.kriteria');
+// Route::get('admin/kriteria', [AdminController::class, 'kriteria'])->name('admin.kriteria');
 
-Route::get('admin/pelamar', [AdminController::class, 'pelamar'])->name('admin.pelamar');
+// Route::get('admin/pelamar', [AdminController::class, 'pelamar'])->name('admin.pelamar');
 
-Route::get('admin/pengumuman', [PengumumanController::class, 'pengumuman'])->name('admin.pengumuman');
+// Route::get('admin/pengumuman', [PengumumanController::class, 'pengumuman'])->name('admin.pengumuman');
 Route::get('admin/pengumuman/export', [PengumumanController::class, 'pengumumanExport'])->name('admin.pengumuman-export');
-Route::post('admin/pengumuman', [PengumumanController::class, 'createPengumuman'])->name('admin.pengumuman-add');
+// Route::post('admin/pengumuman', [PengumumanController::class, 'createPengumuman'])->name('admin.pengumuman-add');
 
 Route::get('admin/informasi', [InformasiController::class, 'getInformasi'])->name('admin.informasi');

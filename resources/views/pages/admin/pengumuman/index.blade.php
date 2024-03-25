@@ -23,16 +23,16 @@
 @include('pages.admin.pengumuman.create')
 
 <div class="d-flex flex-column p-4 flex-fill">
-    <h3 class='mb-3 text-secondary fw-semibold'>Pelamar</h3>
+    <h3 class='mb-3 text-secondary fw-semibold'>Pengumuman</h3>
     <div class="bg-white shadow-sm rounded-2 border flex-fill overflow-auto p-4">
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPengumumanModal">
             <i class="bi bi-plus text-white h5"></i>
             Tambah Data
         </button>
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addPengumumanModal">
+        <a type="button" class="btn btn-success mb-3"  href="{{route('api.admin.pengumuman.export', ['file'=>'database'])}}">
             <i class="bi bi-table text-white"></i>
             &nbsp;Export Excel
-        </button>
+        </a>
 
         @include('pages.admin.pengumuman.show')
 

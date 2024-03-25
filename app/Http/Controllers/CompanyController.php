@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Log;
 use App\Models\Company;
 
@@ -86,6 +88,8 @@ class CompanyController extends Controller
     public function update(Request $request, int $id)
     {
         //
+
+        // dd($request);
         $company = Company::find($id);
         if($request->has('image')){
             $path = public_path('images/upload/');
@@ -102,7 +106,7 @@ class CompanyController extends Controller
             $validate = $request->except(['_token', 'image']);
         }
         $company->update($validate);
-        return redirect()->route('compnay.index');
+        return redirect()->route('admin.perusahaan');
     }
 
     /**
@@ -110,6 +114,35 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $company = Company::find($id);
+        if($company->delete()){
+            return redirect()->route('admin.perusahaan');
+        }
+    }
+
+    public function export(){
+        $company = Company::all();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $alphas = range('a', 'z');
+        $x = array();
+        foreach (array_keys($company[0]->toArray()) as $key=>$value){
+            $sheet->setCellValue(implode([$alphas[$key], 1]), $value);
+        }
+
+        foreach($company as $key => $value){
+            foreach(array_keys($value->toArray()) as $key2=> $value2){
+                $sheet->setCellValue(implode([$alphas[$key2], $key+2]), $value[$value2]);
+            }
+        }
+        $writer = new Xlsx($spreadsheet);
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment;filename=\"export_data_perusahaan.xlsx\"");
+        header("Cache-Control: max-age=0");
+        header("Expires: Fri, 11 Nov 2011 11:11:11 GMT");
+        header("Last-Modified: ". gmdate("D, d M Y H:i:s") ." GMT");
+        header("Cache-Control: cache, must-revalidate");
+        header("Pragma: public");
+        $writer->save("php://output");
     }
 }

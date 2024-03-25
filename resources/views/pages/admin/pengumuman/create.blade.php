@@ -8,12 +8,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             @csrf
-            <form method="POST" action="{{ route('admin.pengumuman-add') }}">
+            <form method="POST" action="{{ route('admin.pengumuman.store') }}">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="nama_pengumuman" class="form-label">Nama Pengumuman</label>
-                        <input name="nama_pengumuman" type="text" class="form-control" required @required(true) placeholder="Nama pengumuman">
+                        <label for="name" class="form-label">Nama Pengumuman</label>
+                        <input name="name" type="text" class="form-control" required @required(true) placeholder="Nama pengumuman">
+                    </div>
+                    <div class="mb-3">
+                        <select name="job_vancancies_id" id="job_vacancies_id" class="form-select">
+                                <option selected>Pilih Kode Lowongan</option>
+                                @foreach ($job_vacancies as $job)
+                                    <option value="{{$job->id}}">{{$job->code}}</option>
+                                @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

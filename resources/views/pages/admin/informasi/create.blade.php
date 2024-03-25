@@ -7,18 +7,18 @@
                 <h1 class="modal-title fs-5" id="addInformasiModalLabel">Tambah Lowongan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            @csrf
-            <form action="">
+            <form action="{{ route('informasi.store') }}" method="POST">
+                @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="judul_informasi" class="form-label">Judul*</label>
-                        <input name="judul_informasi" type="text" class="form-control" required @required(true) placeholder="cth: Informasi Pendaftaran PT. ABC">
+                        <label for="title" class="form-label">Judul*</label>
+                        <input name="title" type="text" class="form-control" required @required(true) placeholder="cth: Informasi Pendaftaran PT. ABC">
                     </div>
 
                     <div class="mb-3">
                         <label for="konten" class="form-label">Konten*</label>
                         <div id="konten-input"></div>
-                        <textarea name="konten" id="konten-hidden-create" hidden></textarea>
+                        <textarea name="content" id="konten-hidden-create" hidden></textarea>
                     </div>
 
                     <div class="mb-3">

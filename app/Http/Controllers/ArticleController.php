@@ -14,7 +14,7 @@ class ArticleController extends Controller
     {
         //
         $articles = Article::all();
-        return view('pages.admin.article.index', ['articles' => $articles]);
+        return view('pages.admin.informasi.index', ['articles' => $articles]);
     }
 
     /**
@@ -60,7 +60,8 @@ class ArticleController extends Controller
         $article = Article::create($validated);
         if ($article->save())
         {
-            return  redirect()->route('admin.article.index');
+            $articles = Article::all();
+            return  redirect()->route('pages.admin.informasi.index', ['articles' => $articles]);
         }
     }
 
