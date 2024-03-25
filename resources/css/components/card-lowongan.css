@@ -80,3 +80,10 @@
     object-position: center;
     max-height: clamp(24px, 3vh, 64px);
 }
+
+@media(max-width: 768px) {
+    .card-lowongan {
+        min-width: 100%;
+        padding: 1rem;
+    }
+}
