@@ -4,7 +4,7 @@
             <h1 class="meta-headline title">Cari Kerja Dengan Mudah</h1>
             <p class="meta-description">Lowongan menarik, penempatan ajaib, pelatihan penuh kreativitas, dan dorongan bagi jiwa wirausaha. Langkah pertama menuju kisah karier yang unik dan sukses! 🚀✨</p>
         </div>
-        <x-forms.button variant="primary" size="lg">Lamar Sekarang</x-forms.button>
+        <x-forms.button variant="primary" size="lg" onclick="document.querySelector('#lowongan-section').scrollIntoView({ behavior: 'smooth' })">Lamar Sekarang</x-forms.button>
     </div>
     <div class="illustration">
         <div class="illustration-circle"></div>

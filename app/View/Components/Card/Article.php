@@ -11,7 +11,7 @@ class Article extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public array $list)
+    public function __construct(public object $list)
     {
         //
     }
