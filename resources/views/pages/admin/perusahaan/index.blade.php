@@ -29,10 +29,10 @@
             <i class="bi bi-plus text-white h5"></i>
             Tambah Data
         </button>
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <a class="btn btn-success mb-3" href="{{route('api.admin.perusahaan.export')}}">
             <i class="bi bi-table text-white"></i>
             &nbsp;Export Excel
-        </button>
+        </a>
 
         @include('pages.admin.perusahaan.show')
 
