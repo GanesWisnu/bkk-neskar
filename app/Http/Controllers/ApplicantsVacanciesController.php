@@ -18,7 +18,7 @@ class ApplicantsVacanciesController extends Controller
         //
         $applicants =ApplicantsVacancies::all();
         $kriteria =Criteria::all();
-        return view('pages.admin.pelamar.index', ['applicants'=>$applicants, 'kriteria'=>$kriteria]) ;
+        return view('pages.admin.pelamar.index', ['applicants'=>$applicants, 'criteria'=>$kriteria]) ;
     }
 
     /**
@@ -88,20 +88,24 @@ class ApplicantsVacanciesController extends Controller
         return redirect()->route('applicants.index');
     }
 
-    public function export_data(int $job_vacancies_id)
+    public function export_data()
     {
-        $applicants = ApplicantsVacancies::where('job_vacancies_id' ,$job_vacancies_id)->get();
-        $vacancies = $applicants[0]->vacancies;
+        $applicants = ApplicantsVacancies::all();
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $alphas = range('a', 'z');
-        foreach (array_keys($applicants[0]['data']) as $key=>$value){
+        foreach (array_keys($applicants[0]->toArray()) as $key=>$value){
             $sheet->setCellValue(implode([$alphas[$key], 1]), $value);
         }
 
-        foreach($applicants as $key=>$value){
-            foreach(array_keys($applicants[$key]['data']) as $key2=>$value2){
-                $sheet->setCellValue(implode([$alphas[$key2], $key+2]), $value['data'][$value2]);
+
+        foreach($applicants as $key => $value){
+            foreach(array_keys($value->toArray()) as $key2=> $value2){
+                if($value2 !== 'data'){
+                    $sheet->setCellValue(implode([$alphas[$key2], $key+2]), $value[$value2]);
+                } else{
+                    $sheet->setCellValue(implode([$alphas[$key2], $key+2]), json_encode($value[$value2]));
+                }
             }
         }
 
@@ -109,7 +113,7 @@ class ApplicantsVacanciesController extends Controller
 
         $writer = new Xlsx($spreadsheet);
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        header("Content-Disposition: attachment;filename=\"{$vacancies->code}.xlsx\"");
+        header("Content-Disposition: attachment;filename=\"export_data_pelamar.xlsx\"");
         header("Cache-Control: max-age=0");
         header("Expires: Fri, 11 Nov 2011 11:11:11 GMT");
         header("Last-Modified: ". gmdate("D, d M Y H:i:s") ." GMT");

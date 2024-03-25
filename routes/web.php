@@ -59,7 +59,7 @@ Route::get('pengumuman', function () {
         Route::resource('kriteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.kriteria')->name('store', 'admin.kriteria.store');
         Route::resource('lowongan', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies', 'destroy', 'update'])->name('index', 'admin.lowongan')->name('store', 'admin.lowongan.store');
         Route::resource('pelamar', ApplicantsVacanciesController::class)->except(['destroy', 'update'])->name('index', 'admin.pelamar')->name('store', 'admin.pelamar.store');
-        Route::resource('acceptance', AcceptanceController::class)->only(['create', 'store']);
+        Route::resource('pengumuman', AcceptanceController::class)->only(['index','create', 'store'])->name('index', 'admin.pengumuman')->name('store', 'admin.pengumuman.store');
 
         Route::get('applicants/download', [ApplicantsVacanciesController::class, 'export_data'])->name('admin.pelamar.export');
         Route::get('acceptance/{id}/download', [AcceptanceController::class, 'download'])->name('admin.acceptance.download');
@@ -94,8 +94,8 @@ Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.u
 
 // Route::get('admin/pelamar', [AdminController::class, 'pelamar'])->name('admin.pelamar');
 
-Route::get('admin/pengumuman', [PengumumanController::class, 'pengumuman'])->name('admin.pengumuman');
+// Route::get('admin/pengumuman', [PengumumanController::class, 'pengumuman'])->name('admin.pengumuman');
 Route::get('admin/pengumuman/export', [PengumumanController::class, 'pengumumanExport'])->name('admin.pengumuman-export');
-Route::post('admin/pengumuman', [PengumumanController::class, 'createPengumuman'])->name('admin.pengumuman-add');
+// Route::post('admin/pengumuman', [PengumumanController::class, 'createPengumuman'])->name('admin.pengumuman-add');
 
-// Route::get('admin/informasi', [InformasiController::class, 'getInformasi'])->name('admin.informasi');
+Route::get('admin/informasi', [InformasiController::class, 'getInformasi'])->name('admin.informasi');

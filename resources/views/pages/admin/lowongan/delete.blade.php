@@ -1,6 +1,7 @@
 <div class="modal fade" id="deleteLowonganModal" tabindex="-1" aria-labelledby="deleteLowonganModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="">
+        <form method="post" id="delete-form">
+            @method('delete')
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="deleteLowonganModalLabel">Hapus Data</h1>

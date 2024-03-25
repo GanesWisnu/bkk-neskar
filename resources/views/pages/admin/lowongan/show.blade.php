@@ -4,6 +4,8 @@
 {{-- Hapus lowongan modal --}}
 @include('pages.admin.lowongan.delete')
 
+
+
 <table id="lowongan-table" class="table table-striped table-bordered">
     <thead>
         {{-- header --}}
@@ -49,7 +51,7 @@
     }
 
     function handleDelete(id) {
-        $('#deleteLowonganModal').find('input[name="id_lowongan"]').val(id);
+        $('#deleteLowonganModal').find('form[id="delete-form"]').attr('action', `/api/lowongan/${id}`)
         $('#data-reference').text(id);
     }
 
@@ -74,7 +76,15 @@
                 {
                     title: "Data Pelamar",
                     render: function (data, type, row) {
-                        return '<button class="btn btn-dark btn-sm"><i class="bi bi-file-earmark-arrow-down text-white"></i>&nbsp;Download</button>';
+                        return `
+                        <form action={{route('api.admin.lowongan.export', ['file'=>'pengumuman'])}}>
+                            <input type="hidden" name='id' value="${row.id}" />
+                            <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden">
+                                <i class="bi bi-download text-white"></i>
+                                &nbsp;Export Data
+                            </button>
+                        </form>
+                        `;
                     }
                 },
                 // { title: 'Jumlah Pelamar', data: 'jumlah_pelamar' },
@@ -87,5 +97,6 @@
             ]
         });
     });
+
 </script>
 @endpush

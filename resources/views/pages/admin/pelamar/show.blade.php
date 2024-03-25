@@ -15,10 +15,7 @@
 
 <script>
     const tableData = {!! json_encode($applicants) !!};
-<<<<<<< HEAD
-=======
     console.log({tableData})
->>>>>>> abcaa62ddd0a92fb1b5201c781e978afdc64335e
     let selectedData = [];
     let selectedDataId;
 
@@ -64,7 +61,7 @@
             ${Object.keys(selectedData.data).map(key => `
                 <tr>
                     <td>${filterColumn(key)}</td>
-                    <td key-id="${key}">${filterRow(key)}</td>
+                    <td>${selectedData.data[key]}</td>
                 </tr>
             `).join('')}
         `)
@@ -81,7 +78,12 @@
                 },
                 { title: "No Regsitrasi", data: "id"},
                 // { title: "Lowongan", data: "lowongan"},
-                { title: "Tanggal Registrasi", data: "created_at" },
+                {
+                    title: "Tanggal Registrasi",
+                    render: function (data, type, row) {
+                        return new Date(row.created_at).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    }
+                },
                 {
                     title: "Detail Pelamar",
                     render: function (data, type, row) {

@@ -2,7 +2,7 @@
 @include('pages.admin.kriteria.edit')
 
 {{-- Hapus lowongan modal --}}
-@include('pages.admin.kriteria.delete')
+@extends('pages.admin.kriteria.delete')
 
 <table id="kriteria-table" class="table table-striped table-bordered">
     <thead>
