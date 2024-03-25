@@ -16,9 +16,9 @@ class ApplicantsVacanciesController extends Controller
     public function index()
     {
         //
-        $applicants = ApplicantsVacancies::all();
-        $criteria = Criteria::all();
-        return view('pages.admin.pelamar.index', ['applicants'=>$applicants, 'criteria' => $criteria]); ;
+        $applicants =ApplicantsVacancies::all();
+        $kriteria =Criteria::all();
+        return view('pages.admin.pelamar.index', ['applicants'=>$applicants, 'criteria'=>$kriteria]) ;
     }
 
     /**
@@ -27,7 +27,7 @@ class ApplicantsVacanciesController extends Controller
     public function create()
     {
         //
-        return view('admin.pelamar.create');
+        return view('pages.admin.pelamar.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class ApplicantsVacanciesController extends Controller
             'data' => json_encode($request->except(['csrf_token', 'job_vacancies_id']))
         ]);
 
-        return $applicant;
+        return redirect()->route('admin.pelamar');
     }
 
     /**
@@ -51,7 +51,7 @@ class ApplicantsVacanciesController extends Controller
     {
         //
         $applicant = ApplicantsVacancies::find($id);
-        return view('admin.pelamar.show', ['applicant' => $applicant]);
+        return view('pages.admin.pelamar.show', ['applicant' => $applicant]);
     }
 
     /**
@@ -61,7 +61,7 @@ class ApplicantsVacanciesController extends Controller
     {
         //
         $applicant = ApplicantsVacancies::find($id);
-        return view('admin.pelamar.edit', ['applicant' => $applicant]);
+        return view('pages.admin.pelamar.edit', ['applicant' => $applicant]);
     }
 
     /**
@@ -74,7 +74,7 @@ class ApplicantsVacanciesController extends Controller
         $applicant->update([
             'data' =>json_encode($request->except('csrf_token'))
         ]);
-        return  redirect()->route('applicants.index');
+        return  redirect()->route('admin.pelamar');
     }
 
     /**
@@ -88,20 +88,24 @@ class ApplicantsVacanciesController extends Controller
         return redirect()->route('applicants.index');
     }
 
-    public function export_data(int $job_vacancies_id)
+    public function export_data()
     {
-        $applicants = ApplicantsVacancies::where('job_vacancies_id' ,$job_vacancies_id)->get();
-        $vacancies = $applicants[0]->vacancies;
+        $applicants = ApplicantsVacancies::all();
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $alphas = range('a', 'z');
-        foreach (array_keys($applicants[0]['data']) as $key=>$value){
+        foreach (array_keys($applicants[0]->toArray()) as $key=>$value){
             $sheet->setCellValue(implode([$alphas[$key], 1]), $value);
         }
 
-        foreach($applicants as $key=>$value){
-            foreach(array_keys($applicants[$key]['data']) as $key2=>$value2){
-                $sheet->setCellValue(implode([$alphas[$key2], $key+2]), $value['data'][$value2]);
+
+        foreach($applicants as $key => $value){
+            foreach(array_keys($value->toArray()) as $key2=> $value2){
+                if($value2 !== 'data'){
+                    $sheet->setCellValue(implode([$alphas[$key2], $key+2]), $value[$value2]);
+                } else{
+                    $sheet->setCellValue(implode([$alphas[$key2], $key+2]), json_encode($value[$value2]));
+                }
             }
         }
 
@@ -109,7 +113,7 @@ class ApplicantsVacanciesController extends Controller
 
         $writer = new Xlsx($spreadsheet);
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        header("Content-Disposition: attachment;filename=\"{$vacancies->code}.xlsx\"");
+        header("Content-Disposition: attachment;filename=\"export_data_pelamar.xlsx\"");
         header("Cache-Control: max-age=0");
         header("Expires: Fri, 11 Nov 2011 11:11:11 GMT");
         header("Last-Modified: ". gmdate("D, d M Y H:i:s") ." GMT");

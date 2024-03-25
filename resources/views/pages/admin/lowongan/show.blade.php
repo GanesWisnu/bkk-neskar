@@ -4,6 +4,8 @@
 {{-- Hapus lowongan modal --}}
 @include('pages.admin.lowongan.delete')
 
+
+
 <table id="lowongan-table" class="table table-striped table-bordered">
     <thead>
         {{-- header --}}
@@ -25,7 +27,7 @@
     $(document).ready(function() {
         quillEdit.on('text-change', function(delta, oldDelta, source) {
             $('#deskripsi-hidden-edit').text(quillEdit.container.firstChild.innerHTML)
-        })    
+        })
     })
 </script>
 
@@ -49,7 +51,7 @@
     }
 
     function handleDelete(id) {
-        $('#deleteLowonganModal').find('input[name="id_lowongan"]').val(id);
+        $('#deleteLowonganModal').find('form[id="delete-form"]').attr('action', `/api/lowongan/${id}`)
         $('#data-reference').text(id);
     }
 
@@ -57,28 +59,36 @@
         $('#lowongan-table').DataTable({
             data: tableData,
             columns: [
-                { 
+                {
                     title: "No",
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                     width: "5%"
                 },
-                { title: "ID Lowongan", data: "id"},
-                // { title: "Nama Perusahaan", data: "company_id" },
+                { title: "ID Lowongan", data: "code"},
+                { title: "Nama Perusahaan", data: "company.name" },
                 { title: "Posisi", data: "position"},
-                { 
+                {
                     title: "Deskripsi",
                     render: function (data, type, row) {
                         return '<button class="btn btn-success btn-sm"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Deskripsi</button>';
-                    } 
+                    }
                 },
-                { 
+                {
                     title: "Data Pelamar",
                     render: function (data, type, row) {
-                        return '<button class="btn btn-dark btn-sm"><i class="bi bi-file-earmark-arrow-down text-white"></i>&nbsp;Download</button>';
-                    } 
+                        return `
+                        <form action={{route('api.admin.lowongan.export', ['file'=>'pengumuman'])}}>
+                            <input type="hidden" name='id' value="${row.id}" />
+                            <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden">
+                                <i class="bi bi-download text-white"></i>
+                                &nbsp;Export Data
+                            </button>
+                        </form>
+                        `;
+                    }
                 },
                 // { title: 'Jumlah Pelamar', data: 'jumlah_pelamar' },
-                {  
+                {
                     title: "Action",
                     render: function (data, type, row) {
                         return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete(${row.id})" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
@@ -87,5 +97,6 @@
             ]
         });
     });
+
 </script>
 @endpush

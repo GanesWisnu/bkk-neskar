@@ -25,6 +25,27 @@
         return title;
     }
 
+    function filterRow(key){
+        if (key === 'created_at' || key === 'updated_at'){
+            return new Intl.DateTimeFormat('id-ID').format(new Date(selectedData[key]));
+        } else if (key === 'data'){
+            let newElement = []
+            Object.keys(selectedData[key]).map((x)=>{
+                console.log(x);
+                newElement.push(
+                    `
+                    <span style='display:flex''>
+                        <p style='width:10rem; font-size:16px'>${x}</p>
+                        <p style='font-size:16px'>: ${selectedData[key][x]}</p>
+                    </span>
+                    `
+                )
+            })
+            return newElement.join('')
+        }
+        return selectedData[key]
+    }
+
     function showDetails(id) {
         if(selectedDataId === id) return;
         $('#pelamarDetailsBody').empty();
@@ -50,20 +71,20 @@
         $('#pelamar-table').DataTable({
             data: tableData,
             columns: [
-                { 
+                {
                     title: "No",
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                     width: "5%"
                 },
                 { title: "No Regsitrasi", data: "id"},
                 // { title: "Lowongan", data: "lowongan"},
-                { 
+                {
                     title: "Tanggal Registrasi",
                     render: function (data, type, row) {
                         return new Date(row.created_at).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
                     }
                 },
-                { 
+                {
                     title: "Detail Pelamar",
                     render: function (data, type, row) {
                         return `
@@ -71,7 +92,7 @@
                                 <i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Detail
                             </button>
                         `;
-                    } 
+                    }
                 },
             ]
         });
