@@ -1,0 +1,113 @@
+.container {
+    /* background-color: red; */
+    padding: 4rem var(--page-padding);
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 3.2rem;
+    overflow: hidden;
+    margin-top: 10vh;
+    display: flex;
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+.lowongan-info {
+    flex: .7;
+    height: fit-content;
+}
+
+.lowongan-info, .lowongan-form {
+    background-color: var(--white-100);
+    border-radius: var(--rounded-lg);
+    padding: 2rem 2.4rem;
+    border: 1px solid var(--gray-100, #ADB5B6);
+    box-shadow: 0px 0px 27.9px 0px rgba(128, 212, 224, 0.16);
+}
+
+
+
+.info-head {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.info-position-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.info-company-logo {
+    background-color: var(--primary-50);
+    aspect-ratio: 1;
+    border-radius: var(--rounded);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 4rem;
+    max-width: 64px;
+    object-fit: contain;
+}
+
+.info-position-name {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-weight: 700;
+}
+
+.info-list-container {
+    padding-left: 5rem;
+}
+
+.info-list{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.description-title {
+    margin-bottom: 1.2rem;
+}
+
+.description-container > p {
+    margin-bottom: .6rem;
+    text-emphasis: none;
+    text-align: justify;
+    text-wrap: balance;
+}
+
+.lowongan-form {
+    flex: .3;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.form-field-container {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    margin-bottom: 1.4rem;
+}
+
+.form-input {
+    width: 100%;
+    border: 1px solid var(--gray-100, #ADB5B6);
+    border-radius: var(--rounded-sm);
+    padding: .6rem .8rem;
+}
+
+@media(max-width: 768px) {
+    .container {
+        padding: 4rem 2rem;
+    }
+
+    .lowongan-info, .lowongan-form {
+        flex: 1;
+    }
+}

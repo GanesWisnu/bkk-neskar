@@ -71,7 +71,7 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($id);
-        return view('admin.job_vacancies.show', ['job_vacancies' => $job_vacancies]);
+        return view('pages.user.job_vacancies.show', ['job_vacanciey' => $job_vacanciey]);
     }
 
     /**

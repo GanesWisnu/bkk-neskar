@@ -13,6 +13,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\InformasiController;
 
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,21 +32,18 @@ use App\Http\Controllers\InformasiController;
 
 // User Page
 
-Route::get('/', function () {
-    return view('pages/home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('user.home');
 
-Route::get('lowongan', function () {
-    return view('pages/lowongan');
-})->name('lowongan');
+Route::get('/lowongan/{id}', [HomeController::class, 'showJobApplication'])->name('user.lowongan.show');
+
+Route::get('lowongan', [HomeController::class, 'showAllJobApplications'])->name('user.lowongan');
+
+Route::get('pengumuman', [HomeController::class, 'showAllAcceptances'])->name('user.pengumuman');
 
 // Route::get('lowongan/{id}', function () {
 //     return view('pages/lowongan');
 // })->name('lowongan');
 
-Route::get('pengumuman', function () {
-    return view('pages/pengumuman');
-})->name('pengumuman');
 
 // For admin user only
 // Route::group(['middleware' => 'auth'], function() {
@@ -62,7 +61,7 @@ Route::get('pengumuman', function () {
 
         Route::resource('job_vacancies', JobVacanciesController::class)->name('index', 'admin.lowongan')->name('store', 'admin.lowongan.store')->except(['destroy_criteria_job_vacancies', 'destroy', 'update']);
 
-        Route::resource('applicants', ApplicantsVacanciesController::class)->name('index', 'admin.pelamar')->name('show', 'admin.pelamar.show')->except(['destroy', 'update']);
+        Route::resource('applicants', ApplicantsVacanciesController::class)->name('index', 'admin.pelamar')->name('show', 'admin.pelamar.show')->name('store', 'user.pelamar.store')->except(['destroy', 'update']);
 
         Route::resource('acceptance', AcceptanceController::class)->only(['create', 'store']);
 
@@ -83,9 +82,9 @@ Route::post('login', [UserController::class, 'login'])->name('login.post');
 
 // Admin Page
 
-Route::get('/', function () {
-    return redirect('/admin');
-})->name('admin_redirect');
+// Route::get('/', function () {
+//     return redirect('/admin');
+// })->name('admin_redirect');
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
