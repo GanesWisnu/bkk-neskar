@@ -4,6 +4,9 @@
 {{-- Hapus lowongan modal --}}
 @include('pages.admin.lowongan.delete')
 
+{{-- Deskripsi lowongan --}}
+@include('pages.admin.lowongan.detail')
+
 
 
 <table id="lowongan-table" class="table table-striped table-bordered">
@@ -33,13 +36,21 @@
 
 <script>
     const tableData = {!! json_encode($job_vacancies) !!};
-    console.log({tableData})
+    const vacancies_criterias = {!! json_encode($job_vacancies_criterias) !!};
 
     function handleEdit(id) {
         const lowongan = tableData.find(lowongan => lowongan.id === id)
-        console.log({lowongan})
+        const kriteria = vacancies_criterias.filter(kriteria => kriteria.job_vacancies_id === id)
         $('#edit-form').attr('action', `/admin/job_vacancies/${lowongan.id}`)
-        $('#editLowonganModal').find('input[name="company_id"]').prop('selected', true).val(lowongan.code)
+        $('#editLowonganModal').find('select[name="company_id"]').val(lowongan.company.id.toString())
+        const selectedCriteria = kriteria.map(kriteria => kriteria.criteria_id.toString())
+        console.log({selectedCriteria})
+        $('#kriteria-dropdown-edit').val(selectedCriteria);
+        $('#kriteria-dropdown-edit').trigger('change');;
+        // kriteria.forEach(element => {
+        //     // $('#editLowonganModal').find('select[name="criterias[]"]').val(element.criteria_id.toString())
+            
+        // });
         // lowongan.criteria.forEach((kriteria) => {
         //     $('#editLowonganModal').find('select[name="criterias[]"]').prop('selected', true).val(kriteria.toString())
         // })
@@ -47,12 +58,19 @@
         $('#editLowonganModal').find('input[name="location"]').val(lowongan.location)
         $('#editLowonganModal').find('textarea[name="description"]').text(lowongan.description);
         quillEdit.setContents(quillEdit.clipboard.convert({html: lowongan.description}), 'silent')
-        $('#editLowonganModal').find('input[name="informasi_tambahan"]').val(lowongan.deadline)
+        $('#editLowonganModal').find('input[name="additional_information"]').val(lowongan.additional_information)
+        $('#editLowonganModal').find('input[name="deadline"]').val(new Date(lowongan.deadline).toISOString().split('T')[0])
     }
 
     function handleDelete(id) {
         $('#deleteLowonganModal').find('form[id="delete-form"]').attr('action', `/api/lowongan/${id}`)
         $('#data-reference').text(id);
+    }
+
+    function showDescription(id) {
+        const lowongan = tableData.find(lowongan => lowongan.id === id)
+        $('#detailLowonganModalLabel').text(`Deskripsi Lowongan - ${lowongan.code}`)
+        $('#LowonganDetailsBody').html(lowongan.description)
     }
 
     $(document).ready( function () {
@@ -70,7 +88,7 @@
                 {
                     title: "Deskripsi",
                     render: function (data, type, row) {
-                        return '<button class="btn btn-success btn-sm"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Deskripsi</button>';
+                        return `<button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailLowonganModal" onclick="showDescription(${row.id})"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Deskripsi</button>`;
                     }
                 },
                 {

@@ -40,6 +40,8 @@ Route::get('lowongan', [HomeController::class, 'showAllJobApplications'])->name(
 
 Route::get('pengumuman', [HomeController::class, 'showAllAcceptances'])->name('user.pengumuman');
 
+Route::get('acceptance/{id}/download', [HomeController::class, 'downloadAcceptance'])->name('user.acceptance.download');
+
 // Route::get('lowongan/{id}', function () {
 //     return view('pages/lowongan');
 // })->name('lowongan');
@@ -51,7 +53,11 @@ Route::get('pengumuman', [HomeController::class, 'showAllAcceptances'])->name('u
         return view('pages/admin');
     })->name('admin');
     Route::group(['prefix'=> 'admin'], function (){
-        Route::resource('user', UserController::class)->except(['index_login', 'login','update', 'destroy']);
+        Route::get('/login', [UserController::class, 'index_login'])->name('admin.login');
+        Route::post('/login', [UserController::class, 'login'])->name('admin.login.post');
+        Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');
+
+        Route::resource('user', UserController::class)->except(['index_login', 'login','update', 'destroy'])->name('index', 'admin.user-config')->middleware('auth');
 
         Route::resource('perusahaan', CompanyController::class)->except(['destroy', 'update'])->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
         Route::resource('article', ArticleController::class)->except(['destroy', 'update'])->parameters(['article' => 'slug'])->name('index', 'admin.article')->name('store', 'admin.article.store');
@@ -83,7 +89,7 @@ Route::post('login', [UserController::class, 'login'])->name('login.post');
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
-Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.user-config');
+// Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.user-config');
 
 // Route::get('admin/perusahaan', [AdminController::class, 'perusahaan'])->name('admin.perusahaan');
 
@@ -97,4 +103,4 @@ Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.u
 Route::get('admin/pengumuman/export', [PengumumanController::class, 'pengumumanExport'])->name('admin.pengumuman-export');
 // Route::post('admin/pengumuman', [PengumumanController::class, 'createPengumuman'])->name('admin.pengumuman-add');
 
-Route::get('admin/informasi', [InformasiController::class, 'getInformasi'])->name('admin.informasi');
+// Route::get('admin/informasi', [InformasiController::class, 'getInformasi'])->name('admin.informasi');

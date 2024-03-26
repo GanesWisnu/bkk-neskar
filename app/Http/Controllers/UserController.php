@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -53,10 +54,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $request = $request->except(['csrf_token']);
         if($request['password'] == null){
             unset($request['password']);
         } else {
+            // dd($request->all());
             $request->validate([
                 'name' => 'required|string',
                 'username' =>'required|string',
@@ -64,6 +65,7 @@ class UserController extends Controller
                 'password_confirmation' => 'required|same:password'
             ]);
         }
+        $request = $request->except(['csrf_token']);
         
         if($user->update($request)){
             $users = User::all();
@@ -76,13 +78,13 @@ class UserController extends Controller
         $user = User::find($id);
         if ($user->delete()){
             $user = User::all();
-            return redirect()->route('admin.user.index', ['user' => $user]);
+            return redirect()->route('admin.user-config', ['user' => $user]);
         }
     }
 
     public function index_login()
     {
-        return view('pages.login');
+        return view('pages.admin.login.index');
     }
 
 
@@ -92,16 +94,25 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('username', 'password');
+        // dd($credentials);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('pages.admin')->withSuccess('Signed in');
+            return redirect()->intended('admin')->withSuccess('Signed in');
+            // return $request->session();
         }
-        return back()->withSuccess('Login details are not valid');
+        return back()->with('message', 'Username atau Password salah!');
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('admin.login');
     }
 
     public function reset_password(Request $request)

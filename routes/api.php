@@ -8,6 +8,7 @@ use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\JobVacanciesController;
 use App\Http\Controllers\ApplicantsVacanciesController;
 use App\Http\Controllers\AcceptanceController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('admin/user', UserController::class)->only(['update', 'destroy'])->name('update','api.admin.user.update')->name('destroy', 'api.admin.user.destroy');
+
+Route::apiResource('admin/article', ArticleController::class)->only(['update', 'destroy'])->name('update','api.admin.article.update')->name('destroy', 'api.admin.article.destroy');
 
 Route::apiResource('admin/perushaan', CompanyController::class)->only(['update', 'destroy'])->name('update','api.admin.perusahaan.update')->name('destroy', 'api.admin.perusahaan.delete');
 Route::get('admin/perusahaan/export', [CompanyController::class, 'export'])->name("api.admin.perusahaan.export");

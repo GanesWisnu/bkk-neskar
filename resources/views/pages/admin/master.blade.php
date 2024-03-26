@@ -14,12 +14,14 @@
             <div class="nav d-flex flex-row-reverse align-items-center w-100 px-5 shadow-sm" style="background: var(--white-100); height: 8vh;">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle text-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Akun
+                        {{ Auth::user()->username }}
                       </button>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item text-danger" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">Logout</a></li>
+                        <form action="{{ route('admin.logout') }}" id="logout-form" method="POST">
+                            @csrf
+                        </form>
                       </ul>
                 </div>
             </div>

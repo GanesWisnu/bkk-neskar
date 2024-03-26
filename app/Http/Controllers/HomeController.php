@@ -8,6 +8,7 @@ use App\Models\JobVacancies;
 use App\Models\Article;
 use App\Models\AcceptanceVacancies;
 use App\Models\Company;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -34,5 +35,19 @@ class HomeController extends Controller
     function showAllAcceptances() {
         $acceptances = AcceptanceVacancies::all();
         return view('pages.user.pengumuman', ['acceptances' => $acceptances]);
+    }
+
+    public function downloadAcceptance(int $id)
+    {
+        $acceptance = AcceptanceVacancies::find($id);
+        // dd($acceptance);
+        $path = public_path('file/upload/' . $acceptance->url);
+
+        if (file_exists($path)){
+            // dd($path);
+            return Response::download($path, $acceptance->url);
+        }
+
+        return redirect()->back()->with('error', 'File not found');
     }
 }

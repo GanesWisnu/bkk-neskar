@@ -49,7 +49,7 @@
 
         <li class="nav-item mt-2 text-secondary fw-semibold">- Informasi</li>
         <li class="nav-item">
-            <a href="{{ route('admin.informasi') }}" class="nav-link text-white fw-semibold opacity-75 {{ Route::currentRouteNamed('admin.informasi') ? 'active' : ''  }}">
+            <a href="{{ route('admin.article') }}" class="nav-link text-white fw-semibold opacity-75 {{ Route::currentRouteNamed('admin.article') ? 'active' : ''  }}">
                 <i class="bi bi-newspaper text-white"></i>
                 &nbsp;Informasi
             </a>

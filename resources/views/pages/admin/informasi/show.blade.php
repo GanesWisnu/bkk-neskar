@@ -4,6 +4,9 @@
 {{-- Hapus informasi modal --}}
 @include('pages.admin.informasi.delete')
 
+{{-- Detail informasi modal --}}
+@include('pages.admin.informasi.detail')
+
 <table id="informasi-table" class="table table-striped table-bordered">
     <thead>
         {{-- header --}}
@@ -31,20 +34,32 @@ const quillEdit = new Quill('#konten-input-edit', {
 
 <script>
     const tableData = {!! json_encode($articles) !!};
+    console.log({tableData})
 
     function handleEdit(id) {
         const informasi = tableData.find(informasi => informasi.id === id);
         console.log({informasi})
-        $('#editInformasiModal').find('input[name="id_informasi"]').val(informasi.id)
-        $('#editInformasiModal').find('input[name="judul_informasi"]').val(informasi.judul)
-        $('#editInformasiModal').find('input[name="content"]').val(informasi.isi)
-        quillEdit.setContents(quillEdit.clipboard.convert({html: informasi.isi}), 'silent')
-        $('#image-preview-edit').attr('src', informasi.gambar_cover).removeClass('d-none')
+        // $('#editInformasiModal').find('input[name="id_informasi"]').val(informasi.id)
+        $('#edit-form').attr('action', '/api/admin/article/' + informasi.id)
+        $('#editInformasiModal').find('input[name="title"]').val(informasi.title)
+        $('#editInformasiModal').find('textarea[name="content"]').val(informasi.content)
+        quillEdit.setContents(quillEdit.clipboard.convert({html: informasi.content}), 'silent')
+        $('#image-preview-edit').attr('src', '{{ URL::asset('/images/upload') }}/' + informasi.image_cover).removeClass('d-none')
     }
 
     function handleDelete(id, name) {
-        $('#deleteInformasiaModal').find('input[name="id_informasi"]').val(id);
+        $('#delete-form').attr('action', '/api/admin/article/' + id)
         $('#data-reference').text(name);
+    }
+
+    function showContent(id) {
+        $('#ArticleContentBody').empty();
+        const informasi = tableData.find(informasi => informasi.id === id);
+        $('#ArticleContentBody').append(`
+            <img src="{{ URL::asset('/images/upload') }}/${informasi.image_cover}" class="img-fluid" alt="Gambar Cover">
+            <h2 class="fs-4">${informasi.title}</h2>
+            <p>${informasi.content}</p>
+        `);
     }
 
     $(document).ready( function () {
@@ -56,12 +71,18 @@ const quillEdit = new Quill('#konten-input-edit', {
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                     width: "5%"
                 },
-                { title: "Judul", data: "judul"},
-                { title: "Tanggal Post", data: "tanggal" },
+                { title: "Judul", data: "title"},
+                { title: "Tanggal Post", data: "created_at" },
+                { 
+                    title: "Isi",
+                    render: function (data, type, row) {
+                        return `<button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailArticleModal" onclick="showContent(${row.id})"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Konten</button>`;
+                    }
+                },
                 {  
                     title: "Action",
                     render: function (data, type, row) {
-                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id}')" data-bs-toggle="modal" data-bs-target="#editInformasiModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}', '${row.judul}')" data-bs-toggle="modal" data-bs-target="#deleteInformasiModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
+                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editInformasiModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}', '${row.title}')" data-bs-toggle="modal" data-bs-target="#deleteInformasiModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
                     }
                 }
             ]

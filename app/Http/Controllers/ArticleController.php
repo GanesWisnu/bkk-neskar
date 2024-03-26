@@ -10,6 +10,12 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
+
     public function index()
     {
         //
@@ -34,10 +40,13 @@ class ArticleController extends Controller
         $request->validate([
             'title'=>'required',
             'content'=>'required',
-            'image_cover'=>'required|image|mimes:png,jpg'
+            'image_cover'=>'required|image|mimes:png,jpg,jpeg'
         ]);
-
+        // dd($request->all());
+        
         $validated = $request->except(['csrf_token']);
+        // dd($validated);
+
 
         if($request->has('image_cover')){
             $path = public_path('images/upload/');
@@ -45,12 +54,12 @@ class ArticleController extends Controller
             !is_dir($path) &&
                 mkdir($path, 0777, true);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move($path, $imageName);
+        $imageName = time() . '.' . $request->image_cover->extension();
+        $request->image_cover->move($path, $imageName);
 
-        $validate = $request->except(['image', '_token']);
+        $validate = $request->except(['image_cover', '_token']);
 
-        $validate['cover_image'] = $imageName;
+        $validate['image_cover'] = $imageName;
 
         $article = Article::create($validate);
         $article->save();
@@ -90,26 +99,28 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
         //
-        $article = Article::where('slug', $slug)->get();
+        $article = Article::where('id', $id)->first();
+        // dd($article);
 
         $request = $request->except(['csrf_token']);
 
+        // dd($request);
         $article->update($request);
 
-        return  redirect()->route('admin.article.index');
+        return  redirect()->route('admin.article');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
         //
-        $article = Article::where('slug', $slug)->get();
+        $article = Article::where('id', $id)->first();
         $article->delete();
-        return redirect()->route('admin.article.index');
+        return redirect()->route('admin.article');
     }
 }
