@@ -16,6 +16,8 @@ class JobVacancies extends Model
         "position",
         "location",
         'deadline',
+        "description",
+        "additional_information",
         'company_id',
     ];
 

@@ -7,7 +7,7 @@
                 <h1 class="modal-title fs-5" id="addInformasiModalLabel">Tambah Lowongan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('informasi.store') }}" method="POST">
+            <form action="{{ route('admin.article.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -22,9 +22,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="gambar_cover" class="form-label">Gambar Cover*</label>
+                        <label for="image_cover" class="form-label">Gambar Cover*</label>
                         <div class="d-flex flex-column">
-                            <input name="gambar_cover" class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
+                            <input name="image_cover" class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
                             <div class="image-preview_container d-none d-flex pt-2 justify-content-center">
                                 <img src="" alt="" id="image-preview" class="image-preview mw-100">
                             </div>

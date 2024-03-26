@@ -1,26 +1,14 @@
 <section class="pengumuman-container">
     <h1 class="pengumuman-heading">Data Pengumuman</h1>
     <div class="pengumuman-list">
-        {{-- @php
-        var_dump($acceptances);
-            $pengumuman = [
-                [
-                    'title' => 'Junior Web Developer',
-                    'company' => 'PT. Mitsubishi Motors Krama Yudha Sales Indonesia',
-                    'date' => '2 hari yang lalu',
-                    'company_logo' => 'images/logos/Mitsubishi.png',
-                ], 
-                [
-                    'title' => 'Operator Magang',
-                    'company' => 'PT. Mitsubishi Motors Krama Yudha Sales Indonesia',
-                    'date' => '2 hari yang lalu',
-                    'company_logo' => 'images/logos/Mitsubishi.png',
-                ],
-            ];
-        @endphp --}}
-        {{-- <x-Card.pengumuman :list="$pengumuman" /> --}}
     </div>
     
+    @if(session()->has('message'))
+        <script>
+            alert("{{ session('message') }}");
+        </script>
+    @endif
+
     <table id="pengumuman-table" class="table table-striped table-bordered table-responsive w-100">
         <thead>
             {{-- header --}}
@@ -31,6 +19,10 @@
     </table>
     <script>
         const tableData = {!! json_encode($acceptances) !!};
+
+        function downloadFile(id) {
+            window.location = `acceptance/${id}/download`;
+        }
 
         $(document).ready( function () {
             $('#pengumuman-table').DataTable({
@@ -54,7 +46,7 @@
                         title: "Export Data", 
                         render: function (data, type, row) {
                             return `
-                            <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden">
+                            <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden"  onclick="downloadFile(${row.id})">
                                 <i class="bi bi-download text-white"></i>
                                 &nbsp;Unduh Data
                             </button>

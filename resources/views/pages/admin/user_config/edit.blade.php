@@ -26,8 +26,8 @@
                         <input name="password" type="password" class="form-control" placeholder="password baru">
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Konfirmasi Password</label>
-                        <input name="confirmpassword" type="password" class="form-control" placeholder="konfirmasi password baru">
+                        <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                        <input name="password_confirmation" type="password" class="form-control" placeholder="konfirmasi password baru">
                     </div>
                     {{-- <div class="mb-3">
                         <label for="level" class="form-label">Level</label>

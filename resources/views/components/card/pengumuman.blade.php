@@ -10,6 +10,6 @@
             </div>
         </div>
 
-        <x-forms.button variant="primary" size="sm">Lihat Pengumuman</x-forms.button>
+        <x-forms.button variant="primary" size="sm" onclick="window.location='{{ route('admin.acceptance.download', ['id' => $value->id]) }}'">Lihat Pengumuman</x-forms.button>
     </div>
 @endforeach

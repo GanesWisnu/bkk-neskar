@@ -7,27 +7,25 @@
                 <h1 class="modal-title fs-5" id="editInformasiModalLabel">Ubah Informasi</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            @csrf
-            <form action="">
+            <form id="edit-form" action="" method="POST" enctype="multipart/form-data">
+                @method('patch')
+                @csrf
                 <div class="modal-body">
-                    <div class="mb-3 d-none">
-                        <input name="id_informasi" type="text" disabled class="form-control" required @required(true) placeholder="Id kriteria lowongan">
-                    </div>
                     <div class="mb-3">
-                        <label for="judul_informasi" class="form-label">Judul*</label>
-                        <input name="judul_informasi" type="text" class="form-control" required @required(true) placeholder="cth: Informasi Pendaftaran PT. ABC">
+                        <label for="title" class="form-label">Judul*</label>
+                        <input name="title" type="text" class="form-control" required @required(true) placeholder="cth: Informasi Pendaftaran PT. ABC">
                     </div>
 
                     <div class="mb-3">
                         <label for="konten" class="form-label">Konten*</label>
                         <div id="konten-input-edit"></div>
-                        <textarea name="konten" id="konten-hidden-edit" hidden></textarea>
+                        <textarea name="content" id="konten-hidden-edit" hidden></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="gambar_cover" class="form-label">Gambar Cover*</label>
+                        <label for="image_cover" class="form-label">Gambar Cover*</label>
                         <div class="d-flex flex-column">
-                            <input name="gambar_cover" class="form-control" type="file" id="image-upload" @required(true) accept="image/jpeg, image/png">
+                            <input name="image_cover" class="form-control" type="file" id="image-upload" accept="image/jpeg, image/png">
                             <div class="image-preview_container d-flex pt-2 justify-content-center">
                                 <img src="" alt="" id="image-preview-edit" class="mw-100 d-none">
                             </div>

@@ -33,6 +33,11 @@
 @include('pages.admin.informasi.create')
 
 <div class="d-flex flex-column p-4 flex-fill">
+    @if($errors->any())
+        <script>
+            alert('{{$errors->first()}}')
+        </script>
+    @endif
     <h3 class='mb-3 text-secondary fw-semibold'>Informasi</h3>
     <div class="bg-white shadow-sm rounded-2 border flex-fill overflow-auto p-4">
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addInformasiModal">
