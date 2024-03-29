@@ -11,10 +11,6 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
 
     public function index()
     {
@@ -43,7 +39,7 @@ class ArticleController extends Controller
             'image_cover'=>'required|image|mimes:png,jpg,jpeg'
         ]);
         // dd($request->all());
-        
+
         $validated = $request->except(['csrf_token']);
         // dd($validated);
 

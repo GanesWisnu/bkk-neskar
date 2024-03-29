@@ -36,7 +36,7 @@ class UserController extends Controller
 
         $user = User::create($request);
         // var_dump($user);
-        
+
         if ($user->save()){
             $users = User::all();
             return redirect()->route('admin.user-config', ['user' => $user]);
@@ -66,7 +66,7 @@ class UserController extends Controller
             ]);
         }
         $request = $request->except(['csrf_token']);
-        
+
         if($user->update($request)){
             $users = User::all();
             return redirect()->route('admin.user-config', ['user' => $users]);
@@ -102,6 +102,8 @@ class UserController extends Controller
         // dd($credentials);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::getProvider()->retrieveByCredentials($credentials);
+            Auth::login($user);
             return redirect()->intended('admin')->withSuccess('Signed in');
             // return $request->session();
         }
@@ -112,7 +114,7 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        return redirect()->route('login');
     }
 
     public function reset_password(Request $request)

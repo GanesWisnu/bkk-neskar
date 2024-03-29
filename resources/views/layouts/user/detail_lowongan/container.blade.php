@@ -21,18 +21,18 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="description-container">
                 <h3 class="description-title">Description</h3>
                 {{ $job_vacancy->description ? $job_vacancy->description : '{description}' }}
             </div>
         </div>
-    
-    
+
+
         <div class="lowongan-form">
             @if(!$job_vacancy->criterias->isEmpty())
             <h3 class="form-title">Form Pendaftaran</h3>
-            <form action="{{ route('user.pelamar.store') }}" method="POST">
+            <form action="{{ route('admin.pelamar.store') }}" method="POST">
                 @csrf
                 @foreach($job_vacancy->criterias as $key => $value)
                     <div class="form-inputs-container">

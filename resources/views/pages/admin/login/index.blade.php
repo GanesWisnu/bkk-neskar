@@ -34,13 +34,13 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <title>Document</title>
 </head>
-<body class="container d-flex justify-content-center align-items-center vw-100 vh-100"> 
+<body class="container d-flex justify-content-center align-items-center vw-100 vh-100">
     @if(session()->has('message'))
         <script>
             alert("{{ session('message') }}");
         </script>
     @endif
-    <form action="{{ route('admin.login.post') }}" method="POST" class="d-flex flex-column w-50 bg-white shadow-sm h-auto d-block p-5 rounded rounded-md border border gap-3">
+    <form action="{{ route('login.post') }}" method="POST" class="d-flex flex-column w-50 bg-white shadow-sm h-auto d-block p-5 rounded rounded-md border border gap-3">
         @csrf
         <h1 class="text-center">Login</h1>
         <div class="form-group">

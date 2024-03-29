@@ -48,18 +48,19 @@ Route::get('acceptance/{id}/download', [HomeController::class, 'downloadAcceptan
 
 
 // For admin user only
-// Route::group(['middleware' => 'auth'], function() {
+Route::get('/login', [UserController::class, 'index_login'])->name('admin.login');
+Route::post('/login', [UserController::class, 'login'])->name('admin.login.post');
+Route::group(['middleware' => 'auth'], function() {
     Route::get('admin', function () {
-        return view('pages/admin');
+        return view('pages.admin.index');
     })->name('admin');
     Route::group(['prefix'=> 'admin'], function (){
-        Route::get('/login', [UserController::class, 'index_login'])->name('admin.login');
-        Route::post('/login', [UserController::class, 'login'])->name('admin.login.post');
         Route::post('/logout', [UserController::class, 'logout'])->name('admin.logout');
 
         Route::resource('user', UserController::class)->except(['index_login', 'login','update', 'destroy'])->name('index', 'admin.user-config')->middleware('auth');
 
         Route::resource('perusahaan', CompanyController::class)->except(['destroy', 'update'])->name('index', 'admin.perusahaan')->name('store', 'admin.perushaan.store');
+        Route::get('perusahaan/export', [CompanyController::class, 'export'])->name("admin.perusahaan.export");
         Route::resource('article', ArticleController::class)->except(['destroy', 'update'])->parameters(['article' => 'slug'])->name('index', 'admin.article')->name('store', 'admin.article.store');
         Route::resource('kriteria', CriteriaController::class)->except(['destroy', 'update'])->name('index', 'admin.kriteria')->name('store', 'admin.kriteria.store');
         Route::resource('lowongan', JobVacanciesController::class)->except(['destroy_criteria_job_vacancies', 'destroy', 'update'])->name('index', 'admin.lowongan')->name('store', 'admin.lowongan.store');
@@ -70,7 +71,7 @@ Route::get('acceptance/{id}/download', [HomeController::class, 'downloadAcceptan
         Route::get('acceptance/{id}/download', [AcceptanceController::class, 'download'])->name('admin.acceptance.download');
         Route::get('lowongan/{id}/delete/{criteria_id}', [JobVacanciesController::class, 'destroy_criteria_job_vacancies'])->name('admin.job_vacancies.delete.criteria');
     });
-// });
+});
 
 
 
@@ -87,7 +88,7 @@ Route::post('login', [UserController::class, 'login'])->name('login.post');
 //     return redirect('/admin');
 // })->name('admin_redirect');
 
-Route::get('admin', [AdminController::class, 'index'])->name('admin');
+// Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
 // Route::get('admin/user-config', [UserController::class, 'index'])->name('admin.user-config');
 
