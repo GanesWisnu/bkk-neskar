@@ -109,3 +109,10 @@ p, .paragraph-1 {
 .input-group > * {
     box-sizing: content-box;
 }
+
+ol li {
+    font-size: clamp(1rem, 1.6vmax, 1.2rem);
+    line-height: 143%;
+    letter-spacing: 0.03rem;
+    list-style-position: inside;
+}

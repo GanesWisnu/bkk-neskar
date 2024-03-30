@@ -34,7 +34,7 @@ Route::get('admin/perusahaan/export', [CompanyController::class, 'export'])->nam
 
 Route::apiResource('admin/criteria', CriteriaController::class)->only(['update', 'destroy'])->name('update','api.admin.criteria.update')->name('destroy', 'api.admin.criteria.delete');
 
-Route::apiResource('lowongan', JobVacanciesController::class)->only(['update', 'destroy'])->name('update','api.admin.lowongan.update')->name('destroy', 'api.admin.lowongan.delete');
+Route::apiResource('admin/lowongan', JobVacanciesController::class)->only(['update', 'destroy'])->name('update','api.admin.lowongan.update')->name('destroy', 'api.admin.lowongan.delete');
 Route::get("admin/lowongan/{file}", [JobVacanciesController::class, 'export'])->name('api.admin.lowongan.export');
 
 Route::apiResource('admin/applicants', ApplicantsVacanciesController::class)->only(['update', 'destory'])->name('update','api.admin.applicants.update')->name('delete', 'api.admin.applicants.delete');

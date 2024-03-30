@@ -7,7 +7,8 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Lowongan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="edit-form" action="">
+            <form id="edit-form" action="" method="POST">
+                @method('patch')
                 @csrf
                 <div class="modal-body">
                     {{-- <div class="mb-3">

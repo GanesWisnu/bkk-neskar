@@ -2,12 +2,12 @@
     <h4 class="heading-4 text-white mb-5">Control Panel</h4>
     <ul class="nav nav-pills flex-column mb-auto gap-3">
         <li class="nav-item mt-2 text-secondary fw-semibold">- Settings</li>
-        <li class="nav-item" aria-current="true">
+        {{-- <li class="nav-item" aria-current="true">
             <a href="" class="nav-link text-white opacity-75 fw-semibold {{ Route::currentRouteNamed('admin') ? 'active' : ''  }}">
                 <i class="bi bi-globe text-white"></i>
                 &nbsp;Website Configuration
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a href="{{ route('admin.user-config') }}" class="nav-link text-white fw-semibold opacity-75 {{ Route::currentRouteNamed('admin.user-config') ? 'active' : ''  }}">
                 <i class="bi bi-person-circle text-white"></i>

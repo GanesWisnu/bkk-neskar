@@ -104,7 +104,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             $user = Auth::getProvider()->retrieveByCredentials($credentials);
             Auth::login($user);
-            return redirect()->intended('admin')->withSuccess('Signed in');
+            return redirect()->intended('admin/user')->withSuccess('Signed in');
             // return $request->session();
         }
         return back()->with('message', 'Username atau Password salah!');

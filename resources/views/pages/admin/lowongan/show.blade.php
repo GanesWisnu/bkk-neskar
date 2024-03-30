@@ -41,7 +41,7 @@
     function handleEdit(id) {
         const lowongan = tableData.find(lowongan => lowongan.id === id)
         const kriteria = vacancies_criterias.filter(kriteria => kriteria.job_vacancies_id === id)
-        $('#edit-form').attr('action', `/admin/job_vacancies/${lowongan.id}`)
+        $('#edit-form').attr('action', `/api/admin/lowongan/${lowongan.id}`)
         $('#editLowonganModal').find('select[name="company_id"]').val(lowongan.company.id.toString())
         const selectedCriteria = kriteria.map(kriteria => kriteria.criteria_id.toString())
         console.log({selectedCriteria})

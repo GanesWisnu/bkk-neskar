@@ -3,10 +3,13 @@
         <!-- It is not the man who has too little, but the man who craves more, that is poor. - Seneca -->
         <div class="job-requirements">
             @php
-                $dateDiffer = \Carbon\Carbon::parse($value->deadline)->diffInDays(\Carbon\Carbon::now());
+                $dateDiffer = \Carbon\Carbon::parse($value->deadline)->endOfDay()->diffInDays(\Carbon\Carbon::now());
+                $hoursDiffer = \Carbon\Carbon::parse($value->deadline)->endOfDay()->diffInHours(\Carbon\Carbon::now());
             @endphp
-            @if( $dateDiffer < 3)
+            @if( $dateDiffer < 3 && $dateDiffer > 0)
                 <span class="deadline-reminder paragraph-2">{{ $dateDiffer.' Hari lagi' }}</span>
+            @elseif($dateDiffer == 0)
+                <span class="deadline-reminder paragraph-2">{{ $hoursDiffer.' Jam lagi' }}</span>
             @endif
         </div>
         <h3 class="job-position">{{ $value->position }}</h3>

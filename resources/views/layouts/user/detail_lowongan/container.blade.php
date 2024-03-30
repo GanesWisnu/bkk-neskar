@@ -24,7 +24,7 @@
 
             <div class="description-container">
                 <h3 class="description-title">Description</h3>
-                {{ $job_vacancy->description ? $job_vacancy->description : '{description}' }}
+                {!! $job_vacancy->description ? $job_vacancy->description : '{description}' !!}
             </div>
         </div>
 

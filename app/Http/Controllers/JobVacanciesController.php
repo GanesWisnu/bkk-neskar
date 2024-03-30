@@ -104,16 +104,17 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($lowongan);
+        // dd($request->get('criterias'));
         if ($request->has('criterias')){
-            foreach($request->get('criterias')['criterias'] as $cirteria){
+            foreach($request->get('criterias') as $criteria){
                 JobVacanciesCriteria::where([
                     ["job_vacancies_id", "=", $job_vacancies->id],
-                    ["criteria_id", "=", $cirteria->id]
-                ])->firstOrCreate(['job_vacancies_id'=>$job_vacancies->id, 'criteria_id'=>$criteria->id]);
+                    ["criteria_id", "=", $criteria]
+                ])->firstOrCreate(['job_vacancies_id'=>$job_vacancies->id, 'criteria_id'=>$criteria]);
             }
         }
 
-        return redirect()->route('lowongan.index');
+        return redirect()->route('admin.lowongan');
     }
 
     /**
