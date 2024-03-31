@@ -76,7 +76,7 @@
     margin-bottom: 1.2rem;
 }
 
-.description-container > p {
+.description-container > p, .additional_info-container > p {
     margin-bottom: .6rem;
     text-emphasis: none;
     text-align: justify;

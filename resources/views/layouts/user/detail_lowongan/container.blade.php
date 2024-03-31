@@ -23,9 +23,17 @@
             </div>
 
             <div class="description-container">
-                <h3 class="description-title">Description</h3>
+                <h3 class="description-title">Deskripsi</h3>
                 {!! $job_vacancy->description ? $job_vacancy->description : '{description}' !!}
             </div>
+            @if(!is_null($job_vacancy->additional_information))
+                <div class="additional_info-container">
+                    <h3 class="description-title">Informasi Tambahan</h3>
+                    <p class="paragraph2">
+                        {!! $job_vacancy->additional_information !!}
+                    </p>
+                </div>
+            @endif
         </div>
 
 
