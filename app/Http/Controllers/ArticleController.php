@@ -97,16 +97,32 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
         $article = Article::where('id', $id)->first();
-        // dd($article);
 
-        $request = $request->except(['csrf_token']);
+        if($request->has('image_cover')){
+            $path = public_path('images/upload/');
 
-        // dd($request);
-        $article->update($request);
+            !is_dir($path) &&
+                mkdir($path, 0777, true);
 
-        return  redirect()->route('admin.article');
+            $imageName = time() . '.' . $request->image_cover->extension();
+            $request->image_cover->move($path, $imageName);
+            $request = $request->except(['csrf_token', 'image_cover']);
+
+            $request['image_cover'] = $imageName;
+        }
+
+        try {
+            if($article->update($request)) {
+                return redirect()->route('admin.article');
+            } else {
+                return redirect()->route('admin.article')->with('error', 'Data gagal diupdate');
+            }
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->route('admin.article')->withErrors('Data gagal diupdate'. $e->getMessage());
+        }
     }
 
     /**

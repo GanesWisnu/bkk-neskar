@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="edit-form" action="" method="POST" enctype="multipart/form-data">
-                @method('patch')
+                @method('put')
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="konten" class="form-label">Konten*</label>
+                        <label for="konten-input-edit" class="form-label">Konten*</label>
                         <div id="konten-input-edit"></div>
                         <textarea name="content" id="konten-hidden-edit" hidden></textarea>
                     </div>

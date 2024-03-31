@@ -46,14 +46,8 @@
         const selectedCriteria = kriteria.map(kriteria => kriteria.criteria_id.toString())
         console.log({selectedCriteria})
         $('#kriteria-dropdown-edit').val(selectedCriteria);
-        $('#kriteria-dropdown-edit').trigger('change');;
-        // kriteria.forEach(element => {
-        //     // $('#editLowonganModal').find('select[name="criterias[]"]').val(element.criteria_id.toString())
-            
-        // });
-        // lowongan.criteria.forEach((kriteria) => {
-        //     $('#editLowonganModal').find('select[name="criterias[]"]').prop('selected', true).val(kriteria.toString())
-        // })
+        $('#kriteria-dropdown-edit').trigger('change');
+        
         $('#editLowonganModal').find('input[name="position"]').val(lowongan.position)
         $('#editLowonganModal').find('input[name="location"]').val(lowongan.location)
         $('#editLowonganModal').find('textarea[name="description"]').text(lowongan.description);

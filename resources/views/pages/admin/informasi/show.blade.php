@@ -34,15 +34,12 @@ const quillEdit = new Quill('#konten-input-edit', {
 
 <script>
     const tableData = {!! json_encode($articles) !!};
-    console.log({tableData})
 
     function handleEdit(id) {
         const informasi = tableData.find(informasi => informasi.id === id);
-        console.log({informasi})
-        // $('#editInformasiModal').find('input[name="id_informasi"]').val(informasi.id)
-        $('#edit-form').attr('action', '/api/admin/article/' + informasi.id)
+        $('#edit-form').attr('action', `/api/admin/article/${informasi.id}`)
         $('#editInformasiModal').find('input[name="title"]').val(informasi.title)
-        $('#editInformasiModal').find('textarea[name="content"]').val(informasi.content)
+        $('#editInformasiModal').find('textarea[name="content"]').text(informasi.content)
         quillEdit.setContents(quillEdit.clipboard.convert({html: informasi.content}), 'silent')
         $('#image-preview-edit').attr('src', '{{ URL::asset('/images/upload') }}/' + informasi.image_cover).removeClass('d-none')
     }
