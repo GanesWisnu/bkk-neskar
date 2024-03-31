@@ -104,6 +104,8 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($lowongan);
+        $current_criterias = JobVacanciesCriteria::where('job_vacancies_id', $job_vacancies->id)->get(['criteria_id']);
+        $test = array();
         // dd($request->get('criterias'));
         if ($request->has('criterias')){
             foreach($request->get('criterias') as $criteria){
@@ -112,7 +114,20 @@ class JobVacanciesController extends Controller
                     ["criteria_id", "=", $criteria]
                 ])->firstOrCreate(['job_vacancies_id'=>$job_vacancies->id, 'criteria_id'=>$criteria]);
             }
+            foreach($current_criterias as $current_criteria){
+                if (!in_array($current_criteria->criteria_id, $request->get('criterias'))){
+                    JobVacanciesCriteria::where([
+                        'job_vacancies_id'=>$job_vacancies->id,
+                        'criteria_id'=>$current_criteria->criteria_id
+                    ])->delete();
+                }
+            }
         }
+
+
+
+
+        $job_vacancies->update($request->except(['_token', 'criterias']));
 
         return redirect()->route('admin.lowongan');
     }

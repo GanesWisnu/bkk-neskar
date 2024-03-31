@@ -39,11 +39,12 @@ class ApplicantsVacanciesController extends Controller
     {
 
         $applicant = ApplicantsVacancies::create([
-            'job_vacancies_id' => 1,
-            'data' => json_encode($request->except(['csrf_token', 'job_vacancies_id']))
+            'job_vacancies_id' => $request->get('job_vacancies_id'),
+            'data' => json_encode($request->except(['_token', '_method', 'job_vacancies_id']))
         ]);
 
-        return redirect()->route('admin.pelamar');
+        // return redirect()->route('admin.pelamar');
+        return redirect()->back();
     }
 
     /**
@@ -87,33 +88,60 @@ class ApplicantsVacanciesController extends Controller
         //
         $applicant = ApplicantsVacancies::find($id);
         $applicant->delete();
-        return redirect()->route('applicants.index');
+
     }
 
     public function export_data()
     {
         $applicants = ApplicantsVacancies::all();
+        $collection = $applicants->unique('job_vacancies_id');
+        $test = array();
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        // $sheet = $spreadsheet->getActiveSheet();
         $alphas = range('a', 'z');
-        foreach (array_keys($applicants[0]->toArray()) as $key=>$value){
-            $sheet->setCellValue(implode([$alphas[$key], 1]), $value);
-        }
-
-
-        foreach($applicants as $key => $value){
-            foreach(array_keys($value->toArray()) as $key2=> $value2){
-                if($value2 !== 'data'){
-                    $sheet->setCellValue(implode([$alphas[$key2], $key+2]), $value[$value2]);
+        foreach($collection as $key => $column){
+            $job_applicants = ApplicantsVacancies::where('job_vacancies_id', $column->job_vacancies_id)->get();
+            $sheet = $spreadsheet->createSheet($key);
+            // Set sheet title
+            $sheet->setTitle('Sheet ' . $column->vacancies->code);
+            $index = 0;
+            foreach (array_keys($job_applicants[0]->toArray()) as $key=>$value){
+                if ($value == 'data'){
+                    foreach(array_keys($job_applicants[0]->data) as $key2 => $value2){
+                        $sheet->setCellValue(implode([$alphas[$index], 1]), $value2);
+                        $index++;
+                    }
                 } else{
-                    $sheet->setCellValue(implode([$alphas[$key2], $key+2]), json_encode($value[$value2]));
+                    $sheet->setCellValue(implode([$alphas[$index], 1]), $value);
+                    $index++;
+                }
+            }
+
+            $index = 0;
+            foreach($job_applicants as $key => $value){
+                foreach(array_keys($value->toArray()) as $key2=> $value2){
+                    if($value2 !== 'data'){
+                        if ($value2 == 'vacancies'){
+                            $sheet->setCellValue(implode([$alphas[$index], $key+2]), $value[$value2]->code);
+                        }else{
+                            $sheet->setCellValue(implode([$alphas[$index], $key+2]), $value[$value2]);
+                        }
+                        $index++;
+                    } else{
+                        foreach(array_keys($value->data) as $key3 => $value3){
+                            $sheet->setCellValue(implode([$alphas[$index], $key+2]), $value->data[$value3]);
+                            $index++;
+                        }
+                    }
                 }
             }
         }
 
 
 
+
         $writer = new Xlsx($spreadsheet);
+        // $writer->save('example.xlsx');
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         header("Content-Disposition: attachment;filename=\"export_data_pelamar.xlsx\"");
         header("Cache-Control: max-age=0");
@@ -122,6 +150,5 @@ class ApplicantsVacanciesController extends Controller
         header("Cache-Control: cache, must-revalidate");
         header("Pragma: public");
         $writer->save("php://output");
-
     }
 }
