@@ -32,6 +32,12 @@ class HomeController extends Controller
         return view('pages.user.detail_lowongan', ['job_vacancy' => $job_vacancy, 'other_job_vacancies' => $other_job_vacancies]);
     }
 
+    function showArticle($id)
+    {
+        $article = Article::find($id)->first();
+        return view('pages.user.informasi', ['article' => $article]);
+    }
+
     function showAllAcceptances() {
         $acceptances = AcceptanceVacancies::all();
         return view('pages.user.pengumuman', ['acceptances' => $acceptances]);

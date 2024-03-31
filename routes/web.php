@@ -40,6 +40,8 @@ Route::get('lowongan', [HomeController::class, 'showAllJobApplications'])->name(
 
 Route::get('pengumuman', [HomeController::class, 'showAllAcceptances'])->name('user.pengumuman');
 
+Route::get('/informasi/{id}', [HomeController::class, 'showArticle'])->name('user.article.show');
+
 Route::get('acceptance/{id}/download', [HomeController::class, 'downloadAcceptance'])->name('user.acceptance.download');
 
 // Route::get('lowongan/{id}', function () {

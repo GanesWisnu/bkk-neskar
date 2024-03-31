@@ -10,7 +10,7 @@
             </div>
             <h3 class="article-title">{{ $value['title'] ? $value['title'] : '{title}' }}</h3>
             {!! $value['content'] ? substr($value['content'], 0, 50) : '{subtitle}' !!}
-            <x-forms.button variant="ghost-primary" size="md">Lihat Artikel</x-forms.button>
+            <x-forms.button variant="ghost-primary" size="md" onclick="window.location='{{ route('user.article.show', ['id' => $value->id]) }}'">Lihat Artikel</x-forms.button>
         </div>
     </div>
 @endforeach
