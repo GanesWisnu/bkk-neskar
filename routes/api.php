@@ -29,7 +29,7 @@ Route::apiResource('admin/user', UserController::class)->only(['update', 'destro
 
 Route::apiResource('admin/article', ArticleController::class)->only(['update', 'destroy'])->name('update','api.admin.article.update')->name('destroy', 'api.admin.article.destroy');
 
-Route::apiResource('admin/perushaan', CompanyController::class)->only(['update', 'destroy'])->name('update','api.admin.perusahaan.update')->name('destroy', 'api.admin.perusahaan.delete');
+Route::apiResource('admin/perusahaan', CompanyController::class)->only(['update', 'destroy'])->name('update','api.admin.perusahaan.update')->name('destroy', 'api.admin.perusahaan.delete');
 Route::get('admin/perusahaan/export', [CompanyController::class, 'export'])->name("api.admin.perusahaan.export");
 
 Route::apiResource('admin/criteria', CriteriaController::class)->only(['update', 'destroy'])->name('update','api.admin.criteria.update')->name('destroy', 'api.admin.criteria.delete');
@@ -37,7 +37,7 @@ Route::apiResource('admin/criteria', CriteriaController::class)->only(['update',
 Route::apiResource('admin/lowongan', JobVacanciesController::class)->only(['update', 'destroy'])->name('update','api.admin.lowongan.update')->name('destroy', 'api.admin.lowongan.delete');
 Route::get("admin/lowongan/{file}", [JobVacanciesController::class, 'export'])->name('api.admin.lowongan.export');
 
-Route::apiResource('admin/applicants', ApplicantsVacanciesController::class)->only(['update', 'destory'])->name('update','api.admin.applicants.update')->name('delete', 'api.admin.applicants.delete');
+Route::apiResource('admin/applicants', ApplicantsVacanciesController::class)->only(['update', 'destroy'])->name('update','api.admin.applicants.update')->name('delete', 'api.admin.applicants.delete');
 
 Route::apiResource('admin/pengumuman', AcceptanceController::class)->only(['update', 'destroy', 'store'])->name('update', 'api.admin.pengumuman.update')->name('destroy', 'api.admin.pengumuman.delete');
 Route::get('admin/pengumunan/export/{file}', [AcceptanceController::class,'export'])->name('api.admin.pengumuman.export');

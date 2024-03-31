@@ -18,9 +18,6 @@ class ApplicantsVacancies extends Model
         'job_vacancies_id',
     ];
 
-    protected $hidden = [
-        'job_vacancies_id'
-    ];
 
 
     public function vacancies()

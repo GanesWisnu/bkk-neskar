@@ -28,7 +28,8 @@ return new class extends Migration
     {
         //
         DB::statement('ALTER TABLE `users` DROP `username`;');
-        DB::statement('ALTER TABLE `users` ADD `email` VARCHAR UNIQUE;');
+        DB::statement('ALTER TABLE `users` ADD `email` VARCHAR ;');
+        DB::statement('CREATE UNIQUE INDEX ux_friend_name ON users(email);');
 
         DB::statement('ALTER TABLE `article` DROP `image_cover`;');
 
