@@ -6,6 +6,6 @@
     <div class="pengumuman-info">
         <h1 class="pengumuman-heading">Pengumuman Lowongan</h1>
         <p class="pengumuman-description" style="margin-bottom: 1.4em">Sudah pernah melamar disini? Lihat info pengumuman dari lowongan yang sudah kamu lamar</p>
-        <x-forms.button variant="primary" size="md">Lihat Pengumuman</x-forms.button>
+        <x-forms.button variant="primary" size="md" onclick="window.location='{{ route('user.pengumuman') }}'">Lihat Pengumuman</x-forms.button>
     </div>
 </section>

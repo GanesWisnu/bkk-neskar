@@ -47,11 +47,9 @@ class HomeController extends Controller
     public function downloadAcceptance(int $id)
     {
         $acceptance = AcceptanceVacancies::find($id);
-        // dd($acceptance);
         $path = public_path('file/upload/' . $acceptance->url);
 
         if (file_exists($path)){
-            // dd($path);
             return Response::download($path, $acceptance->url);
         }
 
