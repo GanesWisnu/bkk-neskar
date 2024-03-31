@@ -37,9 +37,6 @@ class JobVacancies extends Model
             $model->generateCode();
         });
 
-        static::updating(function ($model) {
-            $model->generateCode();
-        });
     }
 
     public function generateCode()

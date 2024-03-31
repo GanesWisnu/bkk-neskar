@@ -54,7 +54,6 @@ class JobVacanciesController extends Controller
             "company_id" =>"required|numeric",
             "description"=>"required|string",
             "criterias"=> "required|array|exists:criteria,id",
-            "additional_information"=>"string",
             "deadline"=>"required|date",
         ]);
 
