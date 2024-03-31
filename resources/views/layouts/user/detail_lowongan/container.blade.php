@@ -34,6 +34,7 @@
             <h3 class="form-title">Form Pendaftaran</h3>
             <form action="{{ route('admin.pelamar.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="job_vacancies_id" value="{{ $job_vacancy->id }}">
                 @foreach($job_vacancy->criterias as $key => $value)
                     <div class="form-inputs-container">
                         <div class="form-field-container">
