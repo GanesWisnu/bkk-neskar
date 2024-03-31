@@ -34,8 +34,9 @@ class HomeController extends Controller
 
     function showArticle($id)
     {
-        $article = Article::find($id)->first();
-        return view('pages.user.informasi', ['article' => $article]);
+        $article = Article::find($id);
+        $other_articles = Article::where('id', '!=', $id)->get();
+        return view('pages.user.informasi', ['article' => $article, 'other_articles' => $other_articles]);
     }
 
     function showAllAcceptances() {

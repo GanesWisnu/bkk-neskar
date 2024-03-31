@@ -1,9 +1,8 @@
 .card-article {
     display: flex;
-    width: 30%;
-    max-width: 30%;
+    width: 100%;
     min-width: 20%;
-    flex-direction: column;
+    height: 100%;
     justify-content: space-between;
     
     border-radius: 0.5rem;
@@ -15,8 +14,9 @@
 
 .article-thumbnail_container {
     width: 100%;
+    height: 100%;
     aspect-ratio: 16/9;
-    max-height: 42%;
+    max-width: 42%;
     flex: 1;
     display: grid;
     place-items: center;
@@ -24,8 +24,9 @@
 
 .article-thumbnail_container > img {
     object-fit: cover;
+    object-position: center center;
+    height: 100%;
     max-width: 100%;
-    aspect-ratio: 16/9;
     max-height: 100%;
 }
 
@@ -33,8 +34,14 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: .6rem;
     padding: 1rem 2rem;
+}
+
+.article-info_container > h3 {
+    font-size: clamp(13px, 1.8vmax, 23px);
+    font-weight: 500;
 }
 
 .article-date_container {
@@ -46,6 +53,7 @@
 .article-date {
     color: var(--black-75);
 }
+
 
 .article-short_desc {
     text-overflow: ellipsis;

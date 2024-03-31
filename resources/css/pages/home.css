@@ -257,13 +257,18 @@ body {
 }
 
 .article-list {
-    display: flex;
+    display: inline-flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     align-content: flex-start;
     gap: 3rem;
     flex: 1 0 0;
     align-self: stretch;
     flex-wrap: wrap;
+}
+
+.article-list > * {
+    flex: 0 0 30%;
 }
 
 /* End Scetion: Article */
