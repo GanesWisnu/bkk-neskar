@@ -56,9 +56,9 @@
         $('#editLowonganModal').find('input[name="deadline"]').val(new Date(lowongan.deadline).toISOString().split('T')[0])
     }
 
-    function handleDelete(id) {
-        $('#deleteLowonganModal').find('form[id="delete-form"]').attr('action', `/api/lowongan/${id}`)
-        $('#data-reference').text(id);
+    function handleDelete(id, code) {
+        $('#delete-form').attr('action', `/api/admin/lowongan/${id}`)
+        $('#data-reference').text(code);
     }
 
     function showDescription(id) {
@@ -103,7 +103,7 @@
                 {
                     title: "Action",
                     render: function (data, type, row) {
-                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete(${row.id})" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
+                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete(${row.id}, '${row.code}')" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
                     }
                 }
             ]

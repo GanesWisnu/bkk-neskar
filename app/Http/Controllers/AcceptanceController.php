@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Storage;
 use App\Models\AcceptanceVacancies;
 use App\Models\JobVacancies;
+use File;
 
 class AcceptanceController extends Controller
 {
@@ -110,7 +111,9 @@ class AcceptanceController extends Controller
         //
         $acceptance = AcceptanceVacancies::find($id);
         $public = public_path('file/upload/');
-        unlink($public . $acceptance->url);
+        if(!is_null($acceptance->url) || !empty($acceptance->url)) {
+            unlink($public . $acceptance->url);
+        }
         $acceptance->delete();
         return redirect()->route('admin.pengumuman');
     }

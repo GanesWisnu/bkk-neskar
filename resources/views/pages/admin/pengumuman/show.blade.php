@@ -25,7 +25,8 @@
     }
 
     function handleDelete(id, name) {
-        $('#delete-form').attr('action', '/api/admin/pengumuman/' + id)
+        $('#delete-form').attr('action', '/api/admin/pengumuman/' + id);
+        $('#data-reference').text(name);
     }
 
     function onUpload(e){
@@ -102,7 +103,7 @@
                     render: function (data, type, row) {
                         return `
                             <button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id}')" data-bs-toggle="modal" data-bs-target="#editPengumumanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>
-                            <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}', '${row.nama}')" data-bs-toggle="modal" data-bs-target="#deletePengumumanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>
+                            <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}', '${row.name}')" data-bs-toggle="modal" data-bs-target="#deletePengumumanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>
                         `;
                     }
                 }
