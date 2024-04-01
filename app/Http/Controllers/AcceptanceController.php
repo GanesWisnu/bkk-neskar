@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Storage;
 use App\Models\AcceptanceVacancies;
 use App\Models\JobVacancies;
-use File;
 
 class AcceptanceController extends Controller
 {
