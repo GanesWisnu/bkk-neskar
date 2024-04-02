@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('job_vacancies_criteria', function (Blueprint $table) {
             $table->id();
-            $table->integer('criteria_id')->unsigened();
-            $table->integer('job_vacancies_id')->unsigened();
+            $table->unsignedBigInteger('criteria_id');
+            $table->unsignedBigInteger('job_vacancies_id');
             $table->foreign('job_vacancies_id')->references('id')->on("job_vacancies")->onDelete('cascade');
             $table->foreign('criteria_id')->references('id')->on("criteria")->onDelete('cascade');
             $table->timestamps();

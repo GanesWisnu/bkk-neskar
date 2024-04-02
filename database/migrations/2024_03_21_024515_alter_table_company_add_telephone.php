@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         //
-        DB::statement('ALTER TABLE `company` ADD `telephone` VARCHAR NULL;');
+        DB::statement('ALTER TABLE `company` ADD `telephone` VARCHAR(255) NULL;');
     }
 
     /**
