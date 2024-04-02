@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('acceptance_vacancies', function (Blueprint $table) {
             $table->id();
-            $table->integer('job_vacancies_id')->unsigned()->index();
+            $table->unsignedBigInteger('job_vacancies_id');
             $table->string('url');
             $table->foreign('job_vacancies_id')->references('id')->on('job_vacancies')->onDelete('cascade');
             $table->timestamps();

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('applicants_vacancies', function (Blueprint $table) {
             $table->id();
             $table->text('data');
-            $table->integer('job_vacancies_id')->unsigned();
+            $table->unsignedBigInteger('job_vacancies_id');
             $table->foreign('job_vacancies_id')->references('id')->on('job_vacancies')->onDelete('cascade');
             $table->timestamps();
         });

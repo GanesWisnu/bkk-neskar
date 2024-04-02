@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('additional_information')->nullable();
             $table->datetime('deadline');
-            $table->integer('company_id')->unsigned()->index();
+            $table->bigInteger('company_id')->unsigned()->index();
             $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
             $table->timestamps();
         });
