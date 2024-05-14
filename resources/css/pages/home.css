@@ -181,6 +181,13 @@ body {
     flex-wrap: wrap;
 }
 
+.lowongan-img {
+    width: 250px;
+    height: auto;
+    margin: 0 auto; /* Membuat gambar berada di tengah secara horizontal */
+    display: block; /* Menjamin bahwa margin: 0 auto; berfungsi dengan baik */
+}
+
 /* End Section: Lowongan */
 
 /* Start Section: Pengumuman */
@@ -269,6 +276,14 @@ body {
 
 .article-list > * {
     flex: 0 0 30%;
+}
+
+.illustration-error {
+    width: 250px; /* Atur lebar tetap */
+    height: 250px; /* Atur tinggi tetap */
+    margin: 0 auto; /* Membuat gambar berada di tengah secara horizontal */
+    display: block; /* Memastikan margin: 0 auto; berfungsi dengan baik */
+    object-fit: contain; /* Memastikan gambar sesuai dengan ukuran tanpa distorsi */
 }
 
 /* End Scetion: Article */

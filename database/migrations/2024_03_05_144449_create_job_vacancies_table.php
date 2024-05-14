@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('position');
             $table->string('location')->nullbale();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('additional_information')->nullable();
             $table->datetime('deadline');
             $table->bigInteger('company_id')->unsigned()->index();
