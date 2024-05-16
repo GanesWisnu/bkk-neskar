@@ -1,5 +1,13 @@
 @section('style')
-    @vite(['resources/css/root.css', 'resources/css/pages/pengumuman.css', 'resources/css/components/navbar.css', 'resources/css/components/button.css', 'resources/css/components/card-pengumuman.css', 'resources/css/layouts/footer.css'])
+    {{-- @vite(['resources/css/root.css', 'resources/css/pages/pengumuman.css', 'resources/css/components/navbar.css', 'resources/css/components/button.css', 'resources/css/components/card-pengumuman.css', 'resources/css/layouts/footer.css']) --}}
+
+    <link rel="stylesheet" href="{{ asset('css/root.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages/pengumuman.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/card-lowongan.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/card-article.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/layouts/footer.css') }}">
 
     {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
