@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('ALTER TABLE `job_vacancies` ADD `code` VARCHAR NULL;');
+        DB::statement('ALTER TABLE `job_vacancies` ADD `code` VARCHAR(255) NULL;');
     }
 
     /**

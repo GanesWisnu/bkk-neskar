@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         //
-        DB::statement('DROP INDEX users_email_unique;');
+        DB::statement('DROP INDEX users_email_unique on users;');
         DB::statement('ALTER TABLE `users` DROP email;');
-        DB::statement('ALTER TABLE `users` ADD `username` VARCHAR;');
+        DB::statement('ALTER TABLE `users` ADD `username` VARCHAR(255);');
 
         DB::statement('ALTER TABLE `article` ADD `image_cover` TEXT NULL;');
 
-        DB::statement('ALTER TABLE `acceptance_vacancies` ADD `name` VARCHAR;');
+        DB::statement('ALTER TABLE `acceptance_vacancies` ADD `name` VARCHAR(255);');
     }
 
     /**
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         //
         DB::statement('ALTER TABLE `users` DROP `username`;');
-        DB::statement('ALTER TABLE `users` ADD `email` VARCHAR ;');
+        DB::statement('ALTER TABLE `users` ADD `email` VARCHAR(255) ;');
         DB::statement('CREATE UNIQUE INDEX ux_friend_name ON users(email);');
 
         DB::statement('ALTER TABLE `article` DROP `image_cover`;');
