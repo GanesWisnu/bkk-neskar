@@ -29,35 +29,6 @@
             <i class="bi bi-table text-white"></i>
             &nbsp;Export Excel
         </button>
-
-        <div class="w-100 mt-4 d-flex flex-column justify-content-end">
-            <button class="btn btn-light align-self-end" type="button" data-bs-toggle="collapse" data-bs-target="#filter-collapse">
-                <i class="bi bi-filter-left"></i>
-                &nbsp;Filter data
-            </button>
-
-            <div id="filter-collapse" class="collapse mt-2">
-                <form method="">
-                    <div class="card card-body border border-0 align-items-start flex-row gap-3 flex-wrap">
-                        {{-- <div class="input-group align-items-start w-25">
-                            <select name="filter1" class="form-select border border-1" aria-label="Default select example" style="max-width: 25%">
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                            <input name="filter_value1" type="text" class="form-control border border-1" aria-label="Text input with dropdown button">
-                        </div> --}}
-                        <button type="button" class="btn btn-dark" id="add-filter">
-                            <i class="bi bi-plus text-white"></i>
-                        </button>
-                    </div>
-                    <div class="card card-footer border border-0">
-                        <input type="submit" class="btn btn-outline-primary w-100" value="Cari">
-                    </div>
-                </form>
-            </div>
-        </div>
-
         @include('pages.admin.pelamar.show')
 
     </div>

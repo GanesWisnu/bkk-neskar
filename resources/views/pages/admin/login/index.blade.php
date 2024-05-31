@@ -33,6 +33,35 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <title>Document</title>
+    <style>
+        .logo-image {
+            width: 550px; /* Sesuaikan lebar logo sesuai kebutuhan */
+            height: auto; /* Pertahankan aspek rasio logo */
+            margin-bottom: 20px; /* Tambahkan jarak antara gambar dan teks "Login" */
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .login-container {
+            max-width: 400px; /* Sesuaikan lebar kontainer login */
+            margin: 0 auto; /* Pusatkan kontainer login */
+            padding: 20px; /* Tambahkan padding di dalam kontainer */
+            border: 1px solid #ccc; /* Tambahkan border */
+            border-radius: 10px; /* Tambahkan border radius */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Tambahkan shadow */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Tambahkan margin bawah pada setiap grup form */
+        }
+
+        .btn-primary {
+            width: 100%; /* Buat tombol mengambil lebar penuh */
+            padding: 10px; /* Tambahkan padding pada tombol */
+        }
+    </style>
 </head>
 <body class="container d-flex justify-content-center align-items-center vw-100 vh-100">
     @if(session()->has('message'))
@@ -42,7 +71,10 @@
     @endif
     <form action="{{ route('login.post') }}" method="POST" class="d-flex flex-column w-50 bg-white shadow-sm h-auto d-block p-5 rounded rounded-md border border gap-3">
         @csrf
-        <h1 class="text-center">Login</h1>
+        <h1 class="text-center">Admin</h1>
+        <div class="logo-container text-center">
+            <img src="{{ asset('images/logo-bkk.png') }}" alt="Logo" class="logo-image">
+        </div>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username">

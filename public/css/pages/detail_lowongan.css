@@ -114,7 +114,6 @@
 .other-lowongan-list {
     margin-top: 1.2rem;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     gap: 2rem 1rem;
 }

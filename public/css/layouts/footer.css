@@ -8,6 +8,7 @@ footer {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+    bottom: 0; /* Menempelkan footer di bagian bawah layar */
 }
 
 .footer-location_container {
@@ -51,6 +52,20 @@ footer {
 
 .location-address {
     color: var(--black-75);
+}
+
+@media screen and (max-width: 768px) {
+    footer {
+        gap: 1rem;
+    }
+    .footer-location_container {
+        max-width: 100%; /* Mengubah lebar maksimum menjadi 100% saat tampilan mobile */
+    }
+    
+    .location-address {
+        word-wrap: break-word; /* Atur pematahan kata saat tampilan mobile */
+        /* atau bisa juga menggunakan overflow-wrap: break-word; */
+    }
 }
 
 .contact-list {

@@ -40,24 +40,30 @@
         <div class="lowongan-form">
             @if(!$job_vacancy->criterias->isEmpty())
             <h3 class="form-title">Form Pendaftaran</h3>
-            <form action="{{ route('admin.pelamar.store') }}" method="POST">
+            @if(session('success'))
+                <div class="alert alert-success" style="padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <form action="{{ route('user.pelamar.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="job_vacancies_id" value="{{ $job_vacancy->id }}">
                 @foreach($job_vacancy->criterias as $key => $value)
                     <div class="form-inputs-container">
                         <div class="form-field-container">
                             <label for="name" class="form-label">{{ $value->name }}</label>
-                            <input type="{{ $value->input_type }}" name="{{ $value->name }}" id="name" class="form-input" required placeholder="Tulis nama lengkapmu disini">
+                            <input type="{{ $value->input_type }}" name="{{ $value->name }}" id="name" class="form-input" required placeholder="">
                         </div>
                     </div>
                 @endforeach
-                <x-forms.button variant="primary" size="sm" type="submit" style="width: 100%;">Lamar Sekarang</x-forms.button>
+                <x-forms.button variant="primary" size="sm" type="submit" style="width: 100%;">Submit</x-forms.button>
             </form>
             @else
             <h3 class="form-title">Pendaftaran Belum Dibuka</h3>
             <p>Tunggu informasi selanjutnya. Jika terdapat kesalahan terhadap informasi ini, hubungi kami.</p>
             @endif
         </div>
+
     </div>
 
     <div class="other-lowongan-container">

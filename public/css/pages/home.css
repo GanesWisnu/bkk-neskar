@@ -59,6 +59,44 @@ body {
     transform-origin: bottom center;
 }
 
+@media screen and (max-width: 768px) {
+    .cta-page {
+        height: 70vh;
+        padding-top: 30%;
+    }
+
+    .illustration-person {
+        display: none;
+    }
+
+    .cta-info {
+        width: 100%;
+        display: grid;
+        place-content: center;
+        max-height: 90%;
+    }
+    
+    .cta-info > button {
+        width: fit-content;
+    }
+
+    .illustration {
+        flex: 68%;
+        aspect-ratio: 1;
+        position: absolute;
+        right: 0;
+        bottom: 90px;
+        z-index: -1;
+    }
+    .meta-headline {
+        max-width: 90%;
+        font-size: xxx-large;
+    }
+    .meta-description {
+        max-width: 70%;
+    }
+}
+
 
 .illustration-background {
     bottom: -23%;
@@ -181,6 +219,13 @@ body {
     flex-wrap: wrap;
 }
 
+.lowongan-img {
+    width: 250px;
+    height: auto;
+    margin: 0 auto; /* Membuat gambar berada di tengah secara horizontal */
+    display: block; /* Menjamin bahwa margin: 0 auto; berfungsi dengan baik */
+}
+
 /* End Section: Lowongan */
 
 /* Start Section: Pengumuman */
@@ -191,6 +236,15 @@ body {
     width: 100%;
     padding-right: var(--page-padding);
     display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    .pengumuman {
+        padding: 20px var(--page-padding) 20px 0;
+    }
+    .illustration-person_pengumuman {
+        display: none;
+    }
 }
 
 .pengumuman-illustration {
@@ -237,8 +291,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 3.2rem;
-    overflow: hidden;
 }
+
 
 .article-headings {
     display: flex;
@@ -259,16 +313,41 @@ body {
 .article-list {
     display: inline-flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 3rem;
+    gap: 2rem;
     flex: 1 0 0;
     align-self: stretch;
     flex-wrap: wrap;
+    max-height: max-content;
 }
 
 .article-list > * {
     flex: 0 0 30%;
+}
+
+@media screen and (max-width: 768px) {
+    .article {
+        gap: 2rem;
+        max-height: max-content;
+    }
+    .article-list {
+        gap: 1rem; /* Mengurangi jarak antara item saat tampilan mobile */
+    }
+    .article-list > * {
+        flex: 0 0 100%; /* Mengubah card menjadi full width saat tampilan mobile */
+        max-height: calc(60vh / 3 - 3rem); /* Mengatur tinggi maksimum card agar sesuai dengan 1/3 dari tinggi layar dikurangi dengan jarak antar card */
+        gap: .3rem; /* Mengurangi jarak antara item saat tampilan mobile */
+    }
+}
+
+.illustration-error {
+    max-width: 100%; /* Membuat gambar responsif */
+    max-height: 250px; /* Batasi tinggi maksimum gambar */
+    margin: 0 auto; /* Membuat gambar berada di tengah secara horizontal */
+    display: block; /* Memastikan margin: 0 auto; berfungsi dengan baik */
+    object-fit: contain; /* Memastikan gambar sesuai dengan ukuran tanpa distorsi */
 }
 
 /* End Scetion: Article */

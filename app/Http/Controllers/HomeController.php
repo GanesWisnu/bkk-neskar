@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\AcceptanceVacancies;
 use App\Models\Company;
 use Illuminate\Support\Facades\Response;
+use App\Models\ApplicantsVacancies;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,18 @@ class HomeController extends Controller
         $job_vacancy = JobVacancies::find($id);
         $other_job_vacancies = JobVacancies::where('deadline', '>', date('Y-m-d'))->where('id', '!=', $id)->get();
         return view('pages.user.detail_lowongan', ['job_vacancy' => $job_vacancy, 'other_job_vacancies' => $other_job_vacancies]);
+    }
+    
+    function storeJobApplication(Request $request)
+    {
+        $applicant = ApplicantsVacancies::create([
+            'job_vacancies_id' => $request->get('job_vacancies_id'),
+            'data' => json_encode($request->except(['_token', '_method', 'job_vacancies_id']))
+        ]);
+    
+        session()->flash('success', 'Pendaftaran Berhasil !');
+        
+        return redirect()->route('user.lowongan.show', ['id' => $request->get('job_vacancies_id')]);
     }
 
     function showArticle($id)

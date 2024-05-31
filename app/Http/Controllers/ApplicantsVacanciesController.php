@@ -37,15 +37,16 @@ class ApplicantsVacanciesController extends Controller
      */
     public function store(Request $request)
     {
-
-        $applicant = ApplicantsVacancies::create([
-            'job_vacancies_id' => $request->get('job_vacancies_id'),
-            'data' => json_encode($request->except(['_token', '_method', 'job_vacancies_id']))
-        ]);
-
-        // return redirect()->route('admin.pelamar');
-        return redirect()->back();
+        // $applicant = ApplicantsVacancies::create([
+        //     'job_vacancies_id' => $request->get('job_vacancies_id'),
+        //     'data' => json_encode($request->except(['_token', '_method', 'job_vacancies_id']))
+        // ]);
+    
+        // session()->flash('success', 'Pendaftaran Berhasil !');
+        
+        // return redirect()->route('user.lowongan.show', ['id' => $request->get('job_vacancies_id')]);
     }
+
 
     /**
      * Display the specified resource.
@@ -83,72 +84,71 @@ class ApplicantsVacanciesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
-    {
-        //
-        $applicant = ApplicantsVacancies::find($id);
-        $applicant->delete();
-
-    }
-
     public function export_data()
     {
         $applicants = ApplicantsVacancies::all();
         $collection = $applicants->unique('job_vacancies_id');
-        $test = array();
         $spreadsheet = new Spreadsheet();
-        // $sheet = $spreadsheet->getActiveSheet();
-        $alphas = range('a', 'z');
-        foreach($collection as $key => $column){
+    
+        // Function to generate Excel column names
+        function getColumnLetter($index) {
+            $letters = '';
+            while ($index >= 0) {
+                $letters = chr($index % 26 + 65) . $letters;
+                $index = floor($index / 26) - 1;
+            }
+            return $letters;
+        }
+    
+        foreach ($collection as $key => $column) {
             $job_applicants = ApplicantsVacancies::where('job_vacancies_id', $column->job_vacancies_id)->get();
             $sheet = $spreadsheet->createSheet($key);
             // Set sheet title
             $sheet->setTitle('Sheet ' . $column->vacancies->code);
+    
+            // Add headers
             $index = 0;
-            foreach (array_keys($job_applicants[0]->toArray()) as $key=>$value){
-                if ($value == 'data'){
-                    foreach(array_keys($job_applicants[0]->data) as $key2 => $value2){
-                        $sheet->setCellValue(implode([$alphas[$index], 1]), $value2);
+            foreach (array_keys($job_applicants[0]->toArray()) as $key => $value) {
+                if ($value == 'data') {
+                    foreach (array_keys($job_applicants[0]->data) as $key2 => $value2) {
+                        $sheet->setCellValue(getColumnLetter($index) . '1', $value2);
                         $index++;
                     }
-                } else{
-                    $sheet->setCellValue(implode([$alphas[$index], 1]), $value);
+                } else {
+                    $sheet->setCellValue(getColumnLetter($index) . '1', $value);
                     $index++;
                 }
             }
-
-            $index = 0;
-            foreach($job_applicants as $key => $value){
-                foreach(array_keys($value->toArray()) as $key2=> $value2){
-                    if($value2 !== 'data'){
-                        if ($value2 == 'vacancies'){
-                            $sheet->setCellValue(implode([$alphas[$index], $key+2]), $value[$value2]->code);
-                        }else{
-                            $sheet->setCellValue(implode([$alphas[$index], $key+2]), $value[$value2]);
+    
+            // Add data rows
+            foreach ($job_applicants as $rowIndex => $applicant) {
+                $index = 0;
+                foreach (array_keys($applicant->toArray()) as $key2 => $value2) {
+                    if ($value2 !== 'data') {
+                        if ($value2 == 'vacancies') {
+                            $sheet->setCellValue(getColumnLetter($index) . ($rowIndex + 2), $applicant[$value2]->code);
+                        } else {
+                            $sheet->setCellValue(getColumnLetter($index) . ($rowIndex + 2), $applicant[$value2]);
                         }
                         $index++;
-                    } else{
-                        foreach(array_keys($value->data) as $key3 => $value3){
-                            $sheet->setCellValue(implode([$alphas[$index], $key+2]), $value->data[$value3]);
+                    } else {
+                        foreach (array_keys($applicant->data) as $key3 => $value3) {
+                            $sheet->setCellValue(getColumnLetter($index) . ($rowIndex + 2), $applicant->data[$value3]);
                             $index++;
                         }
                     }
                 }
             }
         }
-
-
-
-
+    
         $writer = new Xlsx($spreadsheet);
-        // $writer->save('example.xlsx');
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         header("Content-Disposition: attachment;filename=\"export_data_pelamar.xlsx\"");
         header("Cache-Control: max-age=0");
         header("Expires: Fri, 11 Nov 2011 11:11:11 GMT");
-        header("Last-Modified: ". gmdate("D, d M Y H:i:s") ." GMT");
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
         header("Cache-Control: cache, must-revalidate");
         header("Pragma: public");
         $writer->save("php://output");
-    }
+}
 }
