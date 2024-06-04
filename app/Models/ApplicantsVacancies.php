@@ -31,7 +31,7 @@ class ApplicantsVacancies extends Model
     public function generateId()
     {
         $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 110000;   
+        $this->id = $latestUser ? $latestUser->id + 1 : 150000;   
     }
 
 
