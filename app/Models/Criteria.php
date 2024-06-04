@@ -17,4 +17,22 @@ class Criteria extends Model
         "input_type"
     ];
 
+    public $incrementing = false;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model)
+        {
+            $model->generateId();
+        });
+    }
+
+    public function generateId()
+    {
+        $latestUser = self::orderBy('id', 'desc')->first();
+        $this->id = $latestUser ? $latestUser->id + 1 : 110000;   
+    }
+
 }

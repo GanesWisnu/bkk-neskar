@@ -15,4 +15,22 @@ class JobVacanciesCriteria extends Model
         'criteria_id',
         'job_vacancies_id'
     ];
+
+    public $incrementing = false;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model)
+        {
+            $model->generateId();
+        });
+    }
+
+    public function generateId()
+    {
+        $latestUser = self::orderBy('id', 'desc')->first();
+        $this->id = $latestUser ? $latestUser->id + 1 : 110000;   
+    }
 }
