@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('article', function (Blueprint $table) {
-            $table->bigInteger('article_id')->unsigned()->primary();
+            $table->mediumInteger('article_id')->primary();
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->string('slug')->nullable()->unique();
             $table->text('content');
+            $table->mediumInteger('user_id')->index();
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete("cascade");
             $table->boolean('published')->default(0);
             $table->timestamps();
         });

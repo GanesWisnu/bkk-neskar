@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('criteria', function (Blueprint $table) {
-            $table->bigInteger('criteria_id')->unsigned()->primary();
+            $table->mediumInteger('criteria_id')->primary();
             $table->string('name');
             $table->string('input_type');
+            $table->mediumInteger('user_id')->index();
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete("cascade");
             $table->timestamps();
         });
     }

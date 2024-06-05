@@ -56,6 +56,7 @@ class ArticleController extends Controller
         $validate = $request->except(['image_cover', '_token']);
 
         $validate['image_cover'] = $imageName;
+        $validate['user_id'] = $request->user->id;
 
         $article = Article::create($validate);
         $article->save();
