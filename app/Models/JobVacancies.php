@@ -35,7 +35,14 @@ class JobVacancies extends Model
 
         static::creating(function ($model) {
             $model->generateCode();
+            $model->generateId();
         });
+    }
+
+    public function generateId()
+    {
+        $latest = self::orderBy('id', 'desc')->first();
+        $this->id = $latest ? $latest->id + 1 : 180000;
     }
 
     public function generateCode()

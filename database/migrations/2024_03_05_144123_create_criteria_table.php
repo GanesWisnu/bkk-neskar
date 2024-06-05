@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('criteria', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('criteria_id')->unsigned()->primary();
             $table->string('name');
             $table->string('input_type');
             $table->timestamps();
