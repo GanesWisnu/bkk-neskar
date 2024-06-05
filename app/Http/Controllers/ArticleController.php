@@ -99,7 +99,7 @@ class ArticleController extends Controller
     public function update(Request $request, string $id)
     {
         // dd($request->all());
-        $article = Article::where('id', $id)->first();
+        $article = Article::where('article_id', $id)->first();
 
         if($request->has('image_cover')){
             $path = public_path('images/upload/');

@@ -30,7 +30,7 @@ class Article extends Model
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 140000;   
+        $latest = self::orderBy('article_id', 'desc')->first();
+        $this->article_id = $latest ? $latest->article_id + 1 : 140000;
     }
 }

@@ -32,23 +32,23 @@ class HomeController extends Controller
         $other_job_vacancies = JobVacancies::where('deadline', '>', date('Y-m-d'))->where('id', '!=', $id)->get();
         return view('pages.user.detail_lowongan', ['job_vacancy' => $job_vacancy, 'other_job_vacancies' => $other_job_vacancies]);
     }
-    
+
     function storeJobApplication(Request $request)
     {
         $applicant = ApplicantsVacancies::create([
             'job_vacancies_id' => $request->get('job_vacancies_id'),
             'data' => json_encode($request->except(['_token', '_method', 'job_vacancies_id']))
         ]);
-    
+
         session()->flash('success', 'Pendaftaran Berhasil !');
-        
+
         return redirect()->route('user.lowongan.show', ['id' => $request->get('job_vacancies_id')]);
     }
 
     function showArticle($id)
     {
         $article = Article::find($id);
-        $other_articles = Article::where('id', '!=', $id)->get();
+        $other_articles = Article::where('article_id', '!=', $id)->get();
         return view('pages.user.informasi', ['article' => $article, 'other_articles' => $other_articles]);
     }
 

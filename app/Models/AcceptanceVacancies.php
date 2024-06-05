@@ -32,8 +32,8 @@ class AcceptanceVacancies extends Model
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 160000;   
+        $latest = self::orderBy('acceptance_vacancies_id', 'desc')->first();
+        $this->acceptance_vacancies_id = $latest ? $latest->acceptance_vacancies_id + 1 : 160000;
     }
 
     public function job_vacancies() {

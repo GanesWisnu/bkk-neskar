@@ -41,8 +41,8 @@ class JobVacancies extends Model
 
     public function generateId()
     {
-        $latest = self::orderBy('id', 'desc')->first();
-        $this->id = $latest ? $latest->id + 1 : 180000;
+        $latest = self::orderBy('job_vacancies_id', 'desc')->first();
+        $this->job_vacancies_id = $latest ? $latest->job_vacancies_id + 1 : 180000;
     }
 
     public function generateCode()

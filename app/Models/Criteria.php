@@ -31,8 +31,8 @@ class Criteria extends Model
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 120000;   
+        $latest = self::orderBy('criteria_id', 'desc')->first();
+        $this->criteria_id = $latest ? $latest->criteria_id + 1 : 120000;
     }
 
 }

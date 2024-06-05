@@ -17,7 +17,7 @@ class ApplicantsVacancies extends Model
         "data",
         'job_vacancies_id',
     ];
-    
+
     public static function boot()
     {
         parent::boot();
@@ -30,8 +30,8 @@ class ApplicantsVacancies extends Model
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 150000;   
+        $latest = self::orderBy('applicants_vacancies_id', 'desc')->first();
+        $this->applicants_vacancies_id = $latest ? $latest->applicants_vacancies_id + 1 : 150000;
     }
 
 

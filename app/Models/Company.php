@@ -33,7 +33,7 @@ class Company extends Model
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 130000;   
+        $latest = self::orderBy('company_id', 'desc')->first();
+        $this->company_id = $latest ? $latest->company_id + 1 : 130000;
     }
 }

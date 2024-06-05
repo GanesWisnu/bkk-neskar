@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 100000;   
+        $latest = self::orderBy('user_id', 'desc')->first();
+        $this->user_id = $latest ? $latest->user_id + 1 : 100000;
     }
 }

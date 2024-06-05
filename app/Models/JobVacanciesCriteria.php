@@ -30,7 +30,7 @@ class JobVacanciesCriteria extends Model
 
     public function generateId()
     {
-        $latestUser = self::orderBy('id', 'desc')->first();
-        $this->id = $latestUser ? $latestUser->id + 1 : 170000;   
+        $latest = self::orderBy('job_vacancies_criteria_id', 'desc')->first();
+        $this->job_vacancies_criteria_id = $latest ? $latest->job_vacancies_criteria_id + 1 : 170000;
     }
 }
