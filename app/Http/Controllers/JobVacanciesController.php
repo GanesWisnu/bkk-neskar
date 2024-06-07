@@ -25,7 +25,7 @@ class JobVacanciesController extends Controller
         $job_vacancies = JobVacancies::all();
         foreach($job_vacancies as $job){
             $job->company = $job->company;
-            $job->sumOfRegistered = ApplicantsVacancies::where('job_vacancies_id', $job->id)->count();
+            $job->sumOfRegistered = ApplicantsVacancies::where('job_vacancies_id', $job->job_vacancies_id)->count();
         }
         $job_vacancies_criterias = JobVacanciesCriteria::all();
         $companies = Company::all();
@@ -64,7 +64,7 @@ class JobVacanciesController extends Controller
         // dd($job_vacancies);
         if ($job_vacancies->save()){
             foreach ($criterias['criterias'] as $criteria) {
-                $job_vacancies_criteria = JobVacanciesCriteria::create(["job_vacancies_id"=>$job_vacancies->id, "criteria_id"=>(int)$criteria]);
+                $job_vacancies_criteria = JobVacanciesCriteria::create(["job_vacancies_id"=>$job_vacancies->job_vacancies_id, "criteria_id"=>(int)$criteria]);
                 $job_vacancies_criteria->save();
             }
             return redirect()->route('admin.lowongan');
@@ -103,20 +103,20 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($lowongan);
-        $current_criterias = JobVacanciesCriteria::where('job_vacancies_id', $job_vacancies->id)->get(['criteria_id']);
+        $current_criterias = JobVacanciesCriteria::where('job_vacancies_id', $job_vacancies->job_vacancies_id)->get(['criteria_id']);
         $test = array();
         // dd($request->get('criterias'));
         if ($request->has('criterias')){
             foreach($request->get('criterias') as $criteria){
                 JobVacanciesCriteria::where([
-                    ["job_vacancies_id", "=", $job_vacancies->id],
+                    ["job_vacancies_id", "=", $job_vacancies->job_vacancies_id],
                     ["criteria_id", "=", $criteria]
-                ])->firstOrCreate(['job_vacancies_id'=>$job_vacancies->id, 'criteria_id'=>$criteria]);
+                ])->firstOrCreate(['job_vacancies_id'=>$job_vacancies->job_vacancies_id, 'criteria_id'=>$criteria]);
             }
             foreach($current_criterias as $current_criteria){
                 if (!in_array($current_criteria->criteria_id, $request->get('criterias'))){
                     JobVacanciesCriteria::where([
-                        'job_vacancies_id'=>$job_vacancies->id,
+                        'job_vacancies_id'=>$job_vacancies->$job_vacancies_id,
                         'criteria_id'=>$current_criteria->criteria_id
                     ])->delete();
                 }
@@ -138,7 +138,7 @@ class JobVacanciesController extends Controller
     {
         //
         $job_vacancies = JobVacancies::find($lowongan);
-        JobVacanciesCriteria::where('job_vacancies_id', '=', $job_vacancies->id)->each(function ($items, $key){
+        JobVacanciesCriteria::where('job_vacancies_id', '=', $job_vacancies->job_vacancies_id)->each(function ($items, $key){
             $items->delete();
         } );
         $job_vacancies->delete();
@@ -146,8 +146,8 @@ class JobVacanciesController extends Controller
     }
     public function destroy_criteria_job_vacancies(int $lowongan, int $criteria_id){
         $job_vacancies_criteria = JobVacanciesCriteria::where([
-            ["job_vacancies_id", "=", $job_vacancies->id],
-            ["criteria_id", "=", $cirteria->id]
+            ["job_vacancies_id", "=", $job_vacancies->job_vacancies_id],
+            ["criteria_id", "=", $cirteria->criteria_id]
         ])->first();
 
         $job_vacancies_criteria->delete();
