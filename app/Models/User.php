@@ -60,4 +60,9 @@ class User extends Authenticatable
         $latest = self::orderBy('user_id', 'desc')->first();
         $this->user_id = $latest ? $latest->user_id + 1 : 100000;
     }
+
+    public function getAuthIdentifierName()
+    {
+        return "user_id";
+    }
 }
