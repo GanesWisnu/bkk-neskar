@@ -42,7 +42,7 @@ class CriteriaController extends Controller
         $request = $request->except(['csrf_token']);
 
         $criteria = Criteria::create($request);
-        $validate['user_id'] = $request->user->user_id;
+        $validate['user_id'] = $request->user()->user_id;
 
         if($criteria->save()){
             return redirect()->route('admin.kriteria');

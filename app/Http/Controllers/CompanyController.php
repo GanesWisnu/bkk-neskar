@@ -57,7 +57,7 @@ class CompanyController extends Controller
         $validate = $request->except(['image', '_token']);
 
         $validate['image'] = $imageName;
-        $validate['user_id'] = $request->user->user_id;
+        $validate['user_id'] = $request->user()->user_id;
 
         $company = Company::create($validate);
         $company->save();
