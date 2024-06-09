@@ -39,15 +39,16 @@
     const vacancies_criterias = {!! json_encode($job_vacancies_criterias) !!};
 
     function handleEdit(id) {
-        const lowongan = tableData.find(lowongan => lowongan.id === id)
+        const lowongan = tableData.find(lowongan => lowongan.job_vacancies_id === id)
+        console.log(lowongan)
         const kriteria = vacancies_criterias.filter(kriteria => kriteria.job_vacancies_id === id)
-        $('#edit-form').attr('action', `/api/admin/lowongan/${lowongan.id}`)
-        $('#editLowonganModal').find('select[name="company_id"]').val(lowongan.company.id.toString())
+        $('#edit-form').attr('action', `/api/admin/lowongan/${lowongan.job_vacancies_id}`)
+        $('#editLowonganModal').find('select[name="company_id"]').val(lowongan.company.company_id.toString())
         const selectedCriteria = kriteria.map(kriteria => kriteria.criteria_id.toString())
         console.log({selectedCriteria})
         $('#kriteria-dropdown-edit').val(selectedCriteria);
         $('#kriteria-dropdown-edit').trigger('change');
-        
+
         $('#editLowonganModal').find('input[name="position"]').val(lowongan.position)
         $('#editLowonganModal').find('input[name="location"]').val(lowongan.location)
         $('#editLowonganModal').find('textarea[name="description"]').text(lowongan.description);
@@ -62,7 +63,7 @@
     }
 
     function showDescription(id) {
-        const lowongan = tableData.find(lowongan => lowongan.id === id)
+        const lowongan = tableData.find(lowongan => lowongan.job_vacancies_id === id)
         $('#detailLowonganModalLabel').text(`Deskripsi Lowongan - ${lowongan.code}`)
         $('#LowonganDetailsBody').html(lowongan.description)
     }
@@ -82,7 +83,7 @@
                 {
                     title: "Deskripsi",
                     render: function (data, type, row) {
-                        return `<button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailLowonganModal" onclick="showDescription(${row.id})"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Deskripsi</button>`;
+                        return `<button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailLowonganModal" onclick="showDescription(${row.job_vacancies_id})"><i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Deskripsi</button>`;
                     }
                 },
                 {
@@ -90,7 +91,7 @@
                     render: function (data, type, row) {
                         return `
                         <form action={{route('api.admin.lowongan.export', ['file'=>'pengumuman'])}}>
-                            <input type="hidden" name='id' value="${row.id}" />
+                            <input type="hidden" name='id' value="${row.job_vacancies_id}" />
                             <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden">
                                 <i class="bi bi-download text-white"></i>
                                 &nbsp;Export Data
@@ -103,7 +104,7 @@
                 {
                     title: "Action",
                     render: function (data, type, row) {
-                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete(${row.id}, '${row.code}')" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
+                        return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.job_vacancies_id})" data-bs-toggle="modal" data-bs-target="#editLowonganModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button><button class="btn btn-danger btn-sm" onclick="handleDelete(${row.job_vacancies_id}, '${row.code}')" data-bs-toggle="modal" data-bs-target="#deleteLowonganModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>`;
                     }
                 }
             ]

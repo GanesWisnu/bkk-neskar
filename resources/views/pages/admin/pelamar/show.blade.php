@@ -15,7 +15,6 @@
 
 <script>
     const tableData = {!! json_encode($applicants) !!};
-    console.log({tableData})
     let selectedData = [];
     let selectedDataId;
 
@@ -51,7 +50,7 @@
         $('#pelamarDetailsBody').empty();
         $('#detailPelamarModalLabel').text(`Detail Pelamar - ${id}`);
         selectedDataId = id;
-        selectedData = tableData.find(p => p.id === id);
+        selectedData = tableData.find(p => p.applicants_vacancies_id === id);
         console.log({selectedData, keys: Object.keys(selectedData)})
         $('#pelamarDetailsBody').append(`
             <tr>
@@ -76,7 +75,7 @@
                     render: (data, type, row, meta) => meta.row + meta.settings._iDisplayStart + 1  ,
                     width: "5%"
                 },
-                { title: "No Regsitrasi", data: "id"},
+                { title: "No Regsitrasi", data: "applicants_vacancies_id"},
                 // { title: "Lowongan", data: "lowongan"},
                 {
                     title: "Tanggal Registrasi",
@@ -88,7 +87,7 @@
                     title: "Detail Pelamar",
                     render: function (data, type, row) {
                         return `
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailPelamarModal" onclick="showDetails(${row.id})">
+                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detailPelamarModal" onclick="showDetails(${row.applicants_vacancies_id})">
                                 <i class="bi bi-justify-left text-white"></i>&nbsp;Lihat Detail
                             </button>
                         `;

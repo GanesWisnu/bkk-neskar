@@ -16,6 +16,7 @@ class Article extends Model
         'subtitle',
         'content',
         'image_cover',
+        'user_id',
     ];
 
     public static function boot()

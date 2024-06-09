@@ -132,8 +132,7 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         //
-        $article = Article::where('id', $id)->first();
-        $article->delete();
+        $article = Article::where('article_id', $id)->delete();
         return redirect()->route('admin.article');
     }
 }

@@ -19,7 +19,7 @@
         const tableData = {!! json_encode($user) !!}
 
         function handleEdit(id) {
-            const user = tableData.find(user => user.id === id)
+            const user = tableData.find(user => user.user_id === id)
             console.log({user})
             $('#edit-form').attr('action', "/api/admin/user/"+id)
             $('#editUserModal').find('input[name="username"]').val(user.username)
@@ -58,7 +58,7 @@
                     {
                         title: "Action",
                         render: function (data, type, row) {
-                            return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.id})" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button> <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}', '${row.username}')" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Delete</button>`;
+                            return `<button class="btn btn-secondary btn-sm me-2" onclick="handleEdit(${row.user_id})" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button> <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.user_id}', '${row.username}')" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Delete</button>`;
                         }
                     }
                 ]

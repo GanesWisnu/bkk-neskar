@@ -9,12 +9,14 @@ class Criteria extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'criteria_id';
 
     protected $table = 'criteria';
 
     protected $fillable = [
         "name",
-        "input_type"
+        "input_type",
+        'user_id',
     ];
 
     public $incrementing = false;

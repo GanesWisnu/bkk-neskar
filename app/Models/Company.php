@@ -16,7 +16,8 @@ class Company extends Model
         "image",
         "address",
         "description",
-        'telephone'
+        'telephone',
+        'user_id',
     ];
 
     public $incrementing = false;

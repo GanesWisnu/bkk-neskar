@@ -45,14 +45,14 @@ class UserController extends Controller
 
     public function edit(int $id)
     {
-        $user = User::find($id);
+        $user = User::where("user_id",$id);
 
         return view('admin.user.edit', ['user' => $user]);
     }
 
     public function update(Request $request, int $id)
     {
-        $user = User::find($id);
+        $user = User::where("user_id",$id);
 
         if($request['password'] == null){
             unset($request['password']);
@@ -65,9 +65,9 @@ class UserController extends Controller
                 'password_confirmation' => 'required|same:password'
             ]);
         }
-        $request = $request->except(['csrf_token']);
+        $request = $request->except(['_token', '_method', 'password_confirmation']);
 
-        if($user->update($request)){
+        if(User::where("user_id",$id)->update($request)){
             $users = User::all();
             return redirect()->route('admin.user-config', ['user' => $users]);
         }
@@ -75,8 +75,8 @@ class UserController extends Controller
 
     public function destroy(int $id)
     {
-        $user = User::find($id);
-        if ($user->delete()){
+
+        if (User::where("user_id",$id)->delete()){
             $user = User::all();
             return redirect()->route('admin.user-config', ['user' => $user]);
         }
@@ -126,7 +126,7 @@ class UserController extends Controller
 
         $user = User::where('email', $request->email)->get();
         if ($user){
-            $user->update([
+            User::where('email', $request->email)->update([
                 'password' => $request->password
             ]);
 

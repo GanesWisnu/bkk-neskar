@@ -39,10 +39,10 @@ class CriteriaController extends Controller
             'input_type'=> 'required',
         ]);
 
-        $request = $request->except(['csrf_token']);
-
-        $criteria = Criteria::create($request);
+        $validate = $request->except(['csrf_token']);
         $validate['user_id'] = $request->user()->user_id;
+
+        $criteria = Criteria::create($validate);
 
         if($criteria->save()){
             return redirect()->route('admin.kriteria');
@@ -54,7 +54,7 @@ class CriteriaController extends Controller
      */
     public function show(int $id)
     {
-        $criterias = Criteria::find($id);
+        $criterias = Criteria::where("criteria_id",$id);
 
         return view('pages.admin.kriteria.show', ['criteria' => $criteria]);
     }
@@ -64,7 +64,7 @@ class CriteriaController extends Controller
      */
     public function edit(int $id)
     {
-        $criteria = Criteria::find($id);
+        $criterias = Criteria::where("criteria_id",$id);
 
         return view('pages.admin.kriteria.edit', ['criteria' => $criteria]);
     }
@@ -75,11 +75,9 @@ class CriteriaController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $criteria = Criteria::find($id);
+        $request = $request->except(['_token', '_method']);
 
-        $request = $request->except(['token_csrf']);
-
-        if ($criteria->update($request)){
+        if (Criteria::where("criteria_id",$id)->update($request)){
             return  redirect()->route('admin.kriteria');
         }
     }
@@ -90,8 +88,8 @@ class CriteriaController extends Controller
     public function destroy(string $id)
     {
         //
-        $criteria = Criteria::find($id);
-        if($criteria->delete()){
+        $criteria = Criteria::where("criteria_id",$id)->delete();
+        if($criteria){
             return redirect()->route('admin.kriteria');
         }
     }

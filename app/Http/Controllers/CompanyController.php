@@ -71,7 +71,7 @@ class CompanyController extends Controller
     public function show(int $id)
     {
         //
-        $company = Compay::find($id);
+        $company = Compay::where("company_id",$id)->first();
         return view('admin.company.show', ['company' => $company]);
     }
 
@@ -81,7 +81,7 @@ class CompanyController extends Controller
     public function edit(string $id)
     {
         //
-        $company = Company::find($id);
+        $company = Compay::where("company_id",$id)->first();
         return view('admin.company.edit', ['company'=>$company]);
     }
 
@@ -93,7 +93,7 @@ class CompanyController extends Controller
         //
 
         // dd($request);
-        $company = Company::find($id);
+        $company = $company = Compay::where("company_id",$id)->first();
         if($request->has('image')){
             $path = public_path('images/upload/');
             !is_dir($path) &&
@@ -102,13 +102,13 @@ class CompanyController extends Controller
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move($path, $imageName);
 
-            $validate = $request->except(['_token', 'image']);
+            $validate = $request->except(['_token', 'image', '_method']);
 
             $validate['image'] =$imageName;
         } else {
-            $validate = $request->except(['_token', 'image']);
+            $validate = $request->except(['_token', 'image', '_method']);
         }
-        $company->update($validate);
+        $company = Compay::where("company_id",$id)->update($validate);
         return redirect()->route('admin.perusahaan');
     }
 
@@ -117,8 +117,8 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        $company = Company::find($id);
-        if($company->delete()){
+        $company = Compay::where("company_id",$id)->delete();
+        if($company){
             return redirect()->route('admin.perusahaan');
         }
     }

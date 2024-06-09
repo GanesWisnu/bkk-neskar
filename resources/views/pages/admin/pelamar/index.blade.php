@@ -45,7 +45,7 @@
         console.log({count})
         const id = $(`select[name="filter${count}"]`).val();
         console.log({id, type: typeof id})
-        const filter = criteria.find(c => c.id === Number(id));
+        const filter = criteria.find(c => c.criteria_id === Number(id));
         if (filter) {
             console.log({filter});
             $(`#filter-input${count}`).find(`input[name="filter_value${count}"]`).attr('type', filter.input_type);
@@ -57,7 +57,7 @@
         $(`
             <div id="filter-input${currentFilterCount}" class="input-group align-items-start w-25">
                 <select name="filter${currentFilterCount}" class="form-select border border-1" aria-label="Default select example" style="max-width: 25%" onchange="getType(${currentFilterCount})">
-                    ${criteria.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                    ${criteria.map(c => `<option value="${c.criteria_id}">${c.name}</option>`).join('')}
                 </select>
                 <input name="filter_value${currentFilterCount}" type="text" class="form-control border border-1" aria-label="Text input with dropdown button">
             </div>
@@ -69,7 +69,7 @@
         $(`
             <div id="filter-input${currentFilterCount}" class="input-group align-items-start w-25">
                 <select name="filter${currentFilterCount}" class="form-select border border-1" aria-label="Default select example" style="max-width: 25%">
-                    ${criteria.map(c => `<option value="${c.id}" onclick="getType(${c.id}, ${currentFilterCount})">${c.name}</option>`).join('')}
+                    ${criteria.map(c => `<option value="${c.criteria_id}" onclick="getType(${c.criteria_id}, ${currentFilterCount})">${c.name}</option>`).join('')}
                 </select>
                 <input name="filter_value${currentFilterCount}" type="text" class="form-control border border-1" aria-label="Text input with dropdown button">
             </div>

@@ -28,8 +28,8 @@ class HomeController extends Controller
 
     function showJobApplication($id)
     {
-        $job_vacancy = JobVacancies::find($id);
-        $other_job_vacancies = JobVacancies::where('deadline', '>', date('Y-m-d'))->where('id', '!=', $id)->get();
+        $job_vacancy = JobVacancies::where("job_vacancies_id", $id)->first();
+        $other_job_vacancies = JobVacancies::where('deadline', '>', date('Y-m-d'))->where('job_vacancies_id', '!=', $id)->get();
         return view('pages.user.detail_lowongan', ['job_vacancy' => $job_vacancy, 'other_job_vacancies' => $other_job_vacancies]);
     }
 

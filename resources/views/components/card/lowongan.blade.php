@@ -25,6 +25,6 @@
             </div>
         </div>
 
-        <x-forms.button variant="primary" size="sm" onclick="window.location='{{ route('user.lowongan.show', ['id' => $value->id]) }}'">Lamar Sekarang</x-forms.button>
+        <x-forms.button variant="primary" size="sm" onclick="window.location='{{ route('user.lowongan.show', ['id' => $value->job_vacancies_id]) }}'">Lamar Sekarang</x-forms.button>
     </div>
 @endforeach

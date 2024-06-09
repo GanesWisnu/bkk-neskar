@@ -48,8 +48,8 @@ class JobVacancies extends Model
     public function generateCode()
     {
         if($this->company_id){
-            $company = Company::findOrFail($this->company_id);
-            $latest = static::where('company_id',$this->company_id)->latest('id')->first();
+            $company = Company::where('company_id', $this->company_id)->first();
+            $latest = static::where('company_id',$this->company_id)->latest('company_id')->first();
             $count =  $latest ? $latest->id + 1 : 1;
             $code = implode([substr(implode('', explode(' ', $company->name)), 0, 5),$this->zfill($count, 3)]);
             $this->code = $code;
@@ -62,12 +62,12 @@ class JobVacancies extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, "company_id", 'company_id');
     }
 
     public function criterias()
     {
-        return $this->belongsToMany(Criteria::class, 'job_vacancies_criteria', 'job_vacancies_id', 'criteria_id');
+        return $this->belongsToMany(Criteria::class, 'job_vacancies_criteria', 'job_vacancies_id', 'criteria_id', 'job_vacancies_id');
     }
 
 

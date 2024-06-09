@@ -53,7 +53,7 @@ class JobVacanciesController extends Controller
             "position"=>'required|string',
             "company_id" =>"required|numeric",
             "description"=>"required|string",
-            "criterias"=> "required|array|exists:criteria,id",
+            "criterias"=> "required|array|exists:criteria,criteria_id",
             "deadline"=>"required|date",
         ]);
 
@@ -82,7 +82,7 @@ class JobVacanciesController extends Controller
     public function show(int $lowongan)
     {
         //
-        $job_vacancies = JobVacancies::find($lowongan);
+        $job_vacancies = JobVacancies::where("job_vacancies_id", $lowongan)->first();
         return view('pages.admin.lowongan.show', ['job_vacancies' => $job_vacancies, 'job_vacancies_criterias'=>$job_vacancies_criterias]);
     }
 
@@ -92,7 +92,7 @@ class JobVacanciesController extends Controller
     public function edit(int $lowongan)
     {
         //
-        $job_vacancies = JobVacancies::find($lowongan);
+        $job_vacancies = JobVacancies::where("job_vacancies_id", $lowongan)->first();
         return view('pages.admin.lowongan.edit', ['job_vacancies'=>$job_vacancies]);
     }
 
@@ -102,7 +102,7 @@ class JobVacanciesController extends Controller
     public function update(Request $request, int $lowongan)
     {
         //
-        $job_vacancies = JobVacancies::find($lowongan);
+        $job_vacancies = JobVacancies::where("job_vacancies_id", $lowongan)->first();
         $current_criterias = JobVacanciesCriteria::where('job_vacancies_id', $job_vacancies->job_vacancies_id)->get(['criteria_id']);
         $test = array();
         // dd($request->get('criterias'));
@@ -124,9 +124,7 @@ class JobVacanciesController extends Controller
         }
 
 
-
-
-        $job_vacancies->update($request->except(['_token', 'criterias']));
+        JobVacancies::where("job_vacancies_id", $job_vacancies->job_vacancies_id)->update($request->except(['_token', 'criterias','_method']));
 
         return redirect()->route('admin.lowongan');
     }
@@ -137,11 +135,9 @@ class JobVacanciesController extends Controller
     public function destroy(int $lowongan)
     {
         //
-        $job_vacancies = JobVacancies::find($lowongan);
-        JobVacanciesCriteria::where('job_vacancies_id', '=', $job_vacancies->job_vacancies_id)->each(function ($items, $key){
-            $items->delete();
-        } );
-        $job_vacancies->delete();
+        $job_vacancies = JobVacancies::where("job_vacancies_id", $lowongan)->first();
+        JobVacanciesCriteria::where('job_vacancies_id', '=', $job_vacancies->job_vacancies_id)->delete();
+        JobVacancies::where("job_vacancies_id", $lowongan)->delete();
         return redirect()->route('admin.lowongan');
     }
     public function destroy_criteria_job_vacancies(int $lowongan, int $criteria_id){

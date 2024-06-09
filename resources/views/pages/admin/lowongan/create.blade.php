@@ -19,7 +19,7 @@
                         <select name="company_id" class="form-select" required @required(true)>
                             {{-- <option></option> --}}
                             @foreach($companies as $company)
-                                <option value={{ $company->id }}>{{ $company->name }}</option>
+                                <option value={{ $company->company_id }}>{{ $company->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -28,7 +28,7 @@
                         <select name="criterias[]" class="form-select" multiple id="kriteria-dropdown" data-placeholder="Pilih kriteria data pendaftaran" @required(true)>
                             <option></option>
                             @foreach($criteria as $key)
-                                <option value={{ $key->id }}>{{ $key->name }}</option>
+                                <option value={{ $key->criteria_id }}>{{ $key->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -73,12 +73,12 @@
         theme: 'snow',
         placeholder: 'Tulis deskripsi lowongan disini...',
     })
-    
+
     $(document).ready(function() {
         quill.on('text-change', function(delta, oldDelta, source) {
             console.log(quill.container.firstChild.innerHTML)
             $('#deskripsi-hidden-create').text(quill.container.firstChild.innerHTML)
-        })    
+        })
     })
 </script>
 

@@ -36,7 +36,6 @@
             @endif
         </div>
 
-
         <div class="lowongan-form">
             @if(!$job_vacancy->criterias->isEmpty())
             <h3 class="form-title">Form Pendaftaran</h3>
@@ -47,7 +46,7 @@
             @endif
             <form action="{{ route('user.pelamar.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="job_vacancies_id" value="{{ $job_vacancy->id }}">
+                <input type="hidden" name="job_vacancies_id" value="{{ $job_vacancy->job_vacancies_id }}">
                 @foreach($job_vacancy->criterias as $key => $value)
                     <div class="form-inputs-container">
                         <div class="form-field-container">
