@@ -89,7 +89,7 @@
                     render: function (data, type, row) {
                         return `
                         <form action={{route('api.admin.pengumuman.export', ['file'=>'pengumuman'])}}>
-                            <input type="hidden" name='id' value="${row.id}" />
+                            <input type="hidden" name='id' value="${row.acceptances_vacancies_id}" />
                             <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden">
                                 <i class="bi bi-download text-white"></i>
                                 &nbsp;Export Data
@@ -102,8 +102,8 @@
                     title: "Action",
                     render: function (data, type, row) {
                         return `
-                            <button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.id}')" data-bs-toggle="modal" data-bs-target="#editPengumumanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>
-                            <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.id}', '${row.name}')" data-bs-toggle="modal" data-bs-target="#deletePengumumanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>
+                            <button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.acceptances_vacancies_id}')" data-bs-toggle="modal" data-bs-target="#editPengumumanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.acceptances_vacancies_id}', '${row.name}')" data-bs-toggle="modal" data-bs-target="#deletePengumumanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>
                         `;
                     }
                 }

@@ -7,7 +7,6 @@
                 <h1 class="modal-title fs-5" id="addPengumumanModalLabel">Tambah Pengumuman</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            @csrf
             <form method="POST" action="{{ route('admin.pengumuman.store') }}">
                 @csrf
                 <div class="modal-body">
@@ -19,7 +18,7 @@
                         <select name="job_vancancies_id" id="job_vacancies_id" class="form-select">
                                 <option selected>Pilih Kode Lowongan</option>
                                 @foreach ($job_vacancies as $job)
-                                    <option value="{{$job->id}}">{{$job->code}}</option>
+                                    <option value="{{$job->job_vacancies_id}}">{{$job->code}}</option>
                                 @endforeach
                         </select>
                     </div>

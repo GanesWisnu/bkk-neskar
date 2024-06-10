@@ -84,7 +84,7 @@ class AcceptanceController extends Controller
     {
         //
         $imageName = '';
-        $acceptance = AcceptanceVacancies::find($id);
+        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$id);
         $validate = $request->only('name');
         if ($request->has('file')){
             $path = public_path('file/upload/');
@@ -97,7 +97,7 @@ class AcceptanceController extends Controller
         }
 
 
-        $acceptance->update($validate);
+        AcceptanceVacancies::where('acceptance_vacancies_id',$id)->update($validate);
 
         return redirect()->route('admin.pengumuman');
     }
@@ -108,12 +108,12 @@ class AcceptanceController extends Controller
     public function destroy(int $id)
     {
         //
-        $acceptance = AcceptanceVacancies::find($id);
+        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$id);
         $public = public_path('file/upload/');
         if(!is_null($acceptance->url) || !empty($acceptance->url)) {
             unlink($public . $acceptance->url);
         }
-        $acceptance->delete();
+        AcceptanceVacancies::where('acceptance_vacancies_id',$id)->delete();
         return redirect()->route('admin.pengumuman');
     }
 
@@ -144,7 +144,7 @@ class AcceptanceController extends Controller
             header("Pragma: public");
             $writer->save("php://output");
         } else{
-            $acceptance = AcceptanceVacancies::find($request->id);
+            $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$request->id);
             $path = public_path('file/upload/');
             $file = Storage::files($path . $acceptance->url);
             return Response::download($path . $acceptance->url, $acceptance->name . '.' . explode('.' ,$acceptance->url)[1]);

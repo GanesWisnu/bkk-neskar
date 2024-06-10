@@ -25,7 +25,6 @@ class AcceptanceVacancies extends Model
         parent::boot();
 
         self::creating(function ($model){
-            $model->slug = \Str::slug($model->title);
             $model->generateId();
         });
     }
