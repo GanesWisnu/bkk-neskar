@@ -7,7 +7,7 @@
             </div>
             <h1 class="title article-title">{{ $article->title }}</h1>
         </div>
-        
+
         <div class="article-thumbnail">
             <img src="{{ asset('images/upload/'.$article->image_cover) }}" alt="" srcset="">
         </div>
@@ -30,7 +30,7 @@
                             <span>{{ date('d M Y', strtotime($value->created_at)) }}</span>
                         </div>
                         <h3 class="others-title">{{ $value->title }}</h3>
-                        <x-forms.button variant="ghost-primary" size="md" onclick="window.location='{{ route('user.article.show', ['id' => $value->id]) }}'">Lihat Artikel</x-forms.button>
+                        <x-forms.button variant="ghost-primary" size="md" onclick="window.location='{{ route('user.article.show', ['id' => $value->article_id]) }}'">Lihat Artikel</x-forms.button>
                     </div>
                 </div>
             @endforeach

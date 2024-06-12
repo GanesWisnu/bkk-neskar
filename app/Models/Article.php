@@ -11,6 +11,8 @@ class Article extends Model
 
     protected $table = 'article';
 
+    protected $primaryKey = 'article_id';
+
     protected $fillable = [
         'title',
         'subtitle',

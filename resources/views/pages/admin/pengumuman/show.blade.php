@@ -18,9 +18,9 @@
     const tableData = {!! json_encode($acceptances) !!};
 
     function handleEdit(id) {
-        const pengumuman = tableData.find(pengumuman => pengumuman.id === Number(id));
-        $('#edit-form').attr('action', "/api/admin/pengumuman/" + pengumuman.id);
-        $('#editPengumumanModal').find('input[name="id"]').val(pengumuman.id)
+        const pengumuman = tableData.find(pengumuman => pengumuman.acceptance_vacancies_id === Number(id));
+        $('#edit-form').attr('action', "/api/admin/pengumuman/" + pengumuman.acceptance_vacancies_id);
+        $('#editPengumumanModal').find('input[name="id"]').val(pengumuman.acceptance_vacancies_id)
         $('#editPengumumanModal').find('input[name="name"]').val(pengumuman.name)
     }
 
@@ -30,6 +30,7 @@
     }
 
     function onUpload(e){
+        console.log('upload')
         const file = $('#upload')
         var fd = new FormData();
         fd.append('file', file[0].files[0])
@@ -43,9 +44,10 @@
             contentType: false,
             success: function (response) {
                 window.location.reload()
+            console.log(response)
             },
             error: function (response) {
-
+                console.log(response)
             }
         });
     }
@@ -58,7 +60,7 @@
                 <div class="btn btn-dark btn-sm position-relative overflow-hidden">
                     <i class="bi bi-upload text-white"></i>
                         &nbsp;Import Data
-                    <input class="position-absolute top-0 start-0 opacity-0" type="file" name="file" id="upload" onchange="onUpload()" data-id='${row.id}'>
+                    <input class="position-absolute top-0 start-0 opacity-0" type="file" name="file" id="upload" onchange="onUpload()" data-id='${row.acceptance_vacancies_id}'>
                 </div>
     `;
 
@@ -89,7 +91,7 @@
                     render: function (data, type, row) {
                         return `
                         <form action={{route('api.admin.pengumuman.export', ['file'=>'pengumuman'])}}>
-                            <input type="hidden" name='id' value="${row.acceptances_vacancies_id}" />
+                            <input type="hidden" name='id' value="${row.acceptance_vacancies_id}" />
                             <button type="submit" class="btn btn-dark btn-sm position-relative overflow-hidden">
                                 <i class="bi bi-download text-white"></i>
                                 &nbsp;Export Data
@@ -102,8 +104,8 @@
                     title: "Action",
                     render: function (data, type, row) {
                         return `
-                            <button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.acceptances_vacancies_id}')" data-bs-toggle="modal" data-bs-target="#editPengumumanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>
-                            <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.acceptances_vacancies_id}', '${row.name}')" data-bs-toggle="modal" data-bs-target="#deletePengumumanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>
+                            <button class="btn btn-secondary btn-sm me-2" onclick="handleEdit('${row.acceptance_vacancies_id}')" data-bs-toggle="modal" data-bs-target="#editPengumumanModal"><i class="bi bi-pencil-square text-white"></i>&nbsp;&nbsp;Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="handleDelete('${row.acceptance_vacancies_id}', '${row.name}')" data-bs-toggle="modal" data-bs-target="#deletePengumumanModal"><i class="bi bi-trash text-white"></i>&nbsp;&nbsp;Hapus</button>
                         `;
                     }
                 }

@@ -27,7 +27,7 @@ class AcceptanceController extends Controller
 
     public function download(int $id)
     {
-        $acceptance = AcceptanceVacancies::find($id);
+        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$id)->first();
         $path = public_path('file/upload/' . $acceptance->url);
 
         if (file_exists($path)){
@@ -80,11 +80,11 @@ class AcceptanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, string $id)
     {
         //
         $imageName = '';
-        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$id);
+        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',(int)$id)->first();
         $validate = $request->only('name');
         if ($request->has('file')){
             $path = public_path('file/upload/');
@@ -97,7 +97,7 @@ class AcceptanceController extends Controller
         }
 
 
-        AcceptanceVacancies::where('acceptance_vacancies_id',$id)->update($validate);
+        AcceptanceVacancies::where('acceptance_vacancies_id',(int)$id)->update($validate);
 
         return redirect()->route('admin.pengumuman');
     }
@@ -108,12 +108,13 @@ class AcceptanceController extends Controller
     public function destroy(int $id)
     {
         //
-        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$id);
+        $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$id)->first();
         $public = public_path('file/upload/');
+        dd($acceptance->url);
         if(!is_null($acceptance->url) || !empty($acceptance->url)) {
             unlink($public . $acceptance->url);
         }
-        AcceptanceVacancies::where('acceptance_vacancies_id',$id)->delete();
+        AcceptanceVacancies::where('acceptance_vacancies_id',$id)->first()->delete();
         return redirect()->route('admin.pengumuman');
     }
 
@@ -144,7 +145,7 @@ class AcceptanceController extends Controller
             header("Pragma: public");
             $writer->save("php://output");
         } else{
-            $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$request->id);
+            $acceptance = AcceptanceVacancies::where('acceptance_vacancies_id',$request->id)->first();
             $path = public_path('file/upload/');
             $file = Storage::files($path . $acceptance->url);
             return Response::download($path . $acceptance->url, $acceptance->name . '.' . explode('.' ,$acceptance->url)[1]);
