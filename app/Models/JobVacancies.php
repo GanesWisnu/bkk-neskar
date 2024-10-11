@@ -12,6 +12,15 @@ class JobVacancies extends Model
 {
     use HasFactory;
 
+    // Explicitly define the primary key
+    protected $primaryKey = 'job_vacancies_id';
+
+    // If your primary key is not auto-incrementing
+    public $incrementing = false;
+
+    // Specify the data type of the primary key
+    protected $keyType = 'int';
+    
     protected $fillable = [
         "position",
         "location",
