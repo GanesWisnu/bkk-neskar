@@ -19,7 +19,8 @@
                         <select name="input_type" class="form-select">
                             <option value="text">Teks</option>
                             <option value="date">Tanggal</option>
-                            <option value="number">nilai</option>
+                            <option value="number">Nilai</option>
+                            <option value="email">Email</option>
                         </select>
                     </div>
                 </div>
