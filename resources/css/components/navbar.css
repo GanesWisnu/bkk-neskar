@@ -1,0 +1,35 @@
+.nav-container {
+    overflow: hidden;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem var(--page-padding); /* Kurangi padding vertikal */
+    background-color: var(--white-100);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 100%;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.active {
+    font-weight: 600;
+}
+
+.logo-image {
+    width: auto; /* Atur lebar logo sesuai kebutuhan */
+    height: 50px; /* Pertahankan aspek rasio logo */
+    margin-top: 0; /* Hapus margin atas */
+    margin-bottom: 0; /* Hapus margin bawah */
+}
+
+.logotype {
+    display: flex;
+    align-items: center;
+}

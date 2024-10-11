@@ -327,6 +327,7 @@ body {
     flex: 0 0 30%;
 }
 
+<<<<<<< HEAD:public/css/pages/home.css
 @media screen and (max-width: 768px) {
     .article {
         gap: 2rem;
@@ -345,6 +346,11 @@ body {
 .illustration-error {
     max-width: 100%; /* Membuat gambar responsif */
     max-height: 250px; /* Batasi tinggi maksimum gambar */
+=======
+.illustration-error {
+    width: 250px; /* Atur lebar tetap */
+    height: 250px; /* Atur tinggi tetap */
+>>>>>>> origin/main:resources/css/pages/home.css
     margin: 0 auto; /* Membuat gambar berada di tengah secara horizontal */
     display: block; /* Memastikan margin: 0 auto; berfungsi dengan baik */
     object-fit: contain; /* Memastikan gambar sesuai dengan ukuran tanpa distorsi */

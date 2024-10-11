@@ -10,6 +10,7 @@
         <x-Card.article :list="$articles"/>
     @endif
     </div>
+<<<<<<< HEAD
 </section>
 
 <style>
@@ -21,3 +22,7 @@
     object-fit: contain; /* Memastikan gambar sesuai dengan ukuran tanpa distorsi */
     }
 </style>
+=======
+
+</section>
+>>>>>>> origin/main
